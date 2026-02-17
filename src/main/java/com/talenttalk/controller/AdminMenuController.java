@@ -15,4 +15,29 @@ public class AdminMenuController {
     public String showCompanyVerification() {
         return "adminCompany";
     }
+    
+    @GetMapping("/adminJobs")
+    public String showJobs() {
+    	return "adminJobs";
+    }
+    
+    @GetMapping("/adminInvoice")
+    public String showInvoice() {
+    	return "adminInvoice";
+    }
+    
+    @GetMapping("/adminInsights")
+    public String showInsights() {
+    	return "adminInsights";
+    }
+    
+    @GetMapping("/adminUsers")
+    public String showUsers() {
+    	return "adminUsers";
+    }
+    
+    @GetMapping("/adminPayment")
+    public String showPayment() {
+    	return "adminPayment";
+    }
 }

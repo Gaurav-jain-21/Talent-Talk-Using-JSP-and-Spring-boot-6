@@ -164,35 +164,35 @@
 <div class="sidebar">
     <h2>Admin Panel</h2>
     <div class="menu">
-        <a href="/adminDashboard" class="active">
+        <a href="adminDashboard" class="active">
             <i class="fa-solid fa-chart-line"></i> Dashboard
         </a>
 
-        <a href="/adminUsers">
+        <a href="adminUsers">
             <i class="fa-solid fa-users"></i> Users
         </a>
 
-        <a href="/adminJobs">
+        <a href="adminJobs">
             <i class="fa-solid fa-briefcase"></i> Jobs
         </a>
 
-        <a href="/adminCompany">
+        <a href="adminCompany">
             <i class="fa-solid fa-building"></i> Company Verification
         </a>
 
-        <a href="/adminInvoice">
+        <a href="adminInvoice">
             <i class="fa-solid fa-file-invoice"></i> Invoice
         </a>
 
-        <a href="/adminInsights">
+        <a href="adminInsights">
             <i class="fa-solid fa-chart-pie"></i> Insights
         </a>
 
-        <a href="/adminPayment">
+        <a href="adminPayment">
             <i class="fa-solid fa-credit-card"></i> Payments
         </a>
 
-        <a href="/adminSettings">
+        <a href="adminSettings">
             <i class="fa-solid fa-gear"></i> Settings
         </a>
     </div>

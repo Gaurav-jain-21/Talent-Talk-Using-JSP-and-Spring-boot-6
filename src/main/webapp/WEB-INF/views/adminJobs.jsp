@@ -143,16 +143,16 @@ body {
 <div class="sidebar">
     <h2>Admin Panel</h2>
     <div class="menu">
-        <a href="adminDashboard.jsp"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-        <a href="adminUsers.jsp"><i class="fa-solid fa-users"></i> Users</a>
-        <a href="adminJobs.jsp" class="active">
+        <a href="adminDashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+        <a href="adminUsers"><i class="fa-solid fa-users"></i> Users</a>
+        <a href="adminJobs" class="active">
             <i class="fa-solid fa-briefcase"></i> Jobs
         </a>
-        <a href="adminCompany.jsp"><i class="fa-solid fa-building"></i> Company Verification</a>
-        <a href="adminInvoice.jsp"><i class="fa-solid fa-file-invoice"></i> Invoice</a>
-        <a href="adminInsights.jsp"><i class="fa-solid fa-chart-pie"></i> Insights</a>
-        <a href="adminPayment.jsp"><i class="fa-solid fa-credit-card"></i> Payments</a>
-        <a href="adminSettings.jsp"><i class="fa-solid fa-gear"></i> Settings</a>
+        <a href="adminCompany"><i class="fa-solid fa-building"></i> Company Verification</a>
+        <a href="adminInvoice"><i class="fa-solid fa-file-invoice"></i> Invoice</a>
+        <a href="adminInsights"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+        <a href="adminPayment"><i class="fa-solid fa-credit-card"></i> Payments</a>
+        <a href="adminSettings"><i class="fa-solid fa-gear"></i> Settings</a>
     </div>
 </div>
 
