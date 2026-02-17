@@ -110,13 +110,13 @@
     <!-- RIGHT SIDE -->
     <div class="right">
 
-        <form action="studentLogin.jsp">
+        <form action="studentLogin">
             <div class="role-card">
                 <button class="role-btn">Student</button>
             </div>
         </form>
 
-        <form action="companyRegister.jsp">
+        <form action="companyRegister">
             <div class="role-card">
                 <button class="role-btn">Company</button>
             </div>

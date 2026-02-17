@@ -40,4 +40,9 @@ public class AdminMenuController {
     public String showPayment() {
     	return "adminPayment";
     }
+    
+    @GetMapping("/adminSettings")
+    public String showSettings() {
+    	return "adminSettings";
+    }
 }

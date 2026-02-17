@@ -3,6 +3,8 @@ package com.talenttalk.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class HomeController {
 
@@ -24,5 +26,15 @@ public class HomeController {
     @GetMapping("/companyRegister")
     public String companyRegister() {
         return "companyRegister";
+    }
+    
+    @GetMapping("/LogoutAdmin")
+    public String logoutAdmin(HttpSession session) {
+
+//        // invalidate admin session
+//        session.invalidate();
+
+        // redirect to startpage.jsp
+        return "startpage";
     }
 }
