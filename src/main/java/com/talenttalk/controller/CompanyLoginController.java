@@ -17,7 +17,7 @@ public class CompanyLoginController {
             Model model) {
 
         if (email.equals("company@gmail.com") && password.equals("1234")) {
-            return "adminDashboard";
+            return "companyDashboard";
         } else {
             model.addAttribute("error", "Invalid email or password");
             return "companyLogin";
