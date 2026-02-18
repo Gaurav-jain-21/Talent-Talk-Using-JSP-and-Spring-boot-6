@@ -189,8 +189,8 @@ body{
         <a href="${pageContext.request.contextPath}/companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
         <a href="${pageContext.request.contextPath}/companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
         <a href="${pageContext.request.contextPath}/companyApplication"><i class="fa fa-file"></i> Application</a>
-        <a href="#"><i class="fa fa-envelope"></i> Message</a>
-        <a href="#"><i class="fa fa-dollar-sign"></i> Payments</a>
+        <a href="${pageContext.request.contextPath}/companyMessage"><i class="fa fa-envelope"></i> Message</a>
+        <a href="${pageContext.request.contextPath}/companyPayment"><i class="fa fa-dollar-sign"></i> Payments</a>
         <a href="#"><i class="fa fa-gear"></i> Settings</a>
     </div>
 </div>

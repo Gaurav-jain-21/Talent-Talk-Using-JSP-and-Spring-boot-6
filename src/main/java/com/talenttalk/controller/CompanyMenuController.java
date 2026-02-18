@@ -26,4 +26,13 @@ public class CompanyMenuController {
     public String viewApplication() {
     	return "companyApplication";
     }
+    @GetMapping("/companyMessage")
+    public String viewMessage() {
+    	return "companyMessage";
+    }
+    @GetMapping("/companyPayment")
+    public String viewPayment() {
+    	return "companyPayment";
+    }
 }
+
