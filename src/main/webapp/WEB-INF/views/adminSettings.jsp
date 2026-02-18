@@ -177,7 +177,7 @@ body {
         </div>
 
         <!-- Logout -->
-        <form class="card" action="LogoutAdmin" method="get">
+        <form class="card" action="LogoutCompany" method="get">
             <button class="logout-btn" name="logoutButton" value="false">Logout</button>
         </form>
 

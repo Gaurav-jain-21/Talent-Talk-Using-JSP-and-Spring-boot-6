@@ -34,5 +34,9 @@ public class CompanyMenuController {
     public String viewPayment() {
     	return "companyPayment";
     }
+    @GetMapping("/companySettings")
+    public String viewSettings() {
+    	return "companySettings";
+    }
 }
 

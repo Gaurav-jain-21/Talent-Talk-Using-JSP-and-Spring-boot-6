@@ -42,4 +42,9 @@ public class HomeController {
     public String companyLoginpage() {
     	return "companyLogin";
     }
+    
+    @GetMapping("/LogoutCompany")
+    public String LogoutCompany(HttpSession session) {
+    	return "startpage";
+    }
 }

@@ -117,7 +117,7 @@ body {
         <a href="${pageContext.request.contextPath}/companyApplication">Application</a>
         <a href="${pageContext.request.contextPath}/companyMessage">Messages</a>
         <a href="${pageContext.request.contextPath}/companyPayment">Payments</a>
-        <a href="#">Settings</a>
+        <a href="${pageContext.request.contextPath}/companySettings">Settings</a>
     </div>
 </div>
 
