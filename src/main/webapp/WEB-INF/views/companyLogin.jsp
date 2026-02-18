@@ -70,7 +70,6 @@
       cursor: pointer;
     }
 
-    /* decorative line */
     .graph-line {
       position: absolute;
       width: 500px;
@@ -83,7 +82,6 @@
       opacity: 0.5;
     }
 
-    /* cup image */
     .cup {
       position: absolute;
       right: 40px;
@@ -113,21 +111,16 @@
   <div class="title">Company Login</div>
 
   <div class="login-box">
-    <form action="CompanyLogin" method="post">
+    <!-- ONLY IMPORTANT FIX IS HERE -->
+    <form action="${pageContext.request.contextPath}/CompanyLogin" method="post">
       <input type="email" name="email" placeholder="Email" required />
-
       <input type="password" name="password" placeholder="Password" required />
-
       <a href="companyForgetPassword.jsp" class="forgot">forgot password?</a>
-
       <button class="btn" type="submit">Login</button>
     </form>
   </div>
 
-  <!-- decorative elements -->
   <div class="graph-line"></div>
-
-  <!-- replace with your cup image path if needed -->
   <img class="cup" src="cup.png" alt="cup" />
 </body>
 </html>
