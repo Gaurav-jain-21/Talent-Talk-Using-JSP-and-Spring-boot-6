@@ -37,4 +37,9 @@ public class HomeController {
         // redirect to startpage.jsp
         return "startpage";
     }
+    
+    @GetMapping("/companyLogin")
+    public String companyLoginpage() {
+    	return "companyLogin";
+    }
 }
