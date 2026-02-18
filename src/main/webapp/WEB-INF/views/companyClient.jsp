@@ -162,8 +162,8 @@ body{
         <a href="${pageContext.request.contextPath}/companyDashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/companyClient" class="active">Clients</a>
         <a href="${pageContext.request.contextPath}/companyJobs">Post Jobs</a>
-        <a href="#">Manage Jobs</a>
-        <a href="#">Application</a>
+        <a href="${pageContext.request.contextPath}/companyManageJobs">Manage Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyApplication">Application</a>
         <a href="#">Messages</a>
         <a href="#">Payments</a>
         <a href="#">Settings</a>

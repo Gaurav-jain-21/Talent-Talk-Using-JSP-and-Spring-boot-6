@@ -14,4 +14,16 @@ public class CompanyMenuController {
     public String viewCompanyClient() {
     	return "companyClient";
     }
+    @GetMapping("/companyJobs")
+    public String viewCompanyJobs() {
+    	return "companyJobs";
+    }
+    @GetMapping("/companyManageJobs")
+    public String viewCompanyManageJobs() {
+    	return "companyManageJobs";
+    }
+    @GetMapping("/companyApplication")
+    public String viewApplication() {
+    	return "companyApplication";
+    }
 }

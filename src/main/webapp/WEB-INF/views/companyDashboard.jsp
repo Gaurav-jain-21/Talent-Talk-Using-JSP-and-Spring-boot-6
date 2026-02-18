@@ -186,9 +186,9 @@ body{
     <div class="menu">
         <a href="${pageContext.request.contextPath}/companyDashboard" class="active"><i class="fa fa-home"></i> Dashboard</a>
         <a href="${pageContext.request.contextPath}/companyClient"><i class="fa fa-users"></i> Client</a>
-        <a href="companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
-        <a href="#"><i class="fa fa-list"></i> Manage Jobs</a>
-        <a href="#"><i class="fa fa-file"></i> Application</a>
+        <a href="${pageContext.request.contextPath}/companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyApplication"><i class="fa fa-file"></i> Application</a>
         <a href="#"><i class="fa fa-envelope"></i> Message</a>
         <a href="#"><i class="fa fa-dollar-sign"></i> Payments</a>
         <a href="#"><i class="fa fa-gear"></i> Settings</a>
