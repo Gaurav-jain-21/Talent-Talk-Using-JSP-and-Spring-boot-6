@@ -47,4 +47,33 @@ public class HomeController {
     public String LogoutCompany(HttpSession session) {
     	return "startpage";
     }
+    @GetMapping("/studentSignup")
+    public String StudentSignup() {
+    	return "studentSignup";
+    }
+    @GetMapping("/studentDashboard")
+    public String viewStudentDasboard() {
+    	return "studentDashboard";
+    }
+    @GetMapping("/studentProject")
+    public String viewStudentProject() {
+    	return "studentProject";
+    }
+    @GetMapping("/studentJobs")
+    public String viewStudentJobs() {
+    	return "studentJobs";
+    }
+    @GetMapping("/studentMessage")
+    public String viewStudentMessage() {
+    	return "studentMessage";
+    }
+    @GetMapping("/studentPayments")
+    public String viewStudentPayments() {
+    	return "studentPayments";
+    }
+    @GetMapping("/studentSettings")
+    public String viewStudentSettings() {
+    	return "studentSettings";
+    }
 }
+
