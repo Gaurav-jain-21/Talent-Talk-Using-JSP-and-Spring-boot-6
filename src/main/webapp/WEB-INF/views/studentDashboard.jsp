@@ -177,7 +177,7 @@ body {
 <div class="sidebar">
     <div class="profile">
         <img src="https://i.pravatar.cc/40" alt="profile">
-        <span>Sophi carter</span>
+        <a href="Profile"><span>Sophi carter</span></a>
     </div>
 
     <div class="menu">
