@@ -75,5 +75,9 @@ public class HomeController {
     public String viewStudentSettings() {
     	return "studentSettings";
     }
+    @GetMapping("/JobApply")
+    public String viewJobApply() {
+    	return "JobApply";
+    }
 }
 

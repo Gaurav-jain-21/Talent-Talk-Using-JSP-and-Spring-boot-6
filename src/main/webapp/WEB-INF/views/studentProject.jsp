@@ -216,8 +216,9 @@ body {
             <span class="tag">UI/UX</span>
             <span class="tag">Mobile app</span>
         </div>
-
+        <form action="JobApply" method="get">
         <button class="apply-btn">Quick Apply</button>
+        </form>
     </div>
 
     <div class="card">
