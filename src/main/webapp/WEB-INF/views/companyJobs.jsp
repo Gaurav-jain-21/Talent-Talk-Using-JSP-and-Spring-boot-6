@@ -193,6 +193,6 @@
         <button class="post-btn">Post</button>
     </div>
 </div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

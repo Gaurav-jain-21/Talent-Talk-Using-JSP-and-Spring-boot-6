@@ -51,12 +51,20 @@
 /* ===== Page Layout ===== */
 body {
     background: #1f7f82;
-    padding: 90px 30px;
+
+    padding-top: 90px; /* navbar space */
+    margin: 0;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
     max-width: 900px;
     margin: auto;
+    width: 100%;
+    flex: 1;
 }
 
 /* Header */
@@ -133,6 +141,19 @@ body {
 .delete {
     color: red;
 }
+.footer {
+    background: #0f5e61;
+    color: white;
+
+    width: 100%;
+    padding: 20px 0;
+
+    margin-top: auto;
+
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
 </style>
 </head>
 
@@ -204,6 +225,7 @@ body {
     </div>
 
 </div>
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>

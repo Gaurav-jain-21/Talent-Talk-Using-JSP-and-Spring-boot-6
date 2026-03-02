@@ -243,7 +243,8 @@ tr:not(:last-child) td {
 
         </table>
     </div>
-
+<br/>
+<jsp:include page="footer.jsp" />
 </div>
 </body>
 </html>

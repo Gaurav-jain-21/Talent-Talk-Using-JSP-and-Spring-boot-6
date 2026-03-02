@@ -17,15 +17,19 @@
 body {
     display: flex;
     background: #f4f6f8;
+    min-height: 100vh;
 }
 
 /* ===== Sidebar ===== */
 .sidebar {
     width: 230px;
     background: #1f7f82;
-    height: 100vh;
     color: white;
     padding: 25px 15px;
+
+    /* Fix for footer alignment */
+    min-height: 100vh;
+    height: auto;
 }
 
 .profile {
@@ -59,6 +63,10 @@ body {
 .main {
     flex: 1;
     padding: 30px;
+
+    /* Allow footer to sit properly */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
@@ -168,6 +176,9 @@ body {
     color: #1f7f82;
     text-decoration: none;
 }
+.footer {
+    margin-top: auto;
+}
 </style>
 </head>
 
@@ -259,6 +270,9 @@ body {
         </div>
 
     </div>
+    <br/>
+    <br/>
+    <jsp:include page="footer.jsp" />
 </div>
 
 </body>

@@ -299,6 +299,8 @@ for (Map<String, String> user : users) {
             </tbody>
         </table>
     </div>
+    <br/>
+    <jsp:include page="footer.jsp" />
 </div>
 
 </body>

@@ -19,9 +19,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     }
 
     body{
-        display:flex;
-        background:#f4f4f4;
-    }
+    display:flex;
+    background:#f4f4f4;
+    min-height:100vh;
+}
 
     /* Sidebar */
     /* SIDEBAR */
@@ -63,9 +64,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
     /* Main Content */
     .main{
-        flex:1;
-        padding:40px;
-    }
+    flex:1;
+    padding:40px;
+
+    /* Added for footer alignment */
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
 
     .main h2{
         margin-bottom:30px;
@@ -148,6 +154,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     .button-group{
         margin-top:30px;
     }
+    .footer{
+    margin-top:auto;
+}
 
 </style>
 
@@ -201,6 +210,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </button>
         </form>
     </div>
+    <jsp:include page="footer.jsp" />
 </div>
 
 </body>

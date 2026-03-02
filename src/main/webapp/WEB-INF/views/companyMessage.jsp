@@ -172,6 +172,6 @@ for (Map<String, String> m : messages) {
 <% } %>
 
 </div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

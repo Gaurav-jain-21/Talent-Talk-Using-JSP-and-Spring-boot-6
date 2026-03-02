@@ -206,6 +206,6 @@ for (Map<String, String> p : payments) {
 </div>
 
 </div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

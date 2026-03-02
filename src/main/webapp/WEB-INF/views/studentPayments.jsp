@@ -51,12 +51,20 @@
 /* ===== Body ===== */
 body{
     background:#1f7f82;
-    padding:90px 25px 30px;
+
+    padding-top:90px;   /* navbar space only */
+    margin:0;
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
 .container{
     max-width:1100px;
     margin:auto;
+    width:100%;
+    flex:1;
 }
 
 /* ===== Header ===== */
@@ -171,6 +179,17 @@ body{
     border-radius:8px;
     cursor:pointer;
 }
+
+.footer{
+    width:100%;
+    background:#0f5e61;
+    color:white;
+
+    padding:22px 0;
+    margin-top:auto;
+
+    position:relative;
+}
 </style>
 </head>
 
@@ -283,6 +302,8 @@ body{
 
     </div>
 </div>
+<br/>
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>
