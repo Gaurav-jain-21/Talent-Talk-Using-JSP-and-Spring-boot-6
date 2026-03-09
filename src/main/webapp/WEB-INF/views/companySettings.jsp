@@ -171,14 +171,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </div>
 
     <div class="menu">
-        <a href="${pageContext.request.contextPath}/companyDashboard" ><i class="fa fa-home"></i> Dashboard</a>
-        <a href="${pageContext.request.contextPath}/companyClient"><i class="fa fa-users"></i> Client</a>
-        <a href="${pageContext.request.contextPath}/companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
-        <a href="${pageContext.request.contextPath}/companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
-        <a href="${pageContext.request.contextPath}/companyApplication"><i class="fa fa-file"></i> Application</a>
-        <a href="${pageContext.request.contextPath}/companyMessage"><i class="fa fa-envelope"></i> Message</a>
-        <a href="${pageContext.request.contextPath}/companyPayment"><i class="fa fa-dollar-sign"></i> Payments</a>
-        <a href="${pageContext.request.contextPath}/companySettings" class="active"><i class="fa fa-gear"></i> Settings</a>
+        <a href="companyDashboard" ><i class="fa fa-home"></i> Dashboard</a>
+        <a href="companyClient"><i class="fa fa-users"></i> Client</a>
+        <a href="companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
+        <a href="companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
+        <a href="companyApplication"><i class="fa fa-file"></i> Application</a>
+        <a href="companyMessage"><i class="fa fa-envelope"></i> Message</a>
+        <a href="companyPayment"><i class="fa fa-dollar-sign"></i> Payments</a>
+        <a href="companySettings" class="active"><i class="fa fa-gear"></i> Settings</a>
     </div>
 </div>
 

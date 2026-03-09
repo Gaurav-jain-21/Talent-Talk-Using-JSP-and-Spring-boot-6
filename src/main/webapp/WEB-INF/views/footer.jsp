@@ -45,16 +45,16 @@
 
         <div class="footer-section">
             <h3>Our Team</h3>
-            <p><strong>Rahul Sharma</strong><br>
-            rahul@talenttalk.com<br>
+            <p><strong>Gaurav Kumar</strong><br>
+            gjain7764@talenttalk.com<br>
             +91 9876543210</p>
 
-            <p><strong>Priya Verma</strong><br>
-            priya@talenttalk.com<br>
+            <p><strong>Ashif Ali</strong><br>
+            ashif123@talenttalk.com<br>
             +91 9876543211</p>
 
-            <p><strong>Amit Patel</strong><br>
-            amit@talenttalk.com<br>
+            <p><strong>Vikash Kumar Sharma</strong><br>
+            vsharma123@talenttalk.com<br>
             +91 9876543212</p>
         </div>
 
