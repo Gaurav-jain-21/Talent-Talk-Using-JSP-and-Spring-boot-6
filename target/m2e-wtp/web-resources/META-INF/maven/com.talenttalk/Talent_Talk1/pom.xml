@@ -19,6 +19,25 @@
   <artifactId>spring-webmvc</artifactId>
   <version>${spring.version}</version>
   </dependency>
+  <!-- Jakarta Persistence API -->
+<dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+    <version>3.1.0</version>
+</dependency>
+
+<!-- Hibernate (JPA Implementation) -->
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.4.4.Final</version>
+</dependency>
+<!-- Spring ORM (for JPA integration) -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-orm</artifactId>
+    <version>${spring.version}</version>
+</dependency>
   <!--JSTL-->
   <dependency>
   <groupId>jakarta.servlet.jsp.jstl</groupId>

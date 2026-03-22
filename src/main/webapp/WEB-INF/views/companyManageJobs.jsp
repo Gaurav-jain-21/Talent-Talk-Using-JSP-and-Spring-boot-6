@@ -97,6 +97,67 @@
             cursor: pointer;
             font-size: 18px;
         }
+/* Add Job Form Styling - Improved */
+form {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 16px;
+    width: 380px;
+    margin: 50px auto;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Optional heading inside form */
+form::before {
+    content: "Add New Job";
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1b6f75;
+}
+
+form input {
+    width: 80%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+    background: #f9f9f9;
+}
+
+form input:focus {
+    border-color: #2a9aa3;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(42,154,163,0.4);
+}
+
+/* Placeholder styling */
+form input::placeholder {
+    color: #888;
+}
+
+form button {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(90deg, #2a2aff, #5f2bff);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
     </style>
 </head>
 <body>
@@ -155,8 +216,16 @@
             <h1>Manage Job Postings</h1>
             <div>Oversee your active listings and track applicant progress.</div>
         </div>
-        <button class="post-btn">+ Post New Jobs</button>
+        <!--  <button class="post-btn">+ Post New Jobs</button>-->
     </div>
+    
+    <form method='get' action="addCompanyPost">
+    <input type="text" name="jobtitle" placeholder="Enter the title of the job"><br>
+    <input type="text" name="jobpay" placeholder ="Enter the amount you want to pay"><br>
+    <input  type="text" name="jobsets" placeholder="Enter number of sets in company"><br>
+    <button type= "submit" class="btn-btn-primary">Add</button>
+    
+    </form>
 
 <%
     for (Map<String, String> job : jobs) {
