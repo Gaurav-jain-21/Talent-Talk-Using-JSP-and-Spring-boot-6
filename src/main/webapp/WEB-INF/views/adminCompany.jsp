@@ -264,7 +264,6 @@ body {
     </div>
 
     </form>
-    <jsp:include page="footer.jsp" />
 
 </div>
 

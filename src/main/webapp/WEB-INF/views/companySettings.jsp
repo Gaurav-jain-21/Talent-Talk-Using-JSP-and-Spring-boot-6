@@ -19,10 +19,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     }
 
     body{
-    display:flex;
-    background:#f4f4f4;
-    min-height:100vh;
-}
+        display:flex;
+        background:#f4f4f4;
+    }
 
     /* Sidebar */
     /* SIDEBAR */
@@ -64,14 +63,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
     /* Main Content */
     .main{
-    flex:1;
-    padding:40px;
-
-    /* Added for footer alignment */
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-}
+        flex:1;
+        padding:40px;
+    }
 
     .main h2{
         margin-bottom:30px;
@@ -154,9 +148,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     .button-group{
         margin-top:30px;
     }
-    .footer{
-    margin-top:auto;
-}
 
 </style>
 
@@ -171,14 +162,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </div>
 
     <div class="menu">
-        <a href="companyDashboard" ><i class="fa fa-home"></i> Dashboard</a>
-        <a href="companyClient"><i class="fa fa-users"></i> Client</a>
-        <a href="companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
-        <a href="companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
-        <a href="companyApplication"><i class="fa fa-file"></i> Application</a>
-        <a href="companyMessage"><i class="fa fa-envelope"></i> Message</a>
-        <a href="companyPayment"><i class="fa fa-dollar-sign"></i> Payments</a>
-        <a href="companySettings" class="active"><i class="fa fa-gear"></i> Settings</a>
+        <a href="${pageContext.request.contextPath}/companyDashboard" ><i class="fa fa-home"></i> Dashboard</a>
+        <a href="${pageContext.request.contextPath}/companyClient"><i class="fa fa-users"></i> Client</a>
+        <a href="${pageContext.request.contextPath}/companyJobs"><i class="fa fa-briefcase"></i> Post Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyManageJobs"><i class="fa fa-list"></i> Manage Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyApplication"><i class="fa fa-file"></i> Application</a>
+        <a href="${pageContext.request.contextPath}/companyMessage"><i class="fa fa-envelope"></i> Message</a>
+        <a href="${pageContext.request.contextPath}/companyPayment"><i class="fa fa-dollar-sign"></i> Payments</a>
+        <a href="${pageContext.request.contextPath}/companySettings" class="active"><i class="fa fa-gear"></i> Settings</a>
     </div>
 </div>
 
@@ -210,7 +201,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </button>
         </form>
     </div>
-    <jsp:include page="footer.jsp" />
 </div>
 
 </body>

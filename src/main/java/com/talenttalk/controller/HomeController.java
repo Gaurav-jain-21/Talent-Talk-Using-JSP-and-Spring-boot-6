@@ -83,9 +83,5 @@ public class HomeController {
     public String viewProfile() {
     	return "Profile";
     }
-    @GetMapping("/forgotPassword")
-    public String forgetPass() {
-    	return "forgotPassword";
-    }
 }
 

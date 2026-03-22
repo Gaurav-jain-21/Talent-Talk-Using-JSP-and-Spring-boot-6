@@ -171,7 +171,7 @@ input:focus {
             <label>
                 <input type="checkbox" name="remember"> Remember me
             </label>
-            <a href="forgotPassword">Forgot password?</a>
+            <a href="forgotPassword.jsp">Forgot password?</a>
         </div>
 
         <button type="submit" class="login-btn">Login</button>

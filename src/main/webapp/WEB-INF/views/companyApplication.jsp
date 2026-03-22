@@ -145,14 +145,14 @@ h1 {
 <div class="navbar">
     <div>Logo</div>
     <div class="nav-links">
-        <a href="companyDashboard">Dashboard</a>
-        <a href="companyClient">Clients</a>
-        <a href="companyJobs">Post Jobs</a>
-        <a href="companyManageJobs">Manage Jobs</a>
-        <a href="companyApplication">Application</a>
-        <a href="companyMessage">Messages</a>
-        <a href="companyPayment">Payments</a>
-        <a href="companySettings">Settings</a>
+        <a href="${pageContext.request.contextPath}/companyDashboard">Dashboard</a>
+        <a href="${pageContext.request.contextPath}/companyClient">Clients</a>
+        <a href="${pageContext.request.contextPath}/companyJobs">Post Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyManageJobs">Manage Jobs</a>
+        <a href="${pageContext.request.contextPath}/companyApplication">Application</a>
+        <a href="${pageContext.request.contextPath}/companyMessage">Messages</a>
+        <a href="${pageContext.request.contextPath}/companyPayment">Payments</a>
+        <a href="#">Settings</a>
     </div>
 </div>
 
@@ -222,7 +222,6 @@ for (Map<String, Object> c : candidates) {
 </div>
 
 </div>
-<jsp:include page="footer.jsp" />
 
 </body>
 </html>

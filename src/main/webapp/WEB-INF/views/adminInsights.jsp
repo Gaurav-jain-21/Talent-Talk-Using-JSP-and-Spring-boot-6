@@ -221,8 +221,6 @@ body {
             <div style="width:26px;text-align:center;"><%= m %></div>
         <% } %>
     </div>
-    <br/>
-    <jsp:include page="footer.jsp" />
 
 </div>
 

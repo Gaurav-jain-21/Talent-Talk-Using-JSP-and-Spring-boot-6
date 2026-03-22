@@ -257,9 +257,5 @@ body {
 
 <button class="explore">Explore More Projects</button>
 
-<jsp:include page="footer.jsp" />
-
-
-
 </body>
 </html>

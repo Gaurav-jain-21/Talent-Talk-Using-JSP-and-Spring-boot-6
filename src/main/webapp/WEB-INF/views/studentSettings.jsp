@@ -17,7 +17,7 @@
 /* ===== Layout ===== */
 body{
     display:flex;
-    min-height:100vh;
+    height:100vh;
 }
 
 /* ===== Sidebar ===== */
@@ -53,18 +53,10 @@ body{
     opacity:0.8;
 }
 
-/* ===== Main Layout ===== */
+/* ===== Main ===== */
 .main{
     flex:1;
     background:#e6e6e6;
-
-    display:flex;
-    flex-direction:column;
-}
-
-/* CONTENT AREA */
-.content{
-    flex:1;
     padding:40px;
 }
 
@@ -97,10 +89,7 @@ body{
     cursor:pointer;
     background:#ccc;
     border-radius:20px;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top:0; left:0; right:0; bottom:0;
     transition:.3s;
 }
 
@@ -146,17 +135,6 @@ input:checked + .slider:before{
     padding:10px 18px;
     border-radius:8px;
     cursor:pointer;
-    margin-top:10px;
-}
-
-/* ===== Footer ===== */
-.footer{
-    width:100%;
-    background:#0f5e61;
-    color:white;
-    text-align:center;
-    padding:18px 0;
-    margin-top:auto;
 }
 </style>
 </head>
@@ -168,7 +146,7 @@ input:checked + .slider:before{
 
     <div class="profile">
         <img src="https://i.pravatar.cc/40">
-        <span>Sophi Carter</span>
+        <span>Sophi carter</span>
     </div>
 
     <div class="menu">
@@ -182,47 +160,44 @@ input:checked + .slider:before{
 
 </div>
 
-<!-- ===== Main ===== -->
+<!-- ===== Main Content ===== -->
 <div class="main">
 
-    <div class="content">
+    <h2>Setting</h2>
 
-        <h2>Settings</h2>
+    <form action="saveSettings" method="post">
 
-        <!-- SETTINGS -->
-        <form action="saveSettings" method="post">
+        <div class="setting">
+            <span>Dark Mode</span>
+            <label class="switch">
+                <input type="checkbox" name="darkMode">
+                <span class="slider"></span>
+            </label>
+        </div>
 
-            <div class="setting">
-                <span>Dark Mode</span>
-                <label class="switch">
-                    <input type="checkbox" name="darkMode">
-                    <span class="slider"></span>
-                </label>
-            </div>
+        <div class="setting">
+            <span>Email Alerts</span>
+            <label class="switch">
+                <input type="checkbox" name="emailAlerts">
+                <span class="slider"></span>
+            </label>
+        </div>
 
-            <div class="setting">
-                <span>Email Alerts</span>
-                <label class="switch">
-                    <input type="checkbox" name="emailAlerts">
-                    <span class="slider"></span>
-                </label>
-            </div>
+       <div class="actions">
 
-            <div class="actions">
-                <button type="submit" class="save">Save Changes</button>
-            </div>
+    <!-- Save Settings Form -->
+    <form action="saveSettings" method="post" style="display:inline;">
+        <button type="submit" class="save">Save Changes</button>
+    </form>
 
-        </form>
+    <!-- Logout Form -->
+    <form action="LogoutAdmin" method="get" style="display:inline;">
+        <button type="submit" class="logout">Logout</button>
+    </form>
 
-        <!-- LOGOUT -->
-        <form action="LogoutAdmin" method="get">
-            <button type="submit" class="logout">Logout</button>
-        </form>
+</div>
 
-    </div>
-
-    <!-- Footer -->
-    <jsp:include page="footer.jsp"/>
+    </form>
 
 </div>
 

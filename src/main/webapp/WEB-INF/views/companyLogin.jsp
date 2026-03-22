@@ -112,10 +112,10 @@
 
   <div class="login-box">
     <!-- ONLY IMPORTANT FIX IS HERE -->
-    <form action="CompanyLogin" method="post">
+    <form action="${pageContext.request.contextPath}/CompanyLogin" method="post">
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
-      <a href="companyForgotPassword" class="forgot">forgot password?</a>
+      <a href="companyForgetPassword.jsp" class="forgot">forgot password?</a>
       <button class="btn" type="submit">Login</button>
     </form>
   </div>

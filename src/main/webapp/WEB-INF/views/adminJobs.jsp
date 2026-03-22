@@ -213,8 +213,6 @@ body {
         }
     %>
 
-<br/>
-<jsp:include page="footer.jsp" />
 </div>
 
 </body>

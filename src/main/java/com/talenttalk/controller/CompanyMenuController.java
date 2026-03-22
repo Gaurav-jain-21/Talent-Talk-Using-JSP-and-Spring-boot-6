@@ -38,9 +38,5 @@ public class CompanyMenuController {
     public String viewSettings() {
     	return "companySettings";
     }
-    @GetMapping("/companyForgotPassword")
-    public String forg() {
-    	return "companyForgotPassword";
-    }
 }
 
