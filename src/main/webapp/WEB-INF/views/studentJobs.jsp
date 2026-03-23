@@ -57,7 +57,11 @@
 /* ===== Page Body ===== */
 body {
     background: #1f7f82;
-    padding: 110px 40px 40px; /* top padding for fixed navbar */
+    padding-top: 90px;   /* space for navbar */
+    
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Container */
@@ -65,6 +69,7 @@ body {
     max-width: 900px;
     margin: auto;
     color: black;
+    flex: 1;   /* pushes footer to bottom */
 }
 
 /* Header */
@@ -188,6 +193,19 @@ textarea {
     border-radius: 8px;
     cursor: pointer;
 }
+.footer {
+    background: #0f5e61;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    margin-top: auto;
+}
+.footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+
 </style>
 </head>
 
@@ -276,6 +294,9 @@ textarea {
     </form>
 
 </div>
+<br/>
+
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>

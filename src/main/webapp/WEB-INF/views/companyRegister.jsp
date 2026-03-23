@@ -147,31 +147,47 @@
     <div class="form-container">
       <h2>Create Account</h2>
       <p class="subtitle">Let's get your business set up for success.</p>
-
+<form action= "companyLogin" method="get">
       <label>Company Legal Name</label>
-      <input type="text" placeholder="Company Name" />
+      <input type="text" placeholder="Company Name" name="companyName"  required/>
 
       <label>Work Email Address</label>
-      <input type="email" placeholder="Company Email" />
+      <input type="email" placeholder="Company Email" name="companyEmail"  required />
 
       <label>Create Password</label>
-      <input type="password" placeholder="Create Password" />
+      <input type="password" placeholder="Create Password" name="companyPassword" required/>
 
       <div class="row">
         <div>
           <label>Industry</label>
           <select>
             <option>Select industry</option>
+            <option>IT</option>
+            <option>Machinecal</option>
+            <option>Content Writing</option>
           </select>
         </div>
 
         <div>
           <label>Headquarters</label>
-          <input type="text" placeholder="Search city..." />
+          <input type="text" placeholder="Search city..." name="companyCity" required/>
         </div>
       </div>
+      <%
+      String companyName= request.getParameter("companyName");
+      String companyEmail= request.getParameter("companyEmail");
+      String companyPassword= request.getParameter("companyPassword");
+      String companyCity= request.getParameter("companyCity");
+    		  if(companyName == null || companyEmail==null || companyPassword==null){
+    			 
+      %>
+      
 
       <button class="btn">Create Account</button>
+      <%
+    		  }
+      %>
+      </form>
 
       <p class="terms">
         By clicking “Create Account”, you agree to our Terms of Service and

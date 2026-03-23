@@ -110,13 +110,13 @@
     <!-- RIGHT SIDE -->
     <div class="right">
 
-        <form action="studentLogin">
+        <form action="studentLogin" method="get">
             <div class="role-card">
                 <button class="role-btn">Student</button>
             </div>
         </form>
 
-        <form action="companyRegister">
+        <form action="companyRegister" method="get">
             <div class="role-card">
                 <button class="role-btn">Company</button>
             </div>

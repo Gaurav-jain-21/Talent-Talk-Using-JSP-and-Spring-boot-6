@@ -144,7 +144,8 @@ body {
             <div class="invoice-card"></div>
         <% } %>
     </div>
-
+<br/>
+<jsp:include page="footer.jsp" />
 </div>
 
 </body>
