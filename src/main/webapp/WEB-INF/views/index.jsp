@@ -110,7 +110,7 @@
     <!-- RIGHT SIDE -->
     <div class="right">
 
-        <form action="studentLogin" method="get">
+        <form action="studentLoginPage" method="get">
             <div class="role-card">
                 <button class="role-btn">Student</button>
             </div>

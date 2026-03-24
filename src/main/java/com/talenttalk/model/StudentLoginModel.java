@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "students") // Maps this class to a table named 'students'
 public class StudentLoginModel {
 
     @jakarta.persistence.Id

@@ -18,9 +18,9 @@ public class UserController {
     }
 
     // 2. Navigate to Student Login
-    @GetMapping("/studentLogin")
+    @GetMapping("/studentLoginPage")
     public String showStudentLogin() {
-        return "studentLogin"; 
+        return "studentLoginPage";
     }
 
     // 3. Navigate to Admin Login

@@ -28,7 +28,7 @@ public class StudentSignUpController {
 
         try {
             services.registerStudent(student);
-            return "studentLogin";//"redirect:/studentLogin";
+            return "studentLoginPage";//"redirect:/studentLogin";
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());
             return "register";

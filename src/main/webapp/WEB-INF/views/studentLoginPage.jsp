@@ -157,7 +157,7 @@ input:focus {
     <h2>Talent Talk</h2>
     <p class="subtitle">Welcome back! Please enter your details</p>
 
-    <form action="studentLogin" method="post">
+    <form action="studentLoginForm" method="post">
 
         <div class="input-group">
             <input type="email" name="email" placeholder="Enter your email address" required>
