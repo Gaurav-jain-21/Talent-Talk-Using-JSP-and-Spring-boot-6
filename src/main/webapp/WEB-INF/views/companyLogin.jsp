@@ -111,8 +111,6 @@
   <div class="title">Company Login</div>
 
   <div class="login-box">
-    <div class="title">Company Login</div>
-
     <p th:if="${error}" style="color: #ff4d4d; font-size: 13px; margin-bottom: 10px; text-align: center;">
       [[${error}]]
     </p>
@@ -120,11 +118,11 @@
     <form action="CompanyLoginForm" method="post">
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
+
       <a href="companyForgotPassword" class="forgot">forgot password?</a>
       <button class="btn" type="submit">Login</button>
     </form>
   </div>
-
   <div class="graph-line"></div>
   <img class="cup" src="cup.png" alt="cup" />
 </body>

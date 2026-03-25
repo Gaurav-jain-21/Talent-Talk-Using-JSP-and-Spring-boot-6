@@ -7,61 +7,31 @@ import jakarta.persistence.*;
 public class CompanyDetailModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String Name;
-    private String Email;
-    private String Password;
-    private String Industry;
-    private String HeadQuarter;
+    private Long id;
+    private String name;
+    private String email;
+    private String password;
+    private String industry;
+    private String headQuarter;
 
-    public CompanyDetailModel() {
-    }
+    public CompanyDetailModel() {}
 
-    public Long getId() {
-        return Id;
-    }
+    // Standard Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        Id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return Name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setName(String name) {
-        Name = name;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getEmail() {
-        return Email;
-    }
+    public String getIndustry() { return industry; }
+    public void setIndustry(String industry) { this.industry = industry; }
 
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public String getIndustry() {
-        return Industry;
-    }
-
-    public void setIndustry(String industry) {
-        Industry = industry;
-    }
-
-    public String getHeadQuarter() {
-        return HeadQuarter;
-    }
-
-    public void setHeadQuarter(String headQuarter) {
-        HeadQuarter = headQuarter;
-    }
+    public String getHeadQuarter() { return headQuarter; }
+    public void setHeadQuarter(String headQuarter) { this.headQuarter = headQuarter; }
 }
