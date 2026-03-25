@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CompanyRegisterRepo extends JpaRepository<CompanyDetailModel, Long> {
+    CompanyDetailModel findByEmail(String email);
 }

@@ -111,8 +111,13 @@
   <div class="title">Company Login</div>
 
   <div class="login-box">
-    <!-- ONLY IMPORTANT FIX IS HERE -->
-    <form action="CompanyLogin" method="post">
+    <div class="title">Company Login</div>
+
+    <p th:if="${error}" style="color: #ff4d4d; font-size: 13px; margin-bottom: 10px; text-align: center;">
+      [[${error}]]
+    </p>
+
+    <form action="CompanyLoginForm" method="post">
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
       <a href="companyForgotPassword" class="forgot">forgot password?</a>
