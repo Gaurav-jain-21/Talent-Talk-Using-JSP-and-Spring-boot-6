@@ -30,7 +30,7 @@ public class UserController {
     }
 
     // 4. Navigate to Company Registration
-    @GetMapping("/companyRegister")
+    @GetMapping("/companyRegisterPage")
     public String showCompanyRegister() {
         return "companyRegister";
     }

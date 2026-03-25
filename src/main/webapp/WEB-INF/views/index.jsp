@@ -116,7 +116,7 @@
             </div>
         </form>
 
-        <form action="companyRegister" method="get">
+        <form action="companyRegisterPage" method="get">
             <div class="role-card">
                 <button class="role-btn">Company</button>
             </div>
