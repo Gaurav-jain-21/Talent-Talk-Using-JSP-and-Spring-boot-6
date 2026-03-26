@@ -191,75 +191,44 @@ body{
 
     <!-- Left -->
     <div class="card">
-
-        <div class="title">Lead UX Designer for AI-Powered Analytics Dashboard</div>
+        <div class="title">${job.jobtitle}</div>
         <div class="subtitle">
-            Posted 2 hours ago · Remote, Global · <span class="featured">FEATURED</span>
+            Posted ${job.timeline} ·
+            <span class="featured">${job.company.name}</span>
         </div>
 
         <div class="section">
             <h3>Project Description</h3>
-            <p>
-                We are seeking a high-caliber Lead UX Designer to spearhead the evolution
-                of our flagship AI-driven analytics platform. The platform serves Fortune
-                500 enterprises, transforming complex data streams into intuitive,
-                actionable insights.
-            </p>
-        </div>
+            <p>${job.projectdescription}</p> </div>
 
-        <div class="section">
-            <h3>Key Responsibilities:</h3>
-            <ul>
-                <li>Architect end-to-end user journeys for predictive analytics modules.</li>
-                <li>Design and scale a comprehensive Design System.</li>
-                <li>Translate business goals into high-fidelity prototypes.</li>
-                <li>Conduct usability testing with enterprise-level users.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>Required Skills</h3>
-            <div class="skills">
-                <span>User Research</span>
-                <span>Prototyping</span>
-                <span>Figma Mastery</span>
-                <span>Data Visualization</span>
-                <span>UX Architecture</span>
-            </div>
-        </div>
-
-        <div class="section">
-            <h3>Project Assets</h3>
-            <div class="assets">
-                <div class="asset">📄 Project_Scope.pdf (2.4 MB)</div>
-                <div class="asset">🖼 Current_Workflow.jpg (1.8 MB)</div>
-            </div>
-        </div>
-
+<%--        <div class="section">--%>
+<%--            <h3>Required Skills</h3>--%>
+<%--            <div class="skills">--%>
+<%--                <c:forTokens items="${job.tags}" delims="," var="tag">--%>
+<%--                    <span>${tag}</span>--%>
+<%--                </c:forTokens>--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 
-    <!-- Right -->
     <div>
-
         <div class="budget">
             <h3>Estimated Budget</h3>
-            <div class="amount">$12,000 – $18,000</div>
-            <div class="small">Fixed-price · Intermediate-Expert Level</div>
+            <div class="amount">${job.payment}</div>
+            <div class="small">${job.projecttype} Level</div>
         </div>
 
         <div class="info">
-            <div><strong>Project Duration:</strong> 3–6 Months</div>
-            <div><strong>Weekly Commitment:</strong> 30+ Hours</div>
+<%--            <div><strong>Location:</strong> ${job.l}</div>--%>
 
-            <form action="applyJob" method="post">
-                <button class="apply">Apply Now</button>
+            <form action="confirmApplication" method="post">
+                <input type="hidden" name="jobId" value="${job.id}">
+                <button type="submit" class="apply">Confirm Application</button>
             </form>
 
             <button class="save">Save Job</button>
         </div>
-
     </div>
-
 </div>
 
 </body>
