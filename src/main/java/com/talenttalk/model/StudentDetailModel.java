@@ -17,6 +17,7 @@ public class StudentDetailModel {
     // These names now match the "name" attributes in your JSP
     private String firstName;
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private String address;
