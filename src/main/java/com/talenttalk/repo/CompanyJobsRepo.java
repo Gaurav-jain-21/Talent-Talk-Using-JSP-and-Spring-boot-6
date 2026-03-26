@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface CompanyJobsRepo extends JpaRepository<CompanyJob,Long> {
     List<CompanyJob> findByCompany(CompanyDetailModel company);
+    long countByCompany_Id(Long companyId);
 }

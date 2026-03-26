@@ -1,18 +1,29 @@
 package com.talenttalk.controller;
 
 import com.talenttalk.model.CompanyDetailModel;
+import com.talenttalk.service.CompanyDashboradService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CompanyHomeController {
+    @Autowired
+    private CompanyDashboradService dashboardService;
     @GetMapping("/companyDashboard")
-    public String CompanyDashboard(HttpSession session){
-        if (session.getAttribute("loggedInCompany") == null) {
-            return "redirect:/companyLogin";
-        }
+    public String CompanyDashboard(HttpSession session, Model model) {
+        CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+
+        if (currentCompany == null) return "redirect:/login";
+
+        // Add this print to your console to verify
+        System.out.println("Checking jobs for Company ID: " + currentCompany.getId());
+
+        long totalJobs = dashboardService.getActiveJobCount(currentCompany);
+        model.addAttribute("activeJobsCount", totalJobs);
+
         return "companyDashboard";
     }
     @GetMapping("/companyClient")

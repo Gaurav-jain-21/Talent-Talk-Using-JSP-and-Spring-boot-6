@@ -186,9 +186,9 @@
 
     <form method='post' action="EditCompanyPost">
         <input type="hidden" name="id" id="form-job-id">
-        <input type="text" name="jobtitle" id="form-job-title" placeholder="Enter the title of the job"><br>
-        <input type="text" name="payment" id="form-job-payment" placeholder ="Enter the amount you want to pay"><br>
-        <input type="text" name="projectdescription" id="form-job-desc" placeholder="Enter the new Description about the project"><br>
+        <input type="text" name="jobtitle" id="form-job-title" placeholder="Enter the title of the job" required><br>
+        <input type="text" name="payment" id="form-job-payment" placeholder ="Enter the amount you want to pay" required><br>
+        <input type="text" name="projectdescription" id="form-job-desc" placeholder="Enter the new Description about the project" required><br>
         <button type="submit" class="btn-btn-primary">Update Job</button>
     </form>
 

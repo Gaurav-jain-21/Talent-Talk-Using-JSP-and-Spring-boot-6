@@ -8,10 +8,7 @@ import com.talenttalk.service.CompanyJobsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,5 +54,36 @@ public class CompanyJobsController {
         model.addAttribute("jobs", jobList);
         return "companyManageJobs";
 
+    }
+    @PostMapping("/EditCompanyPost")
+    public String updateJobDetails(@RequestParam("id") Long id,
+                                   @RequestParam("jobtitle") String jobtitle,
+                                   @RequestParam("payment") int payment,
+                                   @RequestParam("projectdescription") String projectdescription,
+                                   HttpSession session,
+                                   Model model) { // Add Model here
+
+        CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+
+        if (currentCompany == null) {
+            return "companyLogin";
+        }
+
+        // 1. Perform the Update
+        CompanyJob existingJob = service.getJobById(id);
+        if (existingJob != null) {
+            existingJob.setJobtitle(jobtitle);
+            existingJob.setPayment(payment);
+            existingJob.setProjectdescription(projectdescription);
+            service.saveJob(existingJob);
+        }
+
+        // 2. RE-FETCH THE DATA (This is the missing step!)
+        // We must fill the 'jobs' list again so the JSP has something to show
+        List<CompanyJob> updatedList = service.getJobsByCompany(currentCompany);
+        model.addAttribute("jobs", updatedList);
+
+        // 3. Now return the view name
+        return "companyManageJobs";
     }
 }

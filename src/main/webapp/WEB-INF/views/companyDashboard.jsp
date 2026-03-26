@@ -1,6 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -208,7 +208,7 @@ body{
             <div class="card">
                 <i class="fa fa-briefcase"></i>
                 <div>Active jobs</div>
-                <div class="number">24 <span class="blue">20%</span></div>
+                <div class="number">${activeJobsCount}</div>
             </div>
 
             <div class="card">
