@@ -189,7 +189,7 @@
     </c:if>
 
     <div class="settings-card">
-        <form action="/updateCompanyDetails" method="post">
+        <form action="updateCompanyDetails" method="post">
             <input type="hidden" name="id" value="${company.id}">
 
             <div class="form-grid">
