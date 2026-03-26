@@ -19,4 +19,8 @@ public class CompanyJobsService {
     public List<CompanyJob> getJobsByCompany(CompanyDetailModel currentCompany) {
         return repo.findByCompany(currentCompany);
     }
+
+    public void deleteJobById(Long id) {
+        repo.deleteById(id);
+    }
 }

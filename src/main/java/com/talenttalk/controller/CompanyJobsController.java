@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -42,5 +43,19 @@ public class CompanyJobsController {
         model.addAttribute("jobs", jobList);
 
         return "companyManageJobs";
+    }
+    @GetMapping("/deleteJob")
+    public String deleteJob(@RequestParam("id") Long id, HttpSession session, Model model){
+        service.deleteJobById(id);
+        CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+
+        if (currentCompany == null) {
+            return "companyLogin";
+        }
+
+        List<CompanyJob> jobList = service.getJobsByCompany(currentCompany);
+        model.addAttribute("jobs", jobList);
+        return "companyManageJobs";
+
     }
 }
