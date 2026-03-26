@@ -1,5 +1,6 @@
-<%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,72 +98,69 @@
             cursor: pointer;
             font-size: 18px;
         }
-/* Add Job Form Styling - Improved */
-form {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 16px;
-    width: 380px;
-    margin: 50px auto;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    text-align: center;
-}
 
-/* Optional heading inside form */
-form::before {
-    content: "Add New Job";
-    display: block;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #1b6f75;
-}
+        form {
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 16px;
+            width: 380px;
+            margin: 50px auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
 
-form input {
-    width: 80%;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-    background: #f9f9f9;
-}
+        form::before {
+            content: "Edit Job Posting";
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1b6f75;
+        }
 
-form input:focus {
-    border-color: #2a9aa3;
-    background: #fff;
-    box-shadow: 0 0 6px rgba(42,154,163,0.4);
-}
+        form input {
+            width: 80%;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            background: #f9f9f9;
+        }
 
-/* Placeholder styling */
-form input::placeholder {
-    color: #888;
-}
+        form input:focus {
+            border-color: #2a9aa3;
+            background: #fff;
+            box-shadow: 0 0 6px rgba(42,154,163,0.4);
+        }
 
-form button {
-    width: 100%;
-    padding: 13px;
-    background: linear-gradient(90deg, #2a2aff, #5f2bff);
-    color: #fff;
-    border: none;
-    border-radius: 25px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        form input::placeholder {
+            color: #888;
+        }
 
-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
+        form button {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(90deg, #2a2aff, #5f2bff);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <div class="navbar">
     <div>Logo</div>
     <div class="nav-links">
@@ -179,79 +177,54 @@ form button:hover {
 
 <div class="main">
 
-<%
-    List<Map<String, String>> jobs = new ArrayList<>();
-
-    Map<String, String> j1 = new HashMap<>();
-    j1.put("title", "Mobile App Developer");
-    j1.put("date", "Oct 16, 2026");
-    j1.put("applications", "42 Applications");
-    j1.put("status", "Active");
-    jobs.add(j1);
-
-    Map<String, String> j2 = new HashMap<>();
-    j2.put("title", "Brand Identity Designer");
-    j2.put("date", "Oct 16, 2026");
-    j2.put("applications", "0 Applications");
-    j2.put("status", "Pending");
-    jobs.add(j2);
-
-    Map<String, String> j3 = new HashMap<>();
-    j3.put("title", "Fullstack Node.js Dev.");
-    j3.put("date", "Oct 16, 2026");
-    j3.put("applications", "Hired: Alex River");
-    j3.put("status", "Completed");
-    jobs.add(j3);
-
-    Map<String, String> j4 = new HashMap<>();
-    j4.put("title", "Data Science (ML)");
-    j4.put("date", "Oct 16, 2026");
-    j4.put("applications", "18 Applications");
-    j4.put("status", "Active");
-    jobs.add(j4);
-%>
-
     <div class="top-bar">
         <div>
             <h1>Manage Job Postings</h1>
             <div>Oversee your active listings and track applicant progress.</div>
         </div>
-        <!--  <button class="post-btn">+ Post New Jobs</button>-->
     </div>
-    
-    <form method='post' action="addCompanyPost">
-    <input type="text" name="jobtitle" placeholder="Enter the title of the job"><br>
-    <input type="text" name="jobpay" placeholder ="Enter the amount you want to pay"><br>
-    <input  type="text" name="jobsets" placeholder="Enter number of sets in company"><br>
-    <button type= "submit" class="btn-btn-primary">Add</button>
-    
+
+    <form method='post' action="EditCompanyPost">
+        <input type="hidden" name="id" id="form-job-id">
+        <input type="text" name="jobtitle" id="form-job-title" placeholder="Enter the title of the job"><br>
+        <input type="text" name="payment" id="form-job-payment" placeholder ="Enter the amount you want to pay"><br>
+        <input type="text" name="projectdescription" id="form-job-desc" placeholder="Enter the new Description about the project"><br>
+        <button type="submit" class="btn-btn-primary">Update Job</button>
     </form>
 
-<%
-    for (Map<String, String> job : jobs) {
-%>
+    <c:forEach var="job" items="${jobs}">
+        <div class="job-card">
+            <div class="actions">
+                <span class="btn-icon" onclick="populateForm('${job.id}', '${job.jobtitle}', '${job.payment}', '${job.projectdescription}')">✏️</span>
+                <span class="btn-icon">⏸️</span>
+                <a href="deleteJob?id=${job.id}" style="text-decoration:none;"><span class="btn-icon">🗑️</span></a>
+            </div>
 
-    <div class="job-card">
-        <div class="actions">
-            <span class="btn-icon">✏️</span>
-            <span class="btn-icon">⏸️</span>
-            <span class="btn-icon">🗑️</span>
+            <div class="job-title">${job.jobtitle}</div>
+
+            <div class="meta">
+                <span>📅 <fmt:formatDate value="${job.timeline}" pattern="MMM dd, yyyy" /></span>
+                <span>💰 $${job.payment}</span>
+                <span class="status Active">Active</span>
+            </div>
         </div>
-
-        <div class="job-title"><%= job.get("title") %></div>
-
-        <div class="meta">
-            <span>📅 <%= job.get("date") %></span>
-            <span>👥 <%= job.get("applications") %></span>
-            <span class="status <%= job.get("status") %>"><%= job.get("status") %></span>
-        </div>
-    </div>
-
-<%
-    }
-%>
+    </c:forEach>
 
 </div>
+
+<script>
+    // This function puts the job data into the form at the top of the page
+    function populateForm(id, title, payment, desc) {
+        document.getElementById('form-job-id').value = id;
+        document.getElementById('form-job-title').value = title;
+        document.getElementById('form-job-payment').value = payment;
+        document.getElementById('form-job-desc').value = desc;
+
+        // Smooth scroll to the form so the user sees it's ready
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
 <jsp:include page="footer.jsp" />
 
 </body>

@@ -34,10 +34,6 @@ public class CompanyHomeController {
     public String CompanySettings(){
         return "companySettings";
     }
-    @GetMapping("/companyManageJobs")
-    public String CompanyManageJobs(){
-        return "companyManageJobs";
-    }
     @GetMapping("/companyForgotPassword")
     public String CompanyForgotPassword(){
         return "companyForgotPassword";

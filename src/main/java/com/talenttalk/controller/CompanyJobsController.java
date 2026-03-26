@@ -2,13 +2,17 @@ package com.talenttalk.controller;
 
 import com.talenttalk.model.CompanyDetailModel;
 import com.talenttalk.model.CompanyJob;
+// Remove the old 'model.model' import
+import org.springframework.ui.Model; // ADD THIS IMPORT
 import com.talenttalk.service.CompanyJobsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class CompanyJobsController {
@@ -17,12 +21,26 @@ public class CompanyJobsController {
 
     @PostMapping("/addCompanyJob")
     public String addjob(@ModelAttribute("job") CompanyJob job, HttpSession session){
-        CompanyDetailModel currentCompany= (CompanyDetailModel) session.getAttribute("loggedInCompany");
+        CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
         if (currentCompany != null) {
-            job.setCompany(currentCompany); // Link job to this specific company
+            job.setCompany(currentCompany);
             service.saveJob(job);
         }
-        return "companyJobs";
+        // Change return to redirect so the list refreshes after adding
+        return "companyManageJobs";
     }
 
+    @GetMapping("/companyManageJobs")
+    public String showManageJobs(HttpSession session, Model model){
+        CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+
+        if (currentCompany == null) {
+            return "companyLogin";
+        }
+
+        List<CompanyJob> jobList = service.getJobsByCompany(currentCompany);
+        model.addAttribute("jobs", jobList);
+
+        return "companyManageJobs";
+    }
 }
