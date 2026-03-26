@@ -27,7 +27,7 @@ public class CompanyJobsController {
             service.saveJob(job);
         }
         // Change return to redirect so the list refreshes after adding
-        return "companyManageJobs";
+        return "companyJobs";
     }
 
     @GetMapping("/companyManageJobs")

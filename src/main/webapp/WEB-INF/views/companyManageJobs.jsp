@@ -203,7 +203,10 @@
             <div class="job-title">${job.jobtitle}</div>
 
             <div class="meta">
-                <span>📅 <fmt:formatDate value="${job.timeline}" pattern="MMM dd, yyyy" /></span>
+                <fmt:parseDate value="${job.timeline}" pattern="yyyy-MM-dd" var="parsedDate" />
+
+                <span>📅 <fmt:formatDate value="${parsedDate}" pattern="MMM dd, yyyy" /></span>
+
                 <span>💰 $${job.payment}</span>
                 <span class="status Active">Active</span>
             </div>
