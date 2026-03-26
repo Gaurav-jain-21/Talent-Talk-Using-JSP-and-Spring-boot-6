@@ -42,4 +42,8 @@ public class CompanyHomeController {
     public String CompanyMessage(){
         return "companyMessage";
     }
+//    @GetMapping("/companyProfile")
+//    public String CompanyProfile(){
+//        return "companyProfile";
+//    }
 }

@@ -19,4 +19,12 @@ public class CompanyLoginServices {
         }
         return null;
     }
+
+    public CompanyDetailModel updateCompanyDetail(CompanyDetailModel company){
+        return repo.save(company);
+    }
+
+    public CompanyDetailModel updateCompany(CompanyDetailModel updatedData) {
+        return repo.save(updatedData);
+    }
 }
