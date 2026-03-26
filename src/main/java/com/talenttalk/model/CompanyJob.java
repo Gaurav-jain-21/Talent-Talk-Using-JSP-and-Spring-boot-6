@@ -20,7 +20,7 @@ public class CompanyJob {
     private String timeline;
     @Column(columnDefinition = "TEXT")
     private String projectdescription;
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="company_id",nullable=false)
     private CompanyDetailModel company;
 

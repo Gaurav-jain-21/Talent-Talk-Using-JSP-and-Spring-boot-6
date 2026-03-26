@@ -2,6 +2,7 @@ package com.talenttalk.controller;
 
 import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.service.StudentLoginService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ public class StudentLoginController {
 	@PostMapping("/studentLoginForm")
 	public String login(@RequestParam("email") String email,
 						@RequestParam("password") String password,
+						HttpSession session,
 						Model model) {
 
 		StudentDetailModel student = loginservice.authenticate(email, password);
@@ -25,6 +27,7 @@ public class StudentLoginController {
 		if (student != null) {
 			// Pass the student's name to the dashboard
 			model.addAttribute("userName", student.getFirstName());
+			session.setAttribute("loggedInStudent", student);
 			return "studentDashboard";
 		} else {
 			model.addAttribute("error", "Invalid email or password");

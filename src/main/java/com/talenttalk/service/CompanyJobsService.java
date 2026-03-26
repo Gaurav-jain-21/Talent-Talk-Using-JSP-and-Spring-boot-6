@@ -30,4 +30,7 @@ public class CompanyJobsService {
         Optional<CompanyJob> job = repo.findById(id);
         return job.orElse(null); // Return the job if it exists, otherwise null
     }
+    public  List<CompanyJob> getAllJobs(){
+        return repo.findAll();
+    }
 }

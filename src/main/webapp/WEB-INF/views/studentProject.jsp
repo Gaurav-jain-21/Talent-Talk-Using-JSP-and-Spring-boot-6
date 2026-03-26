@@ -201,59 +201,24 @@ body {
     <select><option>Job Type</option></select>
 </div>
 
-<!-- ===== Cards ===== -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="cards">
-
-    <div class="card">
-        <div class="heart">♡</div>
-        <div class="logo"></div>
-        <div class="title">Senior UI/UX Designer</div>
-        <div class="salary">$80k – $120k / year</div>
-        <div class="meta">Posted 2h ago • Remote</div>
-
-        <div class="tags">
-            <span class="tag">Figma</span>
-            <span class="tag">UI/UX</span>
-            <span class="tag">Mobile app</span>
+    <c:forEach items="${jobs}" var="job">
+        <div class="card">
+            <div class="heart">♡</div>
+            <div class="logo"></div> <div class="title">${job.jobtitle}</div>
+            <div class="salary">${job.payment}</div>
+            <div class="meta">Posted ${job.timeline} </div>
+            <div class="meta">Company ${job.company.name}</div>
+            <form action="JobApply" method="get">
+                <input type="hidden" name="jobId" value="${job.id}">
+                <button type="submit" class="apply-btn">Quick Apply</button>
+            </form>
         </div>
-        <form action="JobApply" method="get">
-        <button class="apply-btn">Quick Apply</button>
-        </form>
-    </div>
-
-    <div class="card">
-        <div class="heart">♡</div>
-        <div class="logo"></div>
-        <div class="title">Senior UI/UX Designer</div>
-        <div class="salary">$80k – $120k / year</div>
-        <div class="meta">Posted 2h ago • Remote</div>
-
-        <div class="tags">
-            <span class="tag">Figma</span>
-            <span class="tag">UI/UX</span>
-            <span class="tag">Mobile app</span>
-        </div>
-
-        <button class="apply-btn">Quick Apply</button>
-    </div>
-
-    <div class="card">
-        <div class="heart">♡</div>
-        <div class="logo"></div>
-        <div class="title">Senior UI/UX Designer</div>
-        <div class="salary">$80k – $120k / year</div>
-        <div class="meta">Posted 2h ago • Remote</div>
-
-        <div class="tags">
-            <span class="tag">Figma</span>
-            <span class="tag">UI/UX</span>
-            <span class="tag">Mobile app</span>
-        </div>
-
-        <button class="apply-btn">Quick Apply</button>
-    </div>
-
+    </c:forEach>
 </div>
+
+
 
 <button class="explore">Explore More Projects</button>
 
