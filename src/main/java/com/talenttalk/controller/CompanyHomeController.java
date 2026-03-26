@@ -20,7 +20,10 @@ public class CompanyHomeController {
         return "companyClient";
     }
     @GetMapping("/companyJobs")
-    public String CompanyJobs(){
+    public String CompanyJobs(HttpSession session){
+        if (session.getAttribute("loggedInCompany") == null) {
+            return "redirect:/companyLogin";
+        }
         return "companyJobs";
     }
     @GetMapping("/companyPayment")
@@ -48,8 +51,4 @@ public class CompanyHomeController {
     public String CompanyMessage(){
         return "companyMessage";
     }
-//    @GetMapping("/companyProfile")
-//    public String CompanyProfile(){
-//        return "companyProfile";
-//    }
 }

@@ -166,31 +166,33 @@
         </div>
 
         <label>Job Title</label>
-        <input type="text" placeholder="Enter job title" />
+        <form method="post" action="addCompanyJob">
+        <input type="text" name="jobtitle" placeholder="Enter job title" />
 
         <label style="margin-top:15px;">Project Category</label>
-        <select>
-            <option>Select category</option>
-            <option>Web Development</option>
-            <option>Mobile App</option>
-            <option>Design</option>
+        <select name="projecttype">
+            <option >Select category</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Mobile App">Mobile App</option>
+            <option value="Design">Design</option>
         </select>
 
         <div class="row">
             <div>
                 <label>Payment</label>
-                <input type="text" placeholder="$" />
+                <input type="text" name="payment" placeholder="$" />
             </div>
             <div>
                 <label>Time Line</label>
-                <input type="date" />
+                <input name= "timeline" type="date" />
             </div>
         </div>
 
         <label style="margin-top:15px;">Job Description</label>
-        <textarea placeholder="Write job details..."></textarea>
+        <textarea name= "projectdescription" placeholder="Write job details..."></textarea>
 
         <button class="post-btn">Post</button>
+        </form>
     </div>
 </div>
 <jsp:include page="footer.jsp" />

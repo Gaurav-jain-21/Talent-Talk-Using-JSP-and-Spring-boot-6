@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -17,6 +19,8 @@ public class CompanyDetailModel {
     private String password;
     private String industry;
     private String headQuarter;
+    @OneToMany(mappedBy="company",cascade=CascadeType.ALL)
+    private List<CompanyJob> jobs;
 
 
 }
