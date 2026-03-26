@@ -1,12 +1,18 @@
 package com.talenttalk.controller;
 
+import com.talenttalk.model.CompanyDetailModel;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CompanyHomeController {
     @GetMapping("/companyDashboard")
-    public String CompanyDashboard(){
+    public String CompanyDashboard(HttpSession session){
+        if (session.getAttribute("loggedInCompany") == null) {
+            return "redirect:/companyLogin";
+        }
         return "companyDashboard";
     }
     @GetMapping("/companyClient")

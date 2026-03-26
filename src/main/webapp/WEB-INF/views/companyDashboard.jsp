@@ -180,7 +180,7 @@ body{
 <div class="sidebar">
     <div class="profile">
          <img src="https://i.pravatar.cc/40">
-        <div><a href="companyProfile">Sophi carter</a></div>
+        <div><a href="companyProfile">${sessionScope.loggedInCompany.name}</a></div>
     </div>
 
     <div class="menu">
