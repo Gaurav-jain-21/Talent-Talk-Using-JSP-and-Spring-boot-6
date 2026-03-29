@@ -21,10 +21,6 @@ public class StudentHomeController {
         model.addAttribute("jobs",allJobs);
         return "studentProject";
     }
-    @GetMapping("/studentDashboard")
-    public String goToStudentDashboard(){
-        return "studentDashboard";
-    }
     @GetMapping("/studentJobs")
     public String goToStudentJobs(){
         return "studentJobs";

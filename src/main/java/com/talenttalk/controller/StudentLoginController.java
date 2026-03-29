@@ -1,6 +1,7 @@
 package com.talenttalk.controller;
 
 import com.talenttalk.model.StudentDetailModel;
+import com.talenttalk.service.StudentDashboardService;
 import com.talenttalk.service.StudentLoginService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class StudentLoginController {
 
 	@Autowired
 	private StudentLoginService loginservice;
+
+	@Autowired
+	private StudentDashboardService dashboardservice;
 
 	@PostMapping("/studentLoginForm")
 	public String login(@RequestParam("email") String email,
@@ -44,5 +48,18 @@ public class StudentLoginController {
 	@GetMapping("/studentSignup")
 	public String goToSignUpStd(){
 		return "studentSignup";
+	}
+
+	@GetMapping("/studentDashboard")
+	public String showStudentDashboard(HttpSession session, Model model) {
+		StudentDetailModel currentStudent = (StudentDetailModel) session.getAttribute("loggedInStudent");
+
+		if (currentStudent == null) {
+			return "studentLoginPage";
+		}
+		String studentName = dashboardservice.getStudentName(currentStudent);
+		model.addAttribute("userName", studentName);
+
+		return "studentDashboard";
 	}
 }

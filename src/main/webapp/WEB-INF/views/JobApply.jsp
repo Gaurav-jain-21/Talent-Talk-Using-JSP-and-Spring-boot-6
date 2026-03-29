@@ -200,15 +200,6 @@ body{
         <div class="section">
             <h3>Project Description</h3>
             <p>${job.projectdescription}</p> </div>
-
-<%--        <div class="section">--%>
-<%--            <h3>Required Skills</h3>--%>
-<%--            <div class="skills">--%>
-<%--                <c:forTokens items="${job.tags}" delims="," var="tag">--%>
-<%--                    <span>${tag}</span>--%>
-<%--                </c:forTokens>--%>
-<%--            </div>--%>
-<%--        </div>--%>
     </div>
 
     <div>
@@ -223,10 +214,8 @@ body{
 
             <form action="confirmApplication" method="post">
                 <input type="hidden" name="jobId" value="${job.id}">
-                <button type="submit" class="apply">Confirm Application</button>
+                <button type="submit" class="apply">Apply Job</button>
             </form>
-
-            <button class="save">Save Job</button>
         </div>
     </div>
 </div>

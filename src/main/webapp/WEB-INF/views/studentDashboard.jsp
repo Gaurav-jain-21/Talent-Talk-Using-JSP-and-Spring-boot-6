@@ -188,7 +188,7 @@ body {
 <div class="sidebar">
     <div class="profile">
         <img src="https://i.pravatar.cc/40" alt="profile">
-        <a href="Profile"><span>Sophi carter</span></a>
+        <a href="studentProfile"><span>${userName}</span></a>
     </div>
 
     <div class="menu">
