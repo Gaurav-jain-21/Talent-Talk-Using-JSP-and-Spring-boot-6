@@ -12,4 +12,8 @@ public class StudentDashboardService {
     public String getStudentName(StudentDetailModel currentStudent) {
         return repo.findByNameId(currentStudent.getId());
     }
+
+    public void save(StudentDetailModel student) {
+        repo.save(student);
+    }
 }
