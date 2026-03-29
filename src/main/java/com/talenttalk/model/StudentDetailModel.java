@@ -23,4 +23,9 @@ public class StudentDetailModel {
     private String address;
     private String profession;
 
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private byte[] resume; // To store the file content
+    private String resumeFileType;
+
 }

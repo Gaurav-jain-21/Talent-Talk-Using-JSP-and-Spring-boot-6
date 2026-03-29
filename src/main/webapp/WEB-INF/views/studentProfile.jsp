@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Account Settings</title>
+    <title>Student Profile Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* === YOUR INITIAL CSS (DO NOT CHANGE) === */
+        /* === YOUR INITIAL CSS === */
         * {
             margin: 0;
             padding: 0;
@@ -35,22 +35,26 @@
             font-size: 14px;
         }
 
-        /* === NECESSARY FORM STYLING (ADD THIS) === */
+        /* === PROFILE FORM STYLING === */
         .main-container {
             width: 70%;
             margin: 40px auto;
             background: white;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .header-section { margin-bottom: 30px; }
+        .header-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
         .form-group {
@@ -73,21 +77,38 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 14px;
-            outline: none;
+            transition: 0.3s;
         }
 
-        input:focus { border-color: #1f7f82; }
+        input:focus {
+            border-color: #1f7f82;
+            outline: none;
+            box-shadow: 0 0 5px rgba(31, 127, 130, 0.2);
+        }
+
+        /* Resume Display Box */
+        .resume-display-box {
+            margin-top: 10px;
+            padding: 15px;
+            background: #f4fbfc;
+            border: 2px dashed #1f7f82;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         .btn-save {
             background: #1f7f82;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 35px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
             margin-top: 20px;
+            width: 100%;
             transition: 0.3s;
         }
 
@@ -119,11 +140,10 @@
 
 <div class="main-container">
     <div class="header-section">
-        <h2>Account Settings</h2>
-        <p style="color: #777;">Update your profile information</p>
+        <h2><i class="fa fa-user-circle"></i> Profile Settings</h2>
+        <p style="color: #666;">Manage your personal information and documents</p>
     </div>
 
-    <%-- Using a proper attribute check instead of just param --%>
     <c:if test="${not empty successMsg}">
         <div class="alert-success">
             <i class="fa fa-check-circle"></i> ${successMsg}
@@ -131,8 +151,8 @@
     </c:if>
 
     <div class="settings-card">
-        <form action="updateStudentDetails" method="post">
-            <%-- Hidden ID is crucial for the update query --%>
+        <form action="updateStudentDetails" method="post" enctype="multipart/form-data">
+
             <input type="hidden" name="id" value="${student.id}">
 
             <div class="form-grid">
@@ -153,23 +173,40 @@
 
                 <div class="form-group">
                     <label>Profession</label>
-                    <input type="text" name="profession" value="${student.profession}" placeholder="e.g. Student">
+                    <input type="text" name="profession" value="${student.profession}" placeholder="e.g. Full Stack Developer">
                 </div>
 
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>Location / Address</label>
                     <input type="text" name="address" value="${student.address}" placeholder="City, Country">
                 </div>
 
-                <%-- Password should usually be in a separate section for security --%>
                 <div class="form-group full-width">
-                    <label>New Password (Leave blank to keep current)</label>
-                    <input type="password" name="password" value="${student.password}">
+                    <label>Update Resume (PDF/JPG)</label>
+                    <input type="file" name="resumeFile" accept=".pdf,.jpg,.jpeg">
+
+                    <c:if test="${not empty student.resume}">
+                        <div class="resume-display-box">
+                            <div>
+                                <i class="fa fa-file-pdf" style="color: #e74c3c;"></i>
+                                <span style="margin-left: 10px; font-weight: 500;">Resume Uploaded</span>
+                            </div>
+                            <a href="viewResume?id=${student.id}" target="_blank"
+                               style="color: #1f7f82; text-decoration: none; font-weight: bold;">
+                                <i class="fa fa-eye"></i> View Current Resume
+                            </a>
+                        </div>
+                    </c:if>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Account Password</label>
+                    <input type="password" name="password" value="${student.password}" required>
                 </div>
             </div>
 
             <button type="submit" class="btn-save">
-                <i class="fa fa-save"></i> Update Profile
+                <i class="fa fa-save"></i> Save Changes
             </button>
         </form>
     </div>
