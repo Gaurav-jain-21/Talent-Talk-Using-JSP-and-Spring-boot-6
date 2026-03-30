@@ -3,6 +3,8 @@ package com.talenttalk.controller;
 import com.talenttalk.model.CompanyDetailModel;
 import com.talenttalk.model.CompanyJob;
 // Remove the old 'model.model' import
+import com.talenttalk.model.JobApplication;
+import com.talenttalk.repo.ApplicationRepository;
 import org.springframework.ui.Model; // ADD THIS IMPORT
 import com.talenttalk.service.CompanyJobsService;
 import jakarta.servlet.http.HttpSession;
@@ -85,5 +87,15 @@ public class CompanyJobsController {
 
         // 3. Now return the view name
         return "companyManageJobs";
+    }
+    @Autowired
+    private ApplicationRepository appRepo;
+    @GetMapping("/viewApplicants")
+    public String viewApplicants(@RequestParam("jobId") Long jobId,Model model){
+        java.util.List<JobApplication> apps= appRepo.findByJobId(jobId);
+        model.addAttribute("candidates",apps);
+        model.addAttribute("totalCount",apps.size());
+        return "companyApplication";
+
     }
 }
