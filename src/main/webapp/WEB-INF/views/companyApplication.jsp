@@ -158,18 +158,6 @@ h1 {
 
 <div class="main">
 
-<%
-List<Map<String, Object>> candidates = new ArrayList<>();
-
-for (int i = 95; i >= 90; i--) {
-    Map<String, Object> c = new HashMap<>();
-    c.put("name", "Jackson Reed");
-    c.put("role", "Mobile App Developer");
-    c.put("score", i);
-    c.put("skills", Arrays.asList("Figma", "UI/UX", "Mobile App"));
-    candidates.add(c);
-}
-%>
 
 <div style="display:flex; justify-content:space-between; align-items:center;">
     <div>
@@ -187,39 +175,32 @@ for (int i = 95; i >= 90; i--) {
     <div>Rejected</div>
 </div>
 
-<div class="grid">
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-for (Map<String, Object> c : candidates) {
-%>
+    <div class="grid">
+        <c:forEach var="app" items="${candidates}">
+            <div class="card">
+                <div class="profile">
+                    <div class="avatar">
+<%--                        <img src="${app.student.}" style="width:100%; border-radius:50%;">--%>
+                    </div>
+                    <div class="score">95%</div>
+                </div>
 
-    <div class="card">
-        <div class="profile">
-            <div class="avatar"></div>
-            <div class="score"><%= c.get("score") %>%</div>
-        </div>
+                <div class="name">${app.student.firstName}</div>
+<%--                <div class="role">${app.student.}</div>--%>
 
-        <div class="name"><%= c.get("name") %></div>
-        <div class="role"><%= c.get("role") %></div>
+                <div class="actions">
+                    <a href="viewStudentProfile?id=${app.student.id}" class="btn view">View Profile</a>
 
-        <div class="tags">
-        <%
-            List<String> skills = (List<String>) c.get("skills");
-            for (String s : skills) {
-        %>
-            <div class="tag"><%= s %></div>
-        <% } %>
-        </div>
-
-        <div class="actions">
-            <button class="btn view">View Profile</button>
-            <button class="btn shortlist">Shortlist</button>
-        </div>
+                    <form action="shortlist" method="post" style="flex:1;">
+                        <input type="hidden" name="appId" value="${app.id}">
+                        <button type="submit" class="btn shortlist">Shortlist</button>
+                    </form>
+                </div>
+            </div>
+        </c:forEach>
     </div>
-
-<% } %>
-
-</div>
 
 </div>
 <jsp:include page="footer.jsp" />
