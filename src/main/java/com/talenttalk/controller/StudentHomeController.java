@@ -2,7 +2,10 @@ package com.talenttalk.controller;
 
 import com.talenttalk.model.CompanyDetailModel;
 import com.talenttalk.model.CompanyJob;
+import com.talenttalk.model.JobApplication;
 import com.talenttalk.model.StudentDetailModel;
+import com.talenttalk.repo.ApplicationRepository;
+import com.talenttalk.repo.CompanyJobsRepo;
 import com.talenttalk.repo.StudentSignUpRepo;
 import com.talenttalk.service.CompanyJobsService;
 import com.talenttalk.service.StudentDashboardService;
@@ -87,7 +90,7 @@ public class StudentHomeController {
             }
         } else {
             // If no new file is uploaded, keep the old one from the database
-            StudentDetailModel existing = studentRepo.findById(student.getId()).orElse(null);
+            StudentDetailModel existing = studentRepo.findById(Math.toIntExact(student.getId())).orElse(null);
             if (existing != null) {
                 student.setResume(existing.getResume());
                 student.setResumeFileType(existing.getResumeFileType());
@@ -99,5 +102,26 @@ public class StudentHomeController {
         ra.addFlashAttribute("successMsg", "Profile updated successfully!");
 
         return "redirect:/studentProfile";
+    }
+    @Autowired
+    private CompanyJobsRepo jobsRepo;
+
+    @Autowired
+    private ApplicationRepository appRepo;
+    @PostMapping("/confirmApplication")
+    public String jobApplication(@RequestParam("jobId") Long jobId, HttpSession session, Model model){
+        StudentDetailModel student= (StudentDetailModel)  session.getAttribute("loggedInStudent");
+        if (student==null){
+            return "studentLogin";
+        }
+        CompanyJob job= jobsRepo.findById(jobId).get();
+        if (!appRepo.existsByJobIdAndStudentId(jobId, student.getId())) {
+            JobApplication application = new JobApplication();
+            application.setJob(job);
+            application.setStudent(student);
+            appRepo.save(application);
+        }
+
+        return "studentDashboard";
     }
 }

@@ -12,7 +12,7 @@ public class StudentDetailModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     // These names now match the "name" attributes in your JSP
     private String firstName;
