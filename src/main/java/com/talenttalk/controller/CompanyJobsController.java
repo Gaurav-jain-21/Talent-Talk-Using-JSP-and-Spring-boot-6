@@ -4,7 +4,13 @@ import com.talenttalk.model.CompanyDetailModel;
 import com.talenttalk.model.CompanyJob;
 // Remove the old 'model.model' import
 import com.talenttalk.model.JobApplication;
+import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.repo.ApplicationRepository;
+import com.talenttalk.service.JobApplicationService;
+import com.talenttalk.service.StudentDashboardService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model; // ADD THIS IMPORT
 import com.talenttalk.service.CompanyJobsService;
 import jakarta.servlet.http.HttpSession;
@@ -98,4 +104,47 @@ public class CompanyJobsController {
         return "companyApplication";
 
     }
+
+    @Autowired
+    private StudentDashboardService studentService;
+    @Autowired
+    private JobApplicationService applicationService;
+
+    @GetMapping("/viewStudentProfile")
+    public String viewStudentProfile(HttpSession session, Model model,
+                                     @RequestParam("id") Long id,
+                                     @RequestParam(value="appId", required=false) Long appId) {
+
+        StudentDetailModel student = studentService.getStudentById(id);
+
+        if (appId != null) {
+            // This is where it gets the REAL job title
+            JobApplication application = applicationService.findById(appId);
+            if (application != null) {
+                model.addAttribute("jobTitle", application.getJob().getJobtitle());
+            }
+        } else {
+            // This is why you see "General Applicant" currently
+            model.addAttribute("jobTitle", "General Applicant");
+        }
+
+        model.addAttribute("student", student);
+        model.addAttribute("appId", appId);
+        return "viewStudentProfile";
+    }
+
+    @GetMapping("/displayResume")
+    public ResponseEntity<byte[]> displayResume(@RequestParam("id") Long id) {
+        StudentDetailModel student = studentService.getStudentById(id);
+
+        if (student != null && student.getResume() != null) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(student.getResumeFileType()))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"resume.pdf\"")
+                    .body(student.getResume());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
 }

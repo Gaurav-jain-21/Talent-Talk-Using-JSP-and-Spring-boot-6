@@ -16,4 +16,8 @@ public class StudentDashboardService {
     public void save(StudentDetailModel student) {
         repo.save(student);
     }
+
+    public StudentDetailModel getStudentById(Long id) {
+        return repo.findById(Math.toIntExact(id)).orElse(null);
+    }
 }

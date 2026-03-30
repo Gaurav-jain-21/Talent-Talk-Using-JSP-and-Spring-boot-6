@@ -47,7 +47,21 @@ h1 {
     color: #0d2d2f;
     margin-bottom: 20px;
 }
+.btn-danger {
+    background-color: #d9534f; /* A standard red color */
+    color: #ffffff;            /* White text */
+    border: none;
+    border-radius: 14px;       /* Matches your other buttons */
+    padding: 8px;
+    cursor: pointer;
+    flex: 1;                   /* Allows it to sit evenly next to other buttons */
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
 
+.btn-danger:hover {
+    background-color: #c9302c; /* Darker red when hovering */
+}
 /* Tabs */
 .tabs {
     display: flex;
@@ -196,6 +210,11 @@ h1 {
                     <form action="shortlist" method="post" style="flex:1;">
                         <input type="hidden" name="appId" value="${app.id}">
                         <button type="submit" class="btn shortlist">Shortlist</button>
+                    </form>
+
+                    <form action="reject" method="post" style="flex:1;">
+                        <input type="hidden" name="appId" value="${app.id}">
+                        <button type="submit" class="btn btn-danger">Reject</button>
                     </form>
                 </div>
             </div>

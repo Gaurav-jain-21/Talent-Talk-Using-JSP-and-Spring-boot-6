@@ -16,6 +16,9 @@ public class JobApplicationService {
         // Changed from findByJobId to findByJob_Company_Id
         return repo.findByJob_Company_Id(id);
     }
+    public JobApplication findById(Long appId) {
+        return repo.findById(appId).orElse(null);
+    }
 
 
 }
