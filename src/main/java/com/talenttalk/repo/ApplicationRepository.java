@@ -8,9 +8,11 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<JobApplication, Long> {
-    // This helps the company see all students for a specific job
-    List<JobApplication> findByJobId(Long jobId);
 
-    // This prevents a student from applying to the same job twice
+    // Use an underscore or a custom query to traverse the relationship:
+    // JobApplication -> CompanyJob (job) -> CompanyDetailModel (company) -> id
+    List<JobApplication> findByJob_Company_Id(Long companyId);
+
+    List<JobApplication> findByJobId(Long jobId);
     boolean existsByJobIdAndStudentId(Long jobId, Long studentId);
 }

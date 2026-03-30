@@ -176,7 +176,7 @@ h1 {
 </div>
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+    <p style="color: white;">Debug: Total candidates found: ${candidates.size()}</p>
     <div class="grid">
         <c:forEach var="app" items="${candidates}">
             <div class="card">
@@ -188,7 +188,7 @@ h1 {
                 </div>
 
                 <div class="name">${app.student.firstName}</div>
-<%--                <div class="role">${app.student.}</div>--%>
+                <div class="role">${app.job.jobtitle}</div>
 
                 <div class="actions">
                     <a href="viewStudentProfile?id=${app.student.id}" class="btn view">View Profile</a>

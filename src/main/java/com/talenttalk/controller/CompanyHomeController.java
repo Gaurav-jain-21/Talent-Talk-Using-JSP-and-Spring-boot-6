@@ -1,12 +1,16 @@
 package com.talenttalk.controller;
 
 import com.talenttalk.model.CompanyDetailModel;
+import com.talenttalk.model.JobApplication;
 import com.talenttalk.service.CompanyDashboradService;
+import com.talenttalk.service.JobApplicationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class CompanyHomeController {
@@ -50,8 +54,13 @@ public class CompanyHomeController {
         return "companyForgotPassword";
     }
 
+    @Autowired
+    private JobApplicationService applicationService;
     @GetMapping("/companyApplication")
-    public String CompanyApplication(){
+    public String CompanyApplication(Model model, HttpSession session){
+        CompanyDetailModel company = (CompanyDetailModel)  session.getAttribute("loggedInCompany");
+        List<JobApplication> applications= applicationService.findByCompanyId(company.getId());
+        model.addAttribute("candidates",applications);
         return "companyApplication";
     }
     @GetMapping("/companyMessage")
