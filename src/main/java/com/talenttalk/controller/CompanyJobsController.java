@@ -109,29 +109,49 @@ public class CompanyJobsController {
     private StudentDashboardService studentService;
     @Autowired
     private JobApplicationService applicationService;
-
     @GetMapping("/viewStudentProfile")
-    public String viewStudentProfile(HttpSession session, Model model,
-                                     @RequestParam("id") Long id,
-                                     @RequestParam(value="appId", required=false) Long appId) {
+    public String viewStudentProfile(@RequestParam("id") Long id,
+                                     @RequestParam("appId") Long appId,
+                                     Model model) {
 
         StudentDetailModel student = studentService.getStudentById(id);
+        JobApplication application = applicationService.findById(appId);
 
-        if (appId != null) {
-            // This is where it gets the REAL job title
-            JobApplication application = applicationService.findById(appId);
-            if (application != null) {
-                model.addAttribute("jobTitle", application.getJob().getJobtitle());
-            }
-        } else {
-            // This is why you see "General Applicant" currently
-            model.addAttribute("jobTitle", "General Applicant");
+        if (student == null || application == null) {
+            return "redirect:/companyApplication";
         }
 
         model.addAttribute("student", student);
+        model.addAttribute("jobTitle", application.getJob().getJobtitle());
+
+        // CRITICAL FIX: This line ensures <input value="${appId}"> is not empty
         model.addAttribute("appId", appId);
+
         return "viewStudentProfile";
     }
+
+//    @GetMapping("/viewStudentProfile")
+//    public String viewStudentProfile(HttpSession session, Model model,
+//                                     @RequestParam("id") Long id,
+//                                     @RequestParam(value="appId", required=false) Long appId) {
+//
+//        StudentDetailModel student = studentService.getStudentById(id);
+//
+//        if (appId != null) {
+//            // This is where it gets the REAL job title
+//            JobApplication application = applicationService.findById(appId);
+//            if (application != null) {
+//                model.addAttribute("jobTitle", application.getJob().getJobtitle());
+//            }
+//        } else {
+//            // This is why you see "General Applicant" currently
+//            model.addAttribute("jobTitle", "General Applicant");
+//        }
+//
+//        model.addAttribute("student", student);
+//        model.addAttribute("appId", appId);
+//        return "viewStudentProfile";
+//    }
 
     @GetMapping("/displayResume")
     public ResponseEntity<byte[]> displayResume(@RequestParam("id") Long id) {
@@ -146,5 +166,15 @@ public class CompanyJobsController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/reject")
+    public String rejectApplication(@RequestParam("appId") Long appId) {
+        if (appId != null) {
+            // Option 1: Update status (Recommended)
+            applicationService.rejectApplication(appId);
+        }
+
+        // Redirect back to the main list page to refresh the view
+        return "redirect:/companyApplication";
+    }
 
 }

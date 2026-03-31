@@ -205,7 +205,7 @@ h1 {
                 <div class="role">${app.job.jobtitle}</div>
 
                 <div class="actions">
-                    <a href="viewStudentProfile?id=${app.student.id}" class="btn view">View Profile</a>
+                    <a href="viewStudentProfile?id=${app.student.id}&appId=${app.id}" class="btn view">View Profile</a>
 
                     <form action="shortlist" method="post" style="flex:1;">
                         <input type="hidden" name="appId" value="${app.id}">
@@ -214,7 +214,10 @@ h1 {
 
                     <form action="reject" method="post" style="flex:1;">
                         <input type="hidden" name="appId" value="${app.id}">
-                        <button type="submit" class="btn btn-danger">Reject</button>
+                        <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to reject this applicant?')">
+                            Reject
+                        </button>
                     </form>
                 </div>
             </div>

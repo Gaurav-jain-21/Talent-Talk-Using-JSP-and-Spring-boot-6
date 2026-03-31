@@ -20,5 +20,19 @@ public class JobApplicationService {
         return repo.findById(appId).orElse(null);
     }
 
+    public void rejectApplication(Long appId) {
+        JobApplication app = repo.findById(appId).orElse(null);
+        if (app != null) {
+            // Set the status so it moves to the 'Rejected' tab in your UI
+
+            repo.deleteById(appId);
+        }
+    }
+
+    // Alternative: If you just want to remove it from the database
+    public void deleteApplication(Long appId) {
+        repo.deleteById(appId);
+    }
+
 
 }

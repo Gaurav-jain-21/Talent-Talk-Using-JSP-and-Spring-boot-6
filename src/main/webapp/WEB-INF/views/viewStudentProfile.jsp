@@ -207,9 +207,12 @@
                     <input type="hidden" name="appId" value="${appId}">
                     <button type="submit" class="btn-primary">Shortlist Candidate</button>
                 </form>
-                <form action="reject" method="post">
+                <form action="reject" method="post" style="flex:1;">
                     <input type="hidden" name="appId" value="${appId}">
-                    <button type="submit" class="btn-danger">Reject Application</button>
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to reject this applicant?')">
+                        Reject
+                    </button>
                 </form>
             </div>
         </div>
