@@ -17,4 +17,8 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
     boolean existsByJobIdAndStudentId(Long jobId, Long studentId);
 
     List<JobApplication> findByStatus(String status);
+
+    List<JobApplication> findByStudentIdAndStatus(Long studentId, String status);
+    List<JobApplication> findByJob_Company_IdAndStatus(Long companyId, String status);
+
 }

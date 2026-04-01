@@ -21,4 +21,7 @@ public class JobApplication {
     private String status= "Applied";
     private LocalDateTime appliedDate = LocalDateTime.now();
 
+    // Inside JobApplication.java or your Project Model
+    private int progressStep = 1; // 1: Started, 2: In Progress, 3: Completed
+
 }

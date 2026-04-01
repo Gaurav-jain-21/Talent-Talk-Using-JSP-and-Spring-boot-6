@@ -187,9 +187,17 @@ public class CompanyJobsController {
 
     // 2. Load the Client Page with real data
     @GetMapping("/companyClient")
-    public String showClientPage(Model model) {
-        List<JobApplication> shortlisted = applicationService.getShortlistedCandidates();
-        model.addAttribute("clients", shortlisted);
-        return "companyClient"; // This matches your JSP name
+    public String showClientPage(HttpSession session, Model model) {
+        CompanyDetailModel company = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+        if (company == null) return "redirect:/companyLogin";
+
+        // Change "Accepted" to whatever status you use when a student is hired
+        List<JobApplication> hiredTalent = applicationService.getApplicationsByCompanyAndStatus(company.getId(), "Accepted");
+
+        // Add a debug print to your console to see if data is coming back
+        System.out.println("Hired Talent Found: " + hiredTalent.size());
+
+        model.addAttribute("clients", hiredTalent);
+        return "companyClient";
     }
 }

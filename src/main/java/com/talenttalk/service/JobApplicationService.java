@@ -45,5 +45,11 @@ public class JobApplicationService {
         return repo.findByStatus("Shortlisted");
     }
 
-
+    /**
+     * The completed method for your Company Client page.
+     * It filters by the logged-in company's ID and the status (e.g., "Accepted").
+     */
+    public List<JobApplication> getApplicationsByCompanyAndStatus(Long companyId, String status) {
+        return repo.findByJob_Company_IdAndStatus(companyId, status);
+    }
 }

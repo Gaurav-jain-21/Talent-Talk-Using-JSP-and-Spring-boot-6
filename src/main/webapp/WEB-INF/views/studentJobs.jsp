@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Submit Proposal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 * {
@@ -86,52 +88,6 @@ body {
     color: #dfe6ff;
 }
 
-/* View Job Button */
-.view-btn {
-    float: right;
-    margin-top: -45px;
-    padding: 10px 18px;
-    border-radius: 20px;
-    border: none;
-    background: #e6e6e6;
-    cursor: pointer;
-}
-
-/* Project card */
-.project {
-    background: #e6e6e6;
-    padding: 18px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 25px 0;
-}
-
-.project-icon {
-    width: 55px;
-    height: 55px;
-    background: #d9cfcf;
-    border-radius: 10px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 10px;
-    margin-right: 10px;
-    font-size: 13px;
-}
-
-.price { background: #dcd0f5; }
-.time  { background: #b8e6c1; }
-
-/* Form box */
-.form-box {
-    background: #e6e6e6;
-    padding: 20px;
-    border-radius: 16px;
-}
 
 .form-box h3 {
     margin-bottom: 15px;
@@ -150,55 +106,100 @@ textarea {
     height: 120px;
     resize: none;
 }
-
-/* Row */
-.row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin: 15px 0;
-}
-
-/* Upload box */
-.upload {
-    border: 2px dashed #bbb;
-    padding: 30px;
-    text-align: center;
-    border-radius: 12px;
-    background: #f5f5f5;
-    margin-top: 10px;
-}
-
-/* Buttons */
-.actions {
+/* New Styles for Progress & Shortlist */
+.section-title {
+    color: white;
+    margin: 20px 0 15px 0;
+    font-size: 22px;
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
+}
+
+.card {
+    background: #e6e6e6;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Shortlist Row */
+.shortlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+.shortlist-item:last-child { border-bottom: none; }
+
+.comp-info { display: flex; align-items: center; gap: 15px; }
+.comp-logo {
+    width: 45px; height: 45px; background: #1f7f82;
+    color: white; border-radius: 8px; display: flex;
+    align-items: center; justify-content: center; font-weight: bold;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #b8e6c1; /* Greenish */
+    color: #1b5e20;
+}
+
+/* Progress Tracker */
+.progress-container {
     margin-top: 15px;
 }
-
-.cancel {
-    background: #d6d28f;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
+.step-wizard {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 10px;
 }
-
-.submit {
-    background: #2d39d4;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-.footer {
-    background: #0f5e61;
-    color: white;
-    padding: 20px;
+.step-wizard::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
     width: 100%;
-    margin-top: auto;
+    height: 3px;
+    background: #ccc;
+    z-index: 1;
+}
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+}
+.step.active { background: #1f7f82; }
+.step.completed { background: #2d39d4; }
+
+.step-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #555;
+}
+
+.btn-action {
+    background: #1f7f82;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
 }
 .footer p {
     margin: 5px 0;
@@ -227,75 +228,68 @@ textarea {
         <a href="studentSettings">Settings</a>
     </div>
 </div>
-
-<!-- ===== Main Content ===== -->
 <div class="wrapper">
-
-    <!-- Header -->
-    <div class="header">
-        <small>APPLICATION PROCESS</small>
-        <h1>Submit Proposal</h1>
-        <p>Apply for this professional opportunity</p>
-        <button class="view-btn">👁 View Job Details</button>
+    <div class="section-title">
+        <i class="fa-solid fa-list-check"></i>
+        My Active Project Progress
     </div>
 
-    <!-- Project Info -->
-    <div class="project">
-        <div class="project-icon"></div>
-        <div>
-            <strong>Senior UI/UX Designer for Fintech App</strong><br>
-            <span class="badge price">$5,000 – $8,000</span>
-            <span class="badge time">3 – 6 Months</span>
-        </div>
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background: #e6e6e6;">
+            <thead>
+            <tr style="background: #cfdede; color: #333;">
+                <th style="padding: 15px;">Company</th>
+                <th style="padding: 15px;">Job Title</th>
+                <th style="padding: 15px;">Contact Client</th>
+                <th style="padding: 15px;">Current Status</th>
+                <th style="padding: 15px;">Update Progress</th>
+                <th style="padding: 15px; text-align: center;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="app" items="${activeProjects}">
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 15px;">
+                        <strong>${app.job.company.name}</strong>
+                    </td>
+                    <td style="padding: 15px;">${app.job.jobtitle}</td>
+                    <td style="padding: 15px;">
+                        <a href="mailto:${app.job.company.email}" style="color: #1f7f82; text-decoration: none;">
+                            <i class="fa fa-envelope"></i> Email
+                        </a>
+                    </td>
+                    <td style="padding: 15px;">
+                            <span class="status-badge" style="
+                                    background: ${app.progressStep == 3 ? '#b8e6c1' : (app.progressStep == 2 ? '#fff9c4' : '#dcd0f5')};
+                                    color: ${app.progressStep == 3 ? '#1b5e20' : (app.progressStep == 2 ? '#f57f17' : '#512da8')};">
+                                <c:choose>
+                                    <c:when test="${app.progressStep == 1}">Started</c:when>
+                                    <c:when test="${app.progressStep == 2}">In Progress</c:when>
+                                    <c:when test="${app.progressStep == 3}">Completed</c:when>
+                                </c:choose>
+                            </span>
+                    </td>
+                    <td style="padding: 15px;">
+                        <form action="updateProjectStatus" method="post" id="form-${app.id}">
+                            <input type="hidden" name="applicationId" value="${app.id}">
+                            <select name="newStep" style="padding: 5px; border-radius: 5px; border: 1px solid #bbb;">
+                                <option value="1" ${app.progressStep == 1 ? 'selected' : ''}>Started</option>
+                                <option value="2" ${app.progressStep == 2 ? 'selected' : ''}>In Progress</option>
+                                <option value="3" ${app.progressStep == 3 ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                        <button type="submit" form="form-${app.id}" class="btn-action" style="border: none; cursor: pointer;">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-
-    <!-- Form -->
-    <form class="form-box" action="submitProposal" method="post" enctype="multipart/form-data">
-
-        <h3>Proposal Details</h3>
-
-        <label>Cover Letter</label>
-        <textarea name="coverLetter"
-            placeholder="Write your professional cover letter here..."></textarea>
-
-        <div class="row">
-            <div>
-                <label>Your Bid Amount</label>
-                <input type="number" name="bid" placeholder="$0.00">
-            </div>
-
-            <div>
-                <label>Project Timeline</label>
-                <select name="timeline">
-                    <option>Less than 1 month</option>
-                    <option>1 – 3 months</option>
-                    <option>3 – 6 months</option>
-                </select>
-            </div>
-        </div>
-
-        <label>Attachments (Optional)</label>
-        <div class="upload">
-            Drag and drop files here<br>
-            <small>Supported: PDF, JPG, PNG, DOCX</small>
-            <input type="file" name="file">
-        </div>
-
-        <div style="margin-top:10px;">
-            <input type="checkbox" required>
-            I agree to the Terms of Service and Privacy Policy.
-        </div>
-
-        <div class="actions">
-            <button type="reset" class="cancel">Cancel</button>
-            <button type="submit" class="submit">Submit Proposal</button>
-        </div>
-
-    </form>
-
 </div>
-<br/>
-
 <jsp:include page="footer.jsp" />
 
 </body>

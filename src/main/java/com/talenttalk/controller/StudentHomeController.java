@@ -35,10 +35,50 @@ public class StudentHomeController {
         return "studentProject";
     }
 
+    @Autowired
+    private ApplicationRepository appRepo;
+
+    /**
+     * Displays the Progress page with Shortlisted cards and Active Project table.
+     */
     @GetMapping("/studentJobs")
-    public String goToStudentJobs() {
-        return "studentJobs";
+    public String showProgressPage(HttpSession session, Model model) {
+        // 1. Get the logged-in student from the session
+        StudentDetailModel student = (StudentDetailModel) session.getAttribute("loggedInStudent");
+
+        if (student == null) {
+            return "redirect:/studentLogin"; // Security: Redirect if not logged in
+        }
+
+        // 2. Fetch Shortlisted Applications (Status = "Shortlisted")
+        List<JobApplication> shortlisted = appRepo.findByStudentIdAndStatus(student.getId(), "Shortlisted");
+        model.addAttribute("shortlistedJobs", shortlisted);
+
+        // 3. Fetch Active Projects (Status = "Accepted" or "Hired")
+        // These will appear in your new table format
+        List<JobApplication> active = appRepo.findByStudentIdAndStatus(student.getId(), "Accepted");
+        model.addAttribute("activeProjects", active);
+
+        return "studentJobs"; // This matches your JSP name
     }
+    @PostMapping("/updateProjectStatus")
+    public String updateProjectStatus(@RequestParam("applicationId") Long appId,
+                                      @RequestParam("newStep") int newStep) {
+
+        // 1. Find the specific application
+        JobApplication application = appRepo.findById(appId)
+                .orElseThrow(() -> new RuntimeException("Application not found with ID: " + appId));
+
+        // 2. Update the progress step (1, 2, or 3)
+        application.setProgressStep(newStep);
+
+        // 3. Save to MySQL
+        appRepo.save(application);
+
+        // 4. Redirect back to the same page to show the updated table
+        return "redirect:/studentJobs";
+    }
+
 
     @GetMapping("/studentPayments")
     public String goToStudentPayments() {
@@ -101,8 +141,6 @@ public class StudentHomeController {
     @Autowired
     private CompanyJobsRepo jobsRepo;
 
-    @Autowired
-    private ApplicationRepository appRepo;
     @PostMapping("/confirmApplication")
     public String jobApplication(@RequestParam("jobId") Long jobId, HttpSession session, Model model){
         StudentDetailModel student= (StudentDetailModel)  session.getAttribute("loggedInStudent");

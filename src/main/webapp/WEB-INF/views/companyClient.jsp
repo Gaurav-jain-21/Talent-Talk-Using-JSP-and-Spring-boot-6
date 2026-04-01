@@ -99,7 +99,55 @@ body{
     outline:none;
     width:100%;
 }
+.row {
+    display: grid;
+    grid-template-columns: 1.5fr 1.2fr 1fr 1.8fr; /* Adjusted for Progress Column */
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
+/* Progress Tracker Styling */
+.mini-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+}
+
+.dot.fill { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+
+.status-text {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* Avatar Circle */
+.avatar-circle {
+    width: 35px;
+    height: 35px;
+    background: #0f5e61;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.3);
+}
 /* FILTER */
 .filter{
     margin:15px 0;
@@ -174,61 +222,64 @@ body{
 
 <!-- ===== MAIN ===== -->
 <div class="container">
-
-    <div class="title">Client</div>
+    <div class="title">Active Talent Progress</div>
 
     <div class="search">
         <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search users">
+        <input type="text" placeholder="Search by student name or role...">
     </div>
 
-    <div class="filter">
-        <button>Filter ▼</button>
-    </div>
-
-    <div class="table">
-        <div class="row" style="opacity:0.8; font-size:14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">
-            <div>Name</div>
-            <div>Applied Role</div>
-            <div>Email</div>
-            <div>Status</div>
+    <div class="table" style="margin-top: 25px;">
+        <div class="row" style="opacity:0.7; font-size:13px; font-weight: 600; text-transform: uppercase;">
+            <div>Talent Name</div>
+            <div>Assigned Role</div>
+            <div>Contact</div>
+            <div>Project Progress</div>
         </div>
 
-        <%-- Replace your manual Java loop with JSTL --%>
         <c:forEach var="client" items="${clients}">
             <div class="row">
                 <div class="user">
-                    <div style="width:35px; height:35px;">
-                        <c:choose>
-                            <c:when test="${not empty client.student.firstName}">
-                                ${client.student.firstName.substring(0,1)}
-                            </c:when>
-                            <c:otherwise>?</c:otherwise>
-                        </c:choose>
+                    <div class="avatar-circle">
+                            ${client.student.firstName.substring(0,1)}
                     </div>
                     <span>${client.student.firstName} ${client.student.lastName}</span>
                 </div>
 
-                <div>${client.job.jobtitle}</div>
+                <div style="font-size: 14px;">${client.job.jobtitle}</div>
 
-                <div style="font-size: 13px; opacity: 0.8;">${client.student.email}</div>
+                <div>
+                    <a href="mailto:${client.student.email}" style="color: #00ff88; text-decoration: none; font-size: 13px;">
+                        <i class="fa fa-envelope"></i> Message
+                    </a>
+                </div>
 
-                <div class="status green">
-                    Shortlisted
+                <div class="mini-progress">
+                    <div class="dot-container">
+                        <div class="dot ${client.progressStep >= 1 ? 'fill' : ''}"></div>
+                        <div class="dot ${client.progressStep >= 2 ? 'fill' : ''}"></div>
+                        <div class="dot ${client.progressStep == 3 ? 'fill' : ''}"></div>
+                    </div>
+
+                    <span class="status-text ${client.progressStep == 3 ? 'green' : 'yellow'}">
+                        <c:choose>
+                            <c:when test="${client.progressStep == 1}">Started</c:when>
+                            <c:when test="${client.progressStep == 2}">In Progress</c:when>
+                            <c:when test="${client.progressStep == 3}">Completed</c:when>
+                            <c:otherwise>Pending</c:otherwise>
+                        </c:choose>
+                    </span>
                 </div>
             </div>
         </c:forEach>
 
-        <%-- Handle empty list --%>
         <c:if test="${empty clients}">
-            <div style="text-align:center; padding: 40px; opacity:0.6;">
-                No shortlisted candidates yet.
+            <div style="text-align:center; padding: 60px; opacity:0.5;">
+                <i class="fa fa-user-slash" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>No active talent found in your client list.</p>
             </div>
         </c:if>
     </div>
-
-
-
 </div>
 <jsp:include page="footer.jsp" />
 </body>
