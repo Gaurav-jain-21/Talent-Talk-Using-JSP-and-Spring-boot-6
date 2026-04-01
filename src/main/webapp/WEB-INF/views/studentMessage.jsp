@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Messages</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 * {
     margin: 0;
@@ -82,7 +83,69 @@ body {
     border: none;
     width: 260px;
 }
+/* Add these to your existing CSS */
 
+.inbox-card {
+    background: #e6e6e6; /* Matches your previous gray style */
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    color: #333;
+    position: relative;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #1f7f82;
+    border-radius: 50%;
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #cfdede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.msg-details {
+    flex: 1; /* This pushes the meta and actions to the right */
+}
+
+.msg-details strong {
+    display: block;
+    font-size: 16px;
+}
+
+.msg-details p {
+    font-size: 14px;
+    color: #555;
+}
+
+.msg-meta {
+    text-align: right;
+    font-size: 12px;
+    color: #777;
+    margin-left: 20px;
+}
+
+.actions {
+    margin-top: 5px;
+    font-size: 18px;
+}
 /* Divider */
 .divider {
     height: 1px;
@@ -175,55 +238,68 @@ body {
         <a href="studentSettings">Settings</a>
     </div>
 </div>
-
-<!-- ===== Main Content ===== -->
 <div class="container">
-
-    <div class="header">
-        <h2>Message</h2>
+    <div class="header-box">
+        <h1>Messages</h1>
         <div class="search-box">
-            <input type="text" placeholder="🔍 Search">
+            <input type="text" class="search-input" placeholder="🔍 Search conversations...">
         </div>
     </div>
 
-    <div class="divider"></div>
+    <div class="divider" style="height:1px; background:rgba(255,255,255,0.2); margin-bottom:20px;"></div>
 
-    <!-- Message Item 1 -->
-    <div class="message-card">
-        <div class="msg-left">
-            <div class="msg-icon">TA</div>
-            <div class="msg-info">
-                <strong>Tech Innovators Inc.</strong>
-                <small>2 mins ago</small>
+    <c:forEach var="m" items="${inbox}">
+        <div class="inbox-card">
+                <%-- Status dot shows if 'isRead' is false --%>
+            <c:if test="${not m.read}">
+                <div class="status-dot" title="Unread"></div>
+            </c:if>
+
+            <div class="company-logo">
+                <c:choose>
+                    <c:when test="${not empty m.senderEmail}">
+                        ${m.senderEmail.substring(0,1).toUpperCase()}
+                    </c:when>
+                    <c:otherwise>?</c:otherwise>
+                </c:choose>
+            </div>
+
+            <div class="msg-details">
+                <strong>${m.senderEmail}</strong>
+                <p>
+                    <c:choose>
+                        <c:when test="${not empty m.content && m.content.length() > 60}">
+                            ${m.content.substring(0,60)}...
+                        </c:when>
+                        <c:otherwise>
+                            ${not empty m.content ? m.content : "No content available."}
+                        </c:otherwise>
+                    </c:choose>
+                </p>
+            </div>
+
+            <div class="msg-meta">
+                <span style="display:block; margin-bottom: 5px;">${m.timestamp}</span>
+                <div class="actions">
+                    <i class="fa fa-eye" style="margin-right:10px; cursor:pointer;" title="View Message"></i>
+
+                    <a href="${pageContext.request.contextPath}/deleteMessage/${m.id}"
+                       onclick="return confirm('Are you sure you want to delete this message?')"
+                       style="color:inherit; text-decoration:none;">
+                        <i class="fa fa-trash" title="Delete" style="color:#ff4d4d;"></i>
+                    </a>
+                </div>
             </div>
         </div>
+    </c:forEach>
 
-        <div class="msg-type">Project Requirement</div>
-
-        <div class="msg-actions">
-            👁
-            <span class="delete">🗑</span>
+    <c:if test="${empty inbox}">
+        <div style="text-align:center; padding:60px; opacity:0.6;">
+            <i class="fa-solid fa-envelope-open-text" style="font-size: 50px; margin-bottom:15px; display:block;"></i>
+            <p style="font-size: 18px;">Your inbox is empty.</p>
+            <small>New project requirements from companies will appear here.</small>
         </div>
-    </div>
-
-    <!-- Message Item 2 -->
-    <div class="message-card">
-        <div class="msg-left">
-            <div class="msg-icon">CM</div>
-            <div class="msg-info">
-                <strong>Creative Minds Co.</strong>
-                <small>10 mins ago</small>
-            </div>
-        </div>
-
-        <div class="msg-type">Project Inquiry</div>
-
-        <div class="msg-actions">
-            👁
-            <span class="delete">🗑</span>
-        </div>
-    </div>
-
+    </c:if>
 </div>
 <jsp:include page="footer.jsp" />
 

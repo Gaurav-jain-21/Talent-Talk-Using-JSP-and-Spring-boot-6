@@ -198,7 +198,7 @@ body{
         <c:forEach var="client" items="${clients}">
             <div class="row">
                 <div class="user">
-                    <div style="width:35px; height:35px; ...">
+                    <div style="width:35px; height:35px;">
                         <c:choose>
                             <c:when test="${not empty client.student.firstName}">
                                 ${client.student.firstName.substring(0,1)}

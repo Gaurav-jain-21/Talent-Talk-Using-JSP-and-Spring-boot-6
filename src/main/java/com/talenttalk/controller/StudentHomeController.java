@@ -50,11 +50,6 @@ public class StudentHomeController {
         return "studentSettings";
     }
 
-    @GetMapping("/studentMessage")
-    public String goToStudentMessage() {
-        return "studentMessage";
-    }
-
 
     @GetMapping("/studentProfile")
     public String studentProfile(HttpSession session, Model model) {

@@ -59,8 +59,4 @@ public class CompanyHomeController {
         model.addAttribute("candidates",applications);
         return "companyApplication";
     }
-    @GetMapping("/companyMessage")
-    public String CompanyMessage(){
-        return "companyMessage";
-    }
 }

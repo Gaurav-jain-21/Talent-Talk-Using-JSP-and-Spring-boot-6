@@ -53,6 +53,9 @@ body {
     width: 260px;
 }
 
+.compose-card { background: white; color: #333; padding: 20px; border-radius: 15px; margin-bottom: 30px; }
+.compose-card input, .compose-card textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+.btn-send { background: #1f7f82; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
 /* Message Card */
 .message {
     background: #e6e6e6;
@@ -122,55 +125,37 @@ body {
 </div>
 
 <div class="main">
-
-<%
-List<Map<String, String>> messages = new ArrayList<>();
-
-String[][] data = {
-    {"Jackson Reed", "2 mins ago", "Mobile application Project Requirement"},
-    {"Jackson Reed", "2 hours ago", "UI/UX Designer Project Requirement"},
-    {"Jackson Reed", "3 hours ago", ".net C# Project Requirement"},
-    {"Jackson Reed", "1 days ago", "Project design requirement"}
-};
-
-for (String[] d : data) {
-    Map<String, String> m = new HashMap<>();
-    m.put("name", d[0]);
-    m.put("time", d[1]);
-    m.put("subject", d[2]);
-    messages.add(m);
-}
-%>
-
-<div class="header">
-    <h1>Messages</h1>
-    <input class="search" type="text" placeholder="Search">
-</div>
-
-<%
-for (Map<String, String> m : messages) {
-%>
-
-<div class="message">
-    <div class="left">
-        <div class="avatar"></div>
-        <div>
-            <div class="name"><%= m.get("name") %></div>
-            <div class="time"><%= m.get("time") %></div>
+    <div class="container">
+        <h2>Send New Message</h2>
+        <div class="compose-card">
+            <form action="sendMessage" method="POST">
+                <input type="email" name="clientEmail" placeholder="Recipient Email (Student)" required>
+                <textarea name="messageContent" rows="3" placeholder="Write your message..." required></textarea>
+                <button type="submit" class="btn-send">Send Message <i class="fa fa-paper-plane"></i></button>
+            </form>
         </div>
+
+        <hr style="margin-bottom: 20px; opacity: 0.3;">
+
+        <h2>Recent Inbound Messages</h2>
+        <c:forEach var="msg" items="${messages}">
+            <div class="message-card">
+                <div class="msg-icon">${msg.senderEmail.substring(0,1).toUpperCase()}</div>
+                <div class="msg-body">
+                    <strong>${msg.senderEmail}</strong><br>
+                    <small>${msg.content}</small>
+                </div>
+                <div class="msg-actions">
+                    <i class="fa fa-eye"></i>
+                    <a href="deleteMessage/${msg.id}"><i class="fa fa-trash delete"></i></a>
+                </div>
+            </div>
+        </c:forEach>
+
+        <c:if test="${empty messages}">
+            <p style="text-align:center; opacity:0.7;">No messages in your inbox.</p>
+        </c:if>
     </div>
-
-    <div class="subject"><%= m.get("subject") %></div>
-
-    <div class="actions">
-        <span>👁️</span>
-        <span>✏️</span>
-        <span class="delete">🗑️</span>
-    </div>
-</div>
-
-<% } %>
-
 </div>
 <jsp:include page="footer.jsp" />
 </body>
