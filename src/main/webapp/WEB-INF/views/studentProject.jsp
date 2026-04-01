@@ -180,7 +180,7 @@ body {
     <div class="nav-right">
         <a href="studentDashboard">Dashboard</a>
         <a href="studentProject">Projects</a>
-        <a href="studentJobs">Find Jobs</a>
+        <a href="studentJobs">Work and Jobs</a>
         <a href="studentMessage">Message</a>
         <a href="studentPayments">Payments</a>
         <a href="studentSettings">Settings</a>
