@@ -198,7 +198,6 @@ h1 {
                     <div class="avatar">
 <%--                        <img src="${app.student.}" style="width:100%; border-radius:50%;">--%>
                     </div>
-                    <div class="score">95%</div>
                 </div>
 
                 <div class="name">${app.student.firstName}</div>

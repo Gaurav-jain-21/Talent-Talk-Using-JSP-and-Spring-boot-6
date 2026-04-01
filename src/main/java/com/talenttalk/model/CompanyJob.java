@@ -3,6 +3,7 @@ package com.talenttalk.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -22,6 +23,7 @@ public class CompanyJob {
     private String projectdescription;
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="company_id",nullable=false)
+    @ToString.Exclude
     private CompanyDetailModel company;
 
 }

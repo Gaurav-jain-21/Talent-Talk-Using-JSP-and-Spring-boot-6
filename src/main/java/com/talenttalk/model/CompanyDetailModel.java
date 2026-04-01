@@ -3,6 +3,7 @@ package com.talenttalk.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class CompanyDetailModel {
     private String industry;
     private String headQuarter;
     @OneToMany(mappedBy="company",cascade=CascadeType.ALL)
+    @ToString.Exclude // <--- ADD THIS
     private List<CompanyJob> jobs;
 
 

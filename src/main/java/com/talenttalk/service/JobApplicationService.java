@@ -34,5 +34,16 @@ public class JobApplicationService {
         repo.deleteById(appId);
     }
 
+    public void shortlistCandidate(Long appId) {
+        repo.findById(appId).ifPresent(app -> {
+            app.setStatus("Shortlisted");
+            repo.save(app);
+        });
+    }
+
+    public List<JobApplication> getShortlistedCandidates() {
+        return repo.findByStatus("Shortlisted");
+    }
+
 
 }

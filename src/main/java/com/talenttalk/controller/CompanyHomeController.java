@@ -30,10 +30,6 @@ public class CompanyHomeController {
 
         return "companyDashboard";
     }
-    @GetMapping("/companyClient")
-    public String CompanyClient(){
-        return "companyClient";
-    }
     @GetMapping("/companyJobs")
     public String CompanyJobs(HttpSession session){
         if (session.getAttribute("loggedInCompany") == null) {

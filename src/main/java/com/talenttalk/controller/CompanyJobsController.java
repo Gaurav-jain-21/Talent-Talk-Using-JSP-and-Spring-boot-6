@@ -177,4 +177,19 @@ public class CompanyJobsController {
         return "redirect:/companyApplication";
     }
 
+    // 1. Process the button click
+    @PostMapping("/shortlist")
+    public String shortlistCandidate(@RequestParam("appId") Long appId) {
+        applicationService.shortlistCandidate(appId);
+        // Use "redirect:" to call the GET mapping and refresh the data properly
+        return "redirect:/companyClient";
+    }
+
+    // 2. Load the Client Page with real data
+    @GetMapping("/companyClient")
+    public String showClientPage(Model model) {
+        List<JobApplication> shortlisted = applicationService.getShortlistedCandidates();
+        model.addAttribute("clients", shortlisted);
+        return "companyClient"; // This matches your JSP name
+    }
 }

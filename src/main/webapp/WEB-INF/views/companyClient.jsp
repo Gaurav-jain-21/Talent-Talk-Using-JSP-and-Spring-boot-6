@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -185,63 +186,48 @@ body{
         <button>Filter ▼</button>
     </div>
 
-    <%
-    List<Map<String,String>> clients = Arrays.asList(
-
-        Map.of(
-            "name","Sophia Carter",
-            "role","Mobile App Developer",
-            "rating","4.5/5",
-            "status","Active",
-            "color","green"
-        ),
-
-        Map.of(
-            "name","Jackson Reed",
-            "role","Content Marketing",
-            "rating","4/5",
-            "status","Accepts",
-            "color","yellow"
-        ),
-
-        Map.of(
-            "name","Isabella Cole",
-            "role","Senior UX/UI Designer",
-            "rating","4.6/5",
-            "status","Deactive",
-            "color","red"
-        )
-    );
-    %>
-
     <div class="table">
-
-        <!-- HEADER -->
-        <div class="row" style="opacity:0.8; font-size:14px;">
+        <div class="row" style="opacity:0.8; font-size:14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">
             <div>Name</div>
-            <div>Role</div>
-            <div>Rating</div>
+            <div>Applied Role</div>
+            <div>Email</div>
             <div>Status</div>
         </div>
 
-        <% for(Map<String,String> c : clients){ %>
-        <div class="row">
-            <div class="user">
-                <img src="https://i.pravatar.cc/40">
-                <span><%= c.get("name") %></span>
+        <%-- Replace your manual Java loop with JSTL --%>
+        <c:forEach var="client" items="${clients}">
+            <div class="row">
+                <div class="user">
+                    <div style="width:35px; height:35px; ...">
+                        <c:choose>
+                            <c:when test="${not empty client.student.firstName}">
+                                ${client.student.firstName.substring(0,1)}
+                            </c:when>
+                            <c:otherwise>?</c:otherwise>
+                        </c:choose>
+                    </div>
+                    <span>${client.student.firstName} ${client.student.lastName}</span>
+                </div>
+
+                <div>${client.job.jobtitle}</div>
+
+                <div style="font-size: 13px; opacity: 0.8;">${client.student.email}</div>
+
+                <div class="status green">
+                    Shortlisted
+                </div>
             </div>
+        </c:forEach>
 
-            <div><%= c.get("role") %></div>
-
-            <div><%= c.get("rating") %></div>
-
-            <div class="status <%= c.get("color") %>">
-                <%= c.get("status") %>
+        <%-- Handle empty list --%>
+        <c:if test="${empty clients}">
+            <div style="text-align:center; padding: 40px; opacity:0.6;">
+                No shortlisted candidates yet.
             </div>
-        </div>
-        <% } %>
-
+        </c:if>
     </div>
+
+
 
 </div>
 <jsp:include page="footer.jsp" />
