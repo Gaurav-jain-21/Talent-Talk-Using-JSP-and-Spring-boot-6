@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -27,5 +29,8 @@ public class StudentDetailModel {
     @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] resume; // To store the file content
     private String resumeFileType;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<JobApplication> applications;
 
 }
