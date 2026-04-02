@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,6 +136,57 @@ body {
     object-fit: cover;
     border-radius: 14px;
 }
+
+.jobs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.jobs-table th,
+.jobs-table td {
+    text-align: left;
+    padding: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+
+.jobs-table th {
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 700;
+    background: #fafbff;
+}
+
+.jobs-table td {
+    font-size: 14px;
+    color: #111827;
+}
+
+.job-description {
+    color: #4b5563;
+    max-width: 420px;
+    line-height: 1.4;
+}
+
+.delete-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #b42318;
+    background: #fff1f1;
+    border: 1px solid #ffd7d7;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.delete-btn:hover {
+    background: #ffe6e6;
+}
 </style>
 </head>
 
@@ -158,63 +211,46 @@ body {
 
 <!-- Main Content -->
 <div class="main">
-    <div class="header">Job Post Approval</div>
+    <div class="header">Job Management</div>
 
-    <%
-        List<Map<String, String>> jobs = Arrays.asList(
-            Map.of(
-                "status", "Pending",
-                "title", "Senior UX/UI Designer",
-                "description", "Design intuitive user interfaces for web and mobile applications. Collaborate with product managers and engineers to define and implement innovative solutions. Conduct user research and usability testing to ensure designs meet user needs.",
-                "action", "Approve Job",
-                "image", "https://via.placeholder.com/300x200"
-            ),
-            Map.of(
-                "status", "Pending",
-                "title", "Mobile App Developer",
-                "description", "Develop high-quality mobile applications for iOS and Android platforms. Work closely with the design team to translate designs and wireframes into clean, efficient, and maintainable code. Ensure the performance, quality, and responsiveness of applications.",
-                "action", "Approve Job",
-                "image", "https://via.placeholder.com/300x200"
-            ),
-            Map.of(
-                "status", "Pending",
-                "title", "Content Marketing Specialist",
-                "description", "Create and execute content marketing strategies to drive brand awareness and generate leads. Develop engaging content for various channels, including blog posts, social media, email campaigns, and website copy. Analyze content performance and optimize strategies to achieve marketing goals.",
-                "action", "Approve Job",
-                "image", "https://via.placeholder.com/300x200"
-            ),
-            Map.of(
-                "status", "Pending",
-                "title", "Data Analyst",
-                "description", "Analyze large datasets to identify trends, patterns, and insights that inform business decisions. Develop and maintain dashboards and reports to track key performance indicators (KPIs). Collaborate with stakeholders to understand their data needs and provide actionable recommendations.",
-                "action", "Approve Job",
-                "image", "https://via.placeholder.com/300x200"
-            )
-        );
+    <table class="jobs-table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Description</th>
+            <th>Applicants / Client</th>
+            <th>Delete Job</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="job" items="${allJobs}">
+            <tr>
+                <td><c:out value="${job.jobtitle}" /></td>
+                <td><c:out value="${job.company.name}" /></td>
+                <td class="job-description"><c:out value="${job.projectdescription}" /></td>
+                <td>${fn:length(job.applications)}</td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/deleteAdminJob?id=${job.id}"
+                       class="delete-btn"
+                       onclick="return confirm('Delete this job post?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-        for (Map<String, String> job : jobs) {
-    %>
-
-    <div class="job-card">
-        <div>
-            <div class="status"><%= job.get("status") %></div>
-            <div class="title"><%= job.get("title") %></div>
-            <div class="description"><%= job.get("description") %></div>
-            <button class="approve-btn"><%= job.get("action") %></button>
-            <button class="approve-btn">Delete</button>
+    <c:if test="${empty allJobs}">
+        <div style="text-align: center; padding: 50px; color: #9ca3af;">
+            <i class="fa-solid fa-folder-open" style="font-size: 40px; margin-bottom: 10px;"></i>
+            <p>No jobs have been posted yet.</p>
         </div>
+    </c:if>
 
-        <div class="job-image">
-            <img src="<%= job.get("image") %>" alt="<%= job.get("title") %>" />
-        </div>
-    </div>
-
-    <%
-        }
-    %>
-
-<br/>
-<jsp:include page="footer.jsp" />
+    <br/>
+    <jsp:include page="footer.jsp" />
 </div>
 
 </body>

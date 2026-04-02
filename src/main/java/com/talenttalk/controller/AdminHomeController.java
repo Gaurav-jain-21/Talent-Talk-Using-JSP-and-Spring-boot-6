@@ -1,7 +1,9 @@
 package com.talenttalk.controller;
 
+import com.talenttalk.model.CompanyJob;
 import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.repo.StudentSignUpRepo;
+import com.talenttalk.service.CompanyJobsService;
 import com.talenttalk.service.StudentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +60,33 @@ public class AdminHomeController {
         }
 
         return "redirect:/adminUsers";
+    }
+
+
+    @Autowired
+    private CompanyJobsService jobService;
+
+    @GetMapping("/adminJobs")
+    public String showAdminJobs(HttpSession session, Model model) {
+        if (session.getAttribute("loggedInAdmin") == null) {
+            return "redirect:/adminLogin";
+        }
+
+        List<CompanyJob> allJobs = jobService.getAllJobs();
+        model.addAttribute("allJobs", allJobs);
+        return "adminJobs";
+    }
+
+    @GetMapping("/deleteAdminJob")
+    public String deleteJob(@RequestParam("id") Long id, HttpSession session) {
+        if (session.getAttribute("loggedInAdmin") == null) {
+            return "redirect:/adminLogin";
+        }
+
+        if (jobService.getJobById(id) != null) {
+            jobService.deleteJobById(id);
+        }
+
+        return "redirect:/adminJobs";
     }
 }
