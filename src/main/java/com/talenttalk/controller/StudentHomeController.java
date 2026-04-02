@@ -84,7 +84,10 @@ public class StudentHomeController {
     }
 
     @GetMapping("/studentSettings")
-    public String goToStudentSettings() {
+    public String goToStudentSettings(HttpSession session) {
+        if (session.getAttribute("loggedInStudent") == null) {
+            return "redirect:/studentLogin";
+        }
         return "studentSettings";
     }
 

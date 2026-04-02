@@ -42,7 +42,10 @@ public class CompanyHomeController {
         return "companyPayment";
     }
     @GetMapping("/companySettings")
-    public String CompanySettings(){
+    public String CompanySettings(HttpSession session){
+        if (session.getAttribute("loggedInCompany") == null) {
+            return "redirect:/companyLogin";
+        }
         return "companySettings";
     }
     @GetMapping("/companyForgotPassword")
