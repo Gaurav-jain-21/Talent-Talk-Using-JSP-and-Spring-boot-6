@@ -241,7 +241,10 @@ body{
             <div class="row">
                 <div class="user">
                     <div class="avatar-circle">
-                            ${client.student.firstName.substring(0,1)}
+                            <c:choose>
+                                <c:when test="${not empty client.student.firstName}">${client.student.firstName.substring(0,1)}</c:when>
+                                <c:otherwise>?</c:otherwise>
+                            </c:choose>
                     </div>
                     <span>${client.student.firstName} ${client.student.lastName}</span>
                 </div>
@@ -276,7 +279,7 @@ body{
         <c:if test="${empty clients}">
             <div style="text-align:center; padding: 60px; opacity:0.5;">
                 <i class="fa fa-user-slash" style="font-size: 40px; margin-bottom: 10px;"></i>
-                <p>No active talent found in your client list.</p>
+                <p>No shortlisted talent found in your client list.</p>
             </div>
         </c:if>
     </div>

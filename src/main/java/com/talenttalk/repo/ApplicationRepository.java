@@ -19,11 +19,11 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
     List<JobApplication> findByJob_Company_Id(Long companyId);
 
     // 4. For Application Management: Check if a student already applied to a job
-    boolean existsByJobIdAndStudentId(Long jobId, Long studentId);
+    boolean existsByJob_IdAndStudent_Id(Long jobId, Long studentId);
 
     // 5. General search by Status
     List<JobApplication> findByStatus(String status);
 
     // 6. Find all applications for a specific Job
-    List<JobApplication> findByJobId(Long jobId);
+    List<JobApplication> findByJob_Id(Long jobId);
 }

@@ -230,6 +230,34 @@ textarea {
 </div>
 <div class="wrapper">
     <div class="section-title">
+        <i class="fa-solid fa-suitcase"></i>
+        My Shortlisted Jobs
+    </div>
+
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background: #e6e6e6;">
+            <thead>
+            <tr style="background: #cfdede; color: #333;">
+                <th style="padding: 15px;">Company</th>
+                <th style="padding: 15px;">Job Title</th>
+                <th style="padding: 15px;">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="app" items="${shortlistedJobs}">
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 15px;"><strong>${app.job.company.name}</strong></td>
+                    <td style="padding: 15px;">${app.job.jobtitle}</td>
+                    <td style="padding: 15px;">
+                        <span class="status-badge">${app.status}</span>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">
         <i class="fa-solid fa-list-check"></i>
         My Active Project Progress
     </div>
@@ -288,6 +316,11 @@ textarea {
             </c:forEach>
             </tbody>
         </table>
+        <c:if test="${empty activeProjects}">
+            <div style="text-align:center; padding: 35px; color:#777; background:#e6e6e6;">
+                No shortlisted work has been assigned yet.
+            </div>
+        </c:if>
     </div>
 </div>
 <jsp:include page="footer.jsp" />

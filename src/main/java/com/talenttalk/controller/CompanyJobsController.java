@@ -99,7 +99,7 @@ public class CompanyJobsController {
     private ApplicationRepository appRepo;
     @GetMapping("/viewApplicants")
     public String viewApplicants(@RequestParam("jobId") Long jobId,Model model){
-        java.util.List<JobApplication> apps= appRepo.findByJobId(jobId);
+        java.util.List<JobApplication> apps= appRepo.findByJob_Id(jobId);
         model.addAttribute("candidates",apps);
         model.addAttribute("totalCount",apps.size());
         return "companyApplication";

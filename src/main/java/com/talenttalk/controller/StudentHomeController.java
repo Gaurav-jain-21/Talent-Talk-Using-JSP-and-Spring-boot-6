@@ -147,13 +147,14 @@ public class StudentHomeController {
         }
         CompanyJob job= jobsRepo.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found with ID: " + jobId));
-        if (!appRepo.existsByJobIdAndStudentId(jobId, student.getId())) {
+        if (!appRepo.existsByJob_IdAndStudent_Id(jobId, student.getId())) {
             JobApplication application = new JobApplication();
             application.setJob(job);
             application.setStudent(student);
+            application.setStatus("Applied");
             appRepo.save(application);
         }
 
-        return "redirect:/studentDashboard";
+        return "redirect:/studentProject";
     }
 }
