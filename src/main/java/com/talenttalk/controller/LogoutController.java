@@ -22,4 +22,12 @@ public class LogoutController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/LogoutCompany")
+    public String adminLogout(HttpSession session){
+        if(session !=null){
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
 }

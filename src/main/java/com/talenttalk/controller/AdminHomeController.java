@@ -139,4 +139,22 @@ public class AdminHomeController {
 
         return "redirect:/adminCompany";
     }
+
+    @GetMapping("/adminInsights")
+    public String showAdminInsights(){
+        return "adminInsights";
+    }
+
+    @GetMapping("/adminPayment")
+    public String showAdminPayment(){
+        return "adminPayment";
+    }
+
+    @GetMapping("/adminSettings")
+    public String showAdminSettings(HttpSession session){
+        if(session.getAttribute("loggedInAdmin")==null){
+            return "redirect:/adminLogin";
+        }
+        return "adminSettings";
+    }
 }
