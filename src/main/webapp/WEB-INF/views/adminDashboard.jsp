@@ -180,10 +180,6 @@
             <i class="fa-solid fa-building"></i> Company Verification
         </a>
 
-        <a href="adminInvoice">
-            <i class="fa-solid fa-file-invoice"></i> Invoice
-        </a>
-
         <a href="adminInsights">
             <i class="fa-solid fa-chart-pie"></i> Insights
         </a>

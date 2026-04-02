@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,6 +167,58 @@ body {
     opacity: 0.9;
 }
 
+.container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.comp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comp-table thead th {
+    text-align: left;
+    color: #6b7280;
+    font-size: 13px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #ececec;
+}
+
+.comp-table td {
+    padding: 14px;
+    border-bottom: 1px solid #f2f2f2;
+    color: #111827;
+}
+
+.working-badge {
+    display: inline-block;
+    background: #eef2ff;
+    color: #5a54ff;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn-remove {
+    display: inline-block;
+    text-decoration: none;
+    color: #b42318;
+    background: #fff1f1;
+    border: 1px solid #ffd7d7;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-remove:hover {
+    background: #ffe6e6;
+}
+
 </style>     
 </head>
 <body>
@@ -178,7 +231,6 @@ body {
         <a href="adminUsers"><i class="fa-solid fa-users"></i> Users</a>
         <a href="adminJobs"><i class="fa-solid fa-briefcase"></i> Jobs</a>
         <a href="adminCompany" class="active"><i class="fa-solid fa-building"></i> Company Verification</a>
-        <a href="adminInvoice"><i class="fa-solid fa-file-invoice"></i> Invoice</a>
         <a href="adminInsights"><i class="fa-solid fa-chart-pie"></i> Insights</a>
         <a href="adminPayment"><i class="fa-solid fa-credit-card"></i> Payments</a>
         <a href="adminSettings"><i class="fa-solid fa-gear"></i> Settings</a>
@@ -186,84 +238,48 @@ body {
 </div>
 
 <!-- Main Content -->
-<div class="main">
-    <div class="header">Company Verification</div>
 
-    <%
-    List<Map<String, String>> companys = Arrays.asList(
+    <div class="main">
+        <div class="header">Company Management</div>
 
-        Map.of(
-            "name", "Tech Innovators Inc.",
-            "category", "Technology",
-            "description", "Tech Innovators Inc. is a leading technology company specializing in software development and IT solutions.",
-            "image", "images/company1.png"
-        ),
+        <div class="container">
+            <table class="comp-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Students Working</th>
+                    <th>Remove Company</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="comp" items="${companies}">
+                    <tr>
+                        <td><c:out value="${comp.name}" /></td>
+                        <td><c:out value="${comp.email}" /></td>
+                        <td>
+                            <span class="working-badge">
+                                <i class="fa-solid fa-user-check"></i> ${hiredCounts[comp.id]}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/deleteAdminCompany?id=${comp.id}" class="btn-remove" onclick="return confirm('Deleting this company will remove all their job posts. Continue?')">
+                                <i class="fa-solid fa-trash-can"></i> Remove Company
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-        Map.of(
-            "name", "Global Solutions Ltd.",
-            "category", "Consulting",
-            "description", "Global Solutions Ltd. offers comprehensive consulting services to businesses worldwide.",
-            "image", "images/company2.png"
-        ),
-
-        Map.of(
-            "name", "Creative Minds Co.",
-            "category", "Design",
-            "description", "Creative Minds Co. is a design agency known for its innovative and creative solutions.",
-            "image", "images/company3.png"
-        ),
-
-        Map.of(
-            "name", "Digital Dynamics Corp.",
-            "category", "Software",
-            "description", "Digital Dynamics Corp. is a software company focused on creating dynamic digital experiences.",
-            "image", "images/company4.png"
-        ),
-
-        Map.of(
-            "name", "Strategic Ventures LLC.",
-            "category", "Finance",
-            "description", "Strategic Ventures LLC. is a finance firm specializing in strategic investments and financial planning.",
-            "image", "images/company5.png"
-        ),
-
-        Map.of(
-            "name", "Innovative Systems Group",
-            "category", "Engineering",
-            "description", "Innovative Systems Group is an engineering company that develops cutting-edge systems and technologies.",
-            "image", "images/company6.png"
-        )
-
-    );
-    %>
-
-    <form action="CompanyApprovalServlet" method="post">
-
-    <div class="company-grid">
-
-    <% for (Map<String, String> c : companys) { %>
-
-        <div class="company-card">
-            <div class="logo-box">
-                <input type="checkbox" name="selectedCompanies" value="<%= c.get("name") %>">
-                <img src="<%= c.get("image") %>" alt="logo">
-            </div>
-            <div class="company-name"><%= c.get("name") %></div>
-            <div class="company-category"><%= c.get("category") %></div>
-            <div class="company-desc"><%= c.get("description") %></div>
+                <c:if test="${empty companies}">
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 40px; color: #a0aec0;">
+                            No companies found in database.
+                        </td>
+                    </tr>
+                </c:if>
+                </tbody>
+            </table>
         </div>
-
-    <% } %>
-
-    </div>
-
-    <!-- Bottom Buttons -->
-    <div class="action-bar">
-        <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
-        <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
-    </div>
-
-    </form>
     <jsp:include page="footer.jsp" />
 
 </div>

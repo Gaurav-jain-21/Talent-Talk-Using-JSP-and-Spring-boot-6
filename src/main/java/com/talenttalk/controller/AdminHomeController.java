@@ -1,7 +1,10 @@
 package com.talenttalk.controller;
 
+import com.talenttalk.model.CompanyDetailModel;
 import com.talenttalk.model.CompanyJob;
 import com.talenttalk.model.StudentDetailModel;
+import com.talenttalk.repo.ApplicationRepository;
+import com.talenttalk.repo.CompanyRegisterRepo;
 import com.talenttalk.repo.StudentSignUpRepo;
 import com.talenttalk.service.CompanyJobsService;
 import com.talenttalk.service.StudentService;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminHomeController {
@@ -88,5 +93,50 @@ public class AdminHomeController {
         }
 
         return "redirect:/adminJobs";
+    }
+
+    @Autowired
+    private CompanyRegisterRepo companyRepo;
+
+    @Autowired
+    private ApplicationRepository applicationRepo;
+
+    @GetMapping("/adminCompany")
+    public String showCompanies(HttpSession session, Model model) {
+        // Security Check
+        if (session.getAttribute("loggedInAdmin") == null) {
+            return "redirect:/adminLogin";
+        }
+
+        List<CompanyDetailModel> companies = companyRepo.findAll();
+
+        // We will pass the counts separately or use a transient field
+        // For simplicity in JSP, we'll map the counts
+        model.addAttribute("companies", companies);
+
+        // This helper map stores CompanyID -> distinct number of students currently tied to company jobs
+        model.addAttribute("hiredCounts", companies.stream().collect(Collectors.toMap(
+                CompanyDetailModel::getId,
+            c -> applicationRepo.findByJob_Company_Id(c.getId()).stream()
+                .map(app -> app.getStudent() != null ? app.getStudent().getId() : null)
+                .filter(Objects::nonNull)
+                .distinct()
+                .count()
+        )));
+
+        return "adminCompany";
+    }
+
+    @GetMapping("/deleteAdminCompany")
+    public String deleteCompany(@RequestParam("id") Long id, HttpSession session) {
+        if (session.getAttribute("loggedInAdmin") == null) {
+            return "redirect:/adminLogin";
+        }
+
+        if (companyRepo.existsById(id)) {
+            companyRepo.deleteById(id);
+        }
+
+        return "redirect:/adminCompany";
     }
 }
