@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Job Applications</title>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
 body {
     margin: 0;
@@ -150,6 +152,21 @@ h1 {
 .view { background: #d9d9ff; }
 .shortlist { background: #2d6cff; color: #fff; }
 
+/* Search Styling */
+.search-input {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    width: 260px;
+    font-size: 14px;
+    transition: box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(45, 108, 255, 0.2);
+}
+
 </style>
 </head>
 
@@ -179,7 +196,7 @@ h1 {
         <h1>Job Applications</h1>
         <div class="subtitle">Reviewing 24 top-tier candidates curated for your team</div>
     </div>
-    <input type="text" placeholder="Search for job title, keywords..." style="padding:10px; border-radius:10px; border:none; width:260px;">
+    <input type="text" id="candidateSearch" placeholder="Search for job title, keywords..." class="search-input">
 </div>
 
 <div class="tabs">
@@ -193,15 +210,15 @@ h1 {
     <p style="color: white;">Debug: Total candidates found: ${candidates.size()}</p>
     <div class="grid">
         <c:forEach var="app" items="${candidates}">
-            <div class="card">
+            <div class="card candidate-card" data-name="${app.student.firstName}" data-title="${app.job.jobtitle}">
                 <div class="profile">
                     <div class="avatar">
 <%--                        <img src="${app.student.}" style="width:100%; border-radius:50%;">--%>
                     </div>
                 </div>
 
-                <div class="name">${app.student.firstName}</div>
-                <div class="role">${app.job.jobtitle}</div>
+                <div class="name candidate-name">${app.student.firstName}</div>
+                <div class="role candidate-title">${app.job.jobtitle}</div>
 
                 <div class="actions">
                     <a href="viewStudentProfile?id=${app.student.id}&appId=${app.id}" class="btn view">View Profile</a>
@@ -225,6 +242,24 @@ h1 {
 
 </div>
 <jsp:include page="footer.jsp" />
+
+<script>
+$(document).ready(function() {
+    $("#candidateSearch").on("keyup", function() {
+        var searchTerm = $(this).val().toLowerCase();
+        $(".candidate-card").each(function() {
+            var candidateName = $(this).find(".candidate-name").text().toLowerCase();
+            var jobTitle = $(this).find(".candidate-title").text().toLowerCase();
+            
+            if (candidateName.includes(searchTerm) || jobTitle.includes(searchTerm)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>

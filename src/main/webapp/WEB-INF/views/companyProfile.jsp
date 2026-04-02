@@ -4,6 +4,7 @@
 <head>
     <title>Company Settings | Talent Talk</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -151,6 +152,28 @@
             margin-bottom: 20px;
             border: 1px solid #c3e6cb;
         }
+
+        /* Form Validation Styles */
+        .input-error {
+            border-color: #e74c3c !important;
+            background: #fadbd8;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .input-success {
+            border-color: #28a745 !important;
+            background: #d4edda;
+        }
     </style>
 </head>
 <body>
@@ -189,33 +212,38 @@
     </c:if>
 
     <div class="settings-card">
-        <form action="updateCompanyDetails" method="post">
+        <form id="companyProfileForm" action="updateCompanyDetails" method="post">
             <input type="hidden" name="id" value="${company.id}">
 
             <div class="form-grid">
                 <div class="form-group full-width">
                     <label>Company Name</label>
-                    <input type="text" name="name" value="${company.name}" required>
+                    <input type="text" id="companyName" name="name" value="${company.name}" required>
+                    <div class="error-message" id="companyNameError">Company name is required and must be 3+ characters</div>
                 </div>
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" value="${company.email}" required>
+                    <input type="email" id="companyEmail" name="email" value="${company.email}" required>
+                    <div class="error-message" id="companyEmailError">Please enter a valid email address</div>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" value="${company.password}" required>
+                    <input type="password" id="companyPassword" name="password" value="${company.password}" required>
+                    <div class="error-message" id="companyPasswordError">Password must be 6+ characters</div>
                 </div>
 
                 <div class="form-group">
                     <label>Industry</label>
-                    <input type="text" name="industry" value="${company.industry}" placeholder="e.g. Technology">
+                    <input type="text" id="industry" name="industry" value="${company.industry}" placeholder="e.g. Technology">
+                    <div class="error-message" id="industryError">Industry must be 2+ characters</div>
                 </div>
 
                 <div class="form-group">
                     <label>Headquarters</label>
-                    <input type="text" name="headQuarter" value="${company.headQuarter}" placeholder="City, Country">
+                    <input type="text" id="headQuarter" name="headQuarter" value="${company.headQuarter}" placeholder="City, Country">
+                    <div class="error-message" id="headQuarterError">Headquarters must be 5+ characters</div>
                 </div>
             </div>
 
@@ -225,6 +253,103 @@
         </form>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    // Real-time validation
+    $("#companyName").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value.length < 3) {
+            $(this).addClass("input-error");
+            $("#companyNameError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#companyNameError").removeClass("show");
+        }
+    });
+
+    $("#companyEmail").on("blur", function() {
+        var email = $(this).val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            $(this).addClass("input-error");
+            $("#companyEmailError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#companyEmailError").removeClass("show");
+        }
+    });
+
+    $("#companyPassword").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value.length < 6) {
+            $(this).addClass("input-error");
+            $("#companyPasswordError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#companyPasswordError").removeClass("show");
+        }
+    });
+
+    $("#industry").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value && value.length < 2) {
+            $(this).addClass("input-error");
+            $("#industryError").addClass("show");
+        } else if (value) {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#industryError").removeClass("show");
+        } else {
+            $(this).removeClass("input-error").removeClass("input-success");
+        }
+    });
+
+    $("#headQuarter").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value && value.length < 5) {
+            $(this).addClass("input-error");
+            $("#headQuarterError").addClass("show");
+        } else if (value) {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#headQuarterError").removeClass("show");
+        } else {
+            $(this).removeClass("input-error").removeClass("input-success");
+        }
+    });
+
+    // Form submission validation
+    $("#companyProfileForm").on("submit", function(e) {
+        var isValid = true;
+
+        // Validate Company Name
+        if ($("#companyName").val().trim().length < 3) {
+            $("#companyName").addClass("input-error");
+            $("#companyNameError").addClass("show");
+            isValid = false;
+        }
+
+        // Validate Email
+        var email = $("#companyEmail").val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            $("#companyEmail").addClass("input-error");
+            $("#companyEmailError").addClass("show");
+            isValid = false;
+        }
+
+        // Validate Password
+        if ($("#companyPassword").val().trim().length < 6) {
+            $("#companyPassword").addClass("input-error");
+            $("#companyPasswordError").addClass("show");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
 
 </body>
 </html>

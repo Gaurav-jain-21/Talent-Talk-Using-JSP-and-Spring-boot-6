@@ -11,6 +11,7 @@ uri="jakarta.tags.core" %>
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
       /* ===== YOUR ORIGINAL CSS (UNCHANGED) ===== */
@@ -258,17 +259,23 @@ uri="jakarta.tags.core" %>
       <div class="main">
         <div class="header">Student Management</div>
 
+        <div class="toolbar" style="margin-bottom: 20px;">
+          <div class="search-box">
+            <i class="fa fa-search"></i>
+            <input type="text" id="studentSearch" placeholder="Search by name or email...">
+          </div>
+        </div>
+
         <div class="container">
           <table class="user-table">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
+                <th class="student-row">
+                  <td class="student-name">
+                    <c:out value="${s.firstName}" /> <c:out value="${s.lastName}" />
+                  </td>
+                  <td class="student-email"
               <c:forEach var="s" items="${students}">
                 <tr>
                   <td>
@@ -310,3 +317,22 @@ uri="jakarta.tags.core" %>
     </div>
   </body>
 </html>
+
+  <script>
+  $(document).ready(function() {
+    $('#studentSearch').on('keyup', function() {
+      var searchTerm = $(this).val().toLowerCase();
+      
+      $('.student-row').each(function() {
+        var studentName = $(this).find('.student-name').text().toLowerCase();
+        var studentEmail = $(this).find('.student-email').text().toLowerCase();
+        
+        if (studentName.includes(searchTerm) || studentEmail.includes(searchTerm)) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  });
+  </script>

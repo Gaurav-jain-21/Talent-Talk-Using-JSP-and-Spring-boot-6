@@ -9,6 +9,7 @@
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 /* ===== YOUR ORIGINAL CSS (UNCHANGED) ===== */
@@ -189,7 +190,7 @@ tr:not(:last-child) td {
     <!-- Search -->
     <div class="search-box">
         <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search transactions">
+        <input type="text" id="paymentSearch" placeholder="Search transactions...">
     </div>
 
     <button class="date-filter">Date Range ▾</button>
@@ -230,10 +231,10 @@ tr:not(:last-child) td {
             </tr>
 
             <% for(Map<String,String> p : payments){ %>
-            <tr>
-                <td><%= p.get("id") %></td>
-                <td><%= p.get("client") %></td>
-                <td><%= p.get("freelancer") %></td>
+            <tr class="payment-row">
+                <td class="payment-id"><%= p.get("id") %></td>
+                <td class="payment-client"><%= p.get("client") %></td>
+                <td class="payment-freelancer"><%= p.get("freelancer") %></td>
                 <td class="amount"><%= p.get("amount") %></td>
                 <td><%= p.get("date") %></td>
                 <td><span class="status"><%= p.get("status") %></span></td>
@@ -245,5 +246,25 @@ tr:not(:last-child) td {
 <br/>
 <jsp:include page="footer.jsp" />
 </div>
+
+<script>
+$(document).ready(function() {
+    $("#paymentSearch").on("keyup", function() {
+        var searchTerm = $(this).val().toLowerCase();
+        $(".payment-row").each(function() {
+            var transactionId = $(this).find(".payment-id").text().toLowerCase();
+            var clientName = $(this).find(".payment-client").text().toLowerCase();
+            var freelancerName = $(this).find(".payment-freelancer").text().toLowerCase();
+            
+            if (transactionId.includes(searchTerm) || clientName.includes(searchTerm) || freelancerName.includes(searchTerm)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
+
 </body>
 </html>

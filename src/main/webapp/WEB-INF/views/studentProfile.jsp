@@ -4,6 +4,7 @@
 <head>
     <title>Student Profile Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         /* === YOUR INITIAL CSS === */
@@ -122,6 +123,28 @@
             margin-bottom: 25px;
             border-left: 5px solid #28a745;
         }
+
+        /* Form Validation Styles */
+        .input-error {
+            border-color: #e74c3c !important;
+            background: #fadbd8;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .input-success {
+            border-color: #28a745 !important;
+            background: #d4edda;
+        }
     </style>
 </head>
 <body>
@@ -151,34 +174,39 @@
     </c:if>
 
     <div class="settings-card">
-        <form action="updateStudentDetails" method="post" enctype="multipart/form-data">
+        <form id="studentProfileForm" action="updateStudentDetails" method="post" enctype="multipart/form-data">
 
             <input type="hidden" name="id" value="${student.id}">
 
             <div class="form-grid">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" name="firstName" value="${student.firstName}" required>
+                    <input type="text" id="firstName" name="firstName" value="${student.firstName}" required>
+                    <div class="error-message" id="firstNameError">First name is required and must be 2+ characters</div>
                 </div>
 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="lastName" value="${student.lastName}" required>
+                    <input type="text" id="lastName" name="lastName" value="${student.lastName}" required>
+                    <div class="error-message" id="lastNameError">Last name is required and must be 2+ characters</div>
                 </div>
 
                 <div class="form-group full-width">
                     <label>Email Address</label>
-                    <input type="email" name="email" value="${student.email}" required>
+                    <input type="email" id="profileEmail" name="email" value="${student.email}" required>
+                    <div class="error-message" id="profileEmailError">Please enter a valid email address</div>
                 </div>
 
                 <div class="form-group">
                     <label>Profession</label>
-                    <input type="text" name="profession" value="${student.profession}" placeholder="e.g. Full Stack Developer">
+                    <input type="text" id="profession" name="profession" value="${student.profession}" placeholder="e.g. Full Stack Developer">
+                    <div class="error-message" id="professionError">Profession must be 3+ characters</div>
                 </div>
 
                 <div class="form-group">
                     <label>Location / Address</label>
-                    <input type="text" name="address" value="${student.address}" placeholder="City, Country">
+                    <input type="text" id="address" name="address" value="${student.address}" placeholder="City, Country">
+                    <div class="error-message" id="addressError">Address must be 5+ characters</div>
                 </div>
 
                 <div class="form-group full-width">
@@ -201,7 +229,8 @@
 
                 <div class="form-group full-width">
                     <label>Account Password</label>
-                    <input type="password" name="password" value="${student.password}" required>
+                    <input type="password" id="password" name="password" value="${student.password}" required>
+                    <div class="error-message" id="passwordError">Password must be 6+ characters</div>
                 </div>
             </div>
 
@@ -211,6 +240,121 @@
         </form>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    // Real-time validation
+    $("#firstName").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value.length < 2) {
+            $(this).addClass("input-error");
+            $("#firstNameError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#firstNameError").removeClass("show");
+        }
+    });
+
+    $("#lastName").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value.length < 2) {
+            $(this).addClass("input-error");
+            $("#lastNameError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#lastNameError").removeClass("show");
+        }
+    });
+
+    $("#profileEmail").on("blur", function() {
+        var email = $(this).val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            $(this).addClass("input-error");
+            $("#profileEmailError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#profileEmailError").removeClass("show");
+        }
+    });
+
+    $("#profession").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value && value.length < 3) {
+            $(this).addClass("input-error");
+            $("#professionError").addClass("show");
+        } else if (value) {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#professionError").removeClass("show");
+        } else {
+            $(this).removeClass("input-error").removeClass("input-success");
+        }
+    });
+
+    $("#address").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value && value.length < 5) {
+            $(this).addClass("input-error");
+            $("#addressError").addClass("show");
+        } else if (value) {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#addressError").removeClass("show");
+        } else {
+            $(this).removeClass("input-error").removeClass("input-success");
+        }
+    });
+
+    $("#password").on("blur", function() {
+        var value = $(this).val().trim();
+        if (value.length < 6) {
+            $(this).addClass("input-error");
+            $("#passwordError").addClass("show");
+        } else {
+            $(this).removeClass("input-error").addClass("input-success");
+            $("#passwordError").removeClass("show");
+        }
+    });
+
+    // Form submission validation
+    $("#studentProfileForm").on("submit", function(e) {
+        var isValid = true;
+
+        // Validate First Name
+        if ($("#firstName").val().trim().length < 2) {
+            $("#firstName").addClass("input-error");
+            $("#firstNameError").addClass("show");
+            isValid = false;
+        }
+
+        // Validate Last Name
+        if ($("#lastName").val().trim().length < 2) {
+            $("#lastName").addClass("input-error");
+            $("#lastNameError").addClass("show");
+            isValid = false;
+        }
+
+        // Validate Email
+        var email = $("#profileEmail").val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            $("#profileEmail").addClass("input-error");
+            $("#profileEmailError").addClass("show");
+            isValid = false;
+        }
+
+        // Validate Password
+        if ($("#password").val().trim().length < 6) {
+            $("#password").addClass("input-error");
+            $("#passwordError").addClass("show");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
 
 </body>
 </html>

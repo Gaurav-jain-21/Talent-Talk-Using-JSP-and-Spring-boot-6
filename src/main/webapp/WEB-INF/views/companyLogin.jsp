@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Company Login</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <style>
     * {
@@ -104,6 +105,22 @@
         display: none;
       }
     }
+
+    .input-error {
+      border: 1px solid #d32f2f !important;
+      background: #ffebee !important;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
   </style>
 </head>
 
@@ -115,9 +132,12 @@
       [[${error}]]
     </p>
 
-    <form action="CompanyLoginForm" method="post">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
+    <form action="CompanyLoginForm" method="post" id="companyLoginForm">
+      <input type="email" id="compEmail" name="email" placeholder="Email" required />
+      <div id="emailError" class="error-message">Please enter a valid email</div>
+      
+      <input type="password" id="compPassword" name="password" placeholder="Password" required />
+      <div id="passwordError" class="error-message">Password is required</div>
 
       <a href="companyForgotPassword" class="forgot">forgot password?</a>
       <button class="btn" type="submit">Login</button>
@@ -125,5 +145,58 @@
   </div>
   <div class="graph-line"></div>
   <img class="cup" src="cup.png" alt="cup" />
+
+<script>
+$(document).ready(function() {
+    $('#compEmail').on('blur', function() {
+        var email = $(this).val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!email || !emailRegex.test(email)) {
+            $(this).addClass('input-error');
+            $('#emailError').addClass('show');
+        } else {
+            $(this).removeClass('input-error');
+            $('#emailError').removeClass('show');
+        }
+    });
+    
+    $('#compPassword').on('blur', function() {
+        var value = $(this).val();
+        if (!value) {
+            $(this).addClass('input-error');
+            $('#passwordError').addClass('show');
+        } else {
+            $(this).removeClass('input-error');
+            $('#passwordError').removeClass('show');
+        }
+    });
+    
+    $('#companyLoginForm').on('submit', function(e) {
+        var email = $('#compEmail').val().trim();
+        var password = $('#compPassword').val();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var isValid = true;
+        
+        if (!email || !emailRegex.test(email)) {
+            $('#compEmail').addClass('input-error');
+            $('#emailError').addClass('show');
+            isValid = false;
+        }
+        
+        if (!password) {
+            $('#compPassword').addClass('input-error');
+            $('#passwordError').addClass('show');
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+</script>
+
 </body>
 </html>

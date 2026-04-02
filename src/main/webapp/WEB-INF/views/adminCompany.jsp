@@ -8,6 +8,7 @@
 <title>Admin Company</title>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 
@@ -219,6 +220,29 @@ body {
     background: #ffe6e6;
 }
 
+/* Search Toolbar */
+.search-toolbar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-toolbar input {
+    padding: 10px 14px;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 300px;
+    transition: border-color 0.2s ease;
+}
+
+.search-toolbar input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
 </style>     
 </head>
 <body>
@@ -242,6 +266,10 @@ body {
     <div class="main">
         <div class="header">Company Management</div>
 
+        <div class="search-toolbar">
+            <input type="text" id="companySearch" placeholder="Search by company name or email...">
+        </div>
+
         <div class="container">
             <table class="comp-table">
                 <thead>
@@ -254,9 +282,9 @@ body {
                 </thead>
                 <tbody>
                 <c:forEach var="comp" items="${companies}">
-                    <tr>
-                        <td><c:out value="${comp.name}" /></td>
-                        <td><c:out value="${comp.email}" /></td>
+                    <tr class="company-row">
+                        <td class="company-name"><c:out value="${comp.name}" /></td>
+                        <td class="company-email"><c:out value="${comp.email}" /></td>
                         <td>
                             <span class="working-badge">
                                 <i class="fa-solid fa-user-check"></i> ${hiredCounts[comp.id]}
@@ -283,6 +311,24 @@ body {
     <jsp:include page="footer.jsp" />
 
 </div>
+
+<script>
+$(document).ready(function() {
+    $("#companySearch").on("keyup", function() {
+        var searchTerm = $(this).val().toLowerCase();
+        $(".company-row").each(function() {
+            var companyName = $(this).find(".company-name").text().toLowerCase();
+            var companyEmail = $(this).find(".company-email").text().toLowerCase();
+            
+            if (companyName.includes(searchTerm) || companyEmail.includes(searchTerm)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>
