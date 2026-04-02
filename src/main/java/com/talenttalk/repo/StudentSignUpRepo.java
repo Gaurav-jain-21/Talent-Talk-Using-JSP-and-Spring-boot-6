@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface StudentSignUpRepo extends JpaRepository<StudentDetailModel, Integer> {
+public interface StudentSignUpRepo extends JpaRepository<StudentDetailModel, Long> {
     Optional<StudentDetailModel> findByEmail(String email);
 
     // Using a Query to get just the first name (or full name) by ID
     @Query("SELECT s.firstName FROM StudentDetailModel s WHERE s.id = :id")
-    String findByNameId(@Param("id") int id);
+    String findByNameId(@Param("id") Long id);
 }

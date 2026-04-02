@@ -32,7 +32,7 @@ public class StudentLoginController {
 			// Pass the student's name to the dashboard
 			model.addAttribute("userName", student.getFirstName());
 			session.setAttribute("loggedInStudent", student);
-			return "studentDashboard";
+			return "redirect:/studentDashboard";
 		} else {
 			model.addAttribute("error", "Invalid email or password");
 			return "studentLoginPage";
@@ -55,7 +55,7 @@ public class StudentLoginController {
 		StudentDetailModel currentStudent = (StudentDetailModel) session.getAttribute("loggedInStudent");
 
 		if (currentStudent == null) {
-			return "studentLoginPage";
+			return "redirect:/studentLogin";
 		}
 		String studentName = dashboardservice.getStudentName(currentStudent);
 		model.addAttribute("userName", studentName);

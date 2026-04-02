@@ -20,7 +20,7 @@ public class CompanyHomeController {
     public String CompanyDashboard(HttpSession session, Model model) {
         CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
 
-        if (currentCompany == null) return "redirect:/login";
+        if (currentCompany == null) return "redirect:/companyLogin";
 
         // Add this print to your console to verify
         System.out.println("Checking jobs for Company ID: " + currentCompany.getId());
@@ -55,6 +55,9 @@ public class CompanyHomeController {
     @GetMapping("/companyApplication")
     public String CompanyApplication(Model model, HttpSession session){
         CompanyDetailModel company = (CompanyDetailModel)  session.getAttribute("loggedInCompany");
+        if (company == null) {
+            return "redirect:/companyLogin";
+        }
         List<JobApplication> applications= applicationService.findByCompanyId(company.getId());
         model.addAttribute("candidates",applications);
         return "companyApplication";

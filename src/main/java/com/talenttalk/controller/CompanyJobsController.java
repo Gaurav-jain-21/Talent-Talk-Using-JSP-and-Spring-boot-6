@@ -31,9 +31,9 @@ public class CompanyJobsController {
         if (currentCompany != null) {
             job.setCompany(currentCompany);
             service.saveJob(job);
+            return "redirect:/companyManageJobs";
         }
-        // Change return to redirect so the list refreshes after adding
-        return "companyJobs";
+        return "redirect:/companyLogin";
     }
 
     @GetMapping("/companyManageJobs")
@@ -41,7 +41,7 @@ public class CompanyJobsController {
         CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
 
         if (currentCompany == null) {
-            return "companyLogin";
+            return "redirect:/companyLogin";
         }
 
         List<CompanyJob> jobList = service.getJobsByCompany(currentCompany);
@@ -51,16 +51,17 @@ public class CompanyJobsController {
     }
     @GetMapping("/deleteJob")
     public String deleteJob(@RequestParam("id") Long id, HttpSession session, Model model){
-        service.deleteJobById(id);
         CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
 
         if (currentCompany == null) {
-            return "companyLogin";
+            return "redirect:/companyLogin";
         }
+
+        service.deleteJobById(id);
 
         List<CompanyJob> jobList = service.getJobsByCompany(currentCompany);
         model.addAttribute("jobs", jobList);
-        return "companyManageJobs";
+        return "redirect:/companyManageJobs";
 
     }
     @PostMapping("/EditCompanyPost")
@@ -74,7 +75,7 @@ public class CompanyJobsController {
         CompanyDetailModel currentCompany = (CompanyDetailModel) session.getAttribute("loggedInCompany");
 
         if (currentCompany == null) {
-            return "companyLogin";
+            return "redirect:/companyLogin";
         }
 
         // 1. Perform the Update
@@ -92,7 +93,7 @@ public class CompanyJobsController {
         model.addAttribute("jobs", updatedList);
 
         // 3. Now return the view name
-        return "companyManageJobs";
+        return "redirect:/companyManageJobs";
     }
     @Autowired
     private ApplicationRepository appRepo;
@@ -166,6 +167,11 @@ public class CompanyJobsController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/viewResume")
+    public ResponseEntity<byte[]> viewResume(@RequestParam("id") Long id) {
+        return displayResume(id);
+    }
+
     @PostMapping("/reject")
     public String rejectApplication(@RequestParam("appId") Long appId) {
         if (appId != null) {
@@ -181,7 +187,6 @@ public class CompanyJobsController {
     @PostMapping("/shortlist")
     public String shortlistCandidate(@RequestParam("appId") Long appId) {
         applicationService.shortlistCandidate(appId);
-        // Use "redirect:" to call the GET mapping and refresh the data properly
         return "redirect:/companyClient";
     }
 
@@ -191,13 +196,13 @@ public class CompanyJobsController {
         CompanyDetailModel company = (CompanyDetailModel) session.getAttribute("loggedInCompany");
         if (company == null) return "redirect:/companyLogin";
 
-        // Change "Accepted" to whatever status you use when a student is hired
-        List<JobApplication> hiredTalent = applicationService.getApplicationsByCompanyAndStatus(company.getId(), "Accepted");
+        // Show the students that have been shortlisted for this company
+        List<JobApplication> shortlistedTalent = applicationService.getApplicationsByCompanyAndStatus(company.getId(), "Shortlisted");
 
         // Add a debug print to your console to see if data is coming back
-        System.out.println("Hired Talent Found: " + hiredTalent.size());
+        System.out.println("Shortlisted Talent Found: " + shortlistedTalent.size());
 
-        model.addAttribute("clients", hiredTalent);
+        model.addAttribute("clients", shortlistedTalent);
         return "companyClient";
     }
 }

@@ -32,7 +32,7 @@ public class CompanyLoginController {
 
         if (company != null) {
             session.setAttribute("loggedInCompany", company);
-            return "companyDashboard";
+            return "redirect:/companyDashboard";
         } else {
             model.addAttribute("error", "Invalid email or password.");
             return "companyLogin";
@@ -50,8 +50,8 @@ public class CompanyLoginController {
     }
     @PostMapping("/updateCompanyDetails")
     public String updateCompanyDetails(@ModelAttribute CompanyDetailModel company, HttpSession session) {
-        service.updateCompany(company);
-        session.setAttribute("loggedInCompany", company);
+        CompanyDetailModel savedCompany = service.updateCompany(company);
+        session.setAttribute("loggedInCompany", savedCompany);
         return "redirect:/companyProfile?success=true"; // Redirect to a GET mapping
     }
 //    @PostMapping("/updateCompanyDetails")

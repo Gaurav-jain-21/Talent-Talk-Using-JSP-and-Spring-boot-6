@@ -25,5 +25,8 @@ public class CompanyJob {
     @JoinColumn(name="company_id",nullable=false)
     @ToString.Exclude
     private CompanyDetailModel company;
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private java.util.List<JobApplication> applications;
 
 }

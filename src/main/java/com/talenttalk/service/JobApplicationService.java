@@ -52,4 +52,8 @@ public class JobApplicationService {
     public List<JobApplication> getApplicationsByCompanyAndStatus(Long companyId, String status) {
         return repo.findByJob_Company_IdAndStatus(companyId, status);
     }
+
+    public List<JobApplication> getApplicationsByStudentAndStatus(Long studentId, String status) {
+        return repo.findByStudent_IdAndStatus(studentId, status);
+    }
 }

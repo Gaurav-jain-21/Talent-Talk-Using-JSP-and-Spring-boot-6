@@ -34,4 +34,9 @@ public class UserController {
     public String showCompanyRegister() {
         return "companyRegister";
     }
+
+    @GetMapping("/forgotPassword")
+    public String showForgotPassword() {
+        return "forgotPassword";
+    }
 }

@@ -16,7 +16,6 @@ public class CompanyRegisterController {
     @PostMapping("/companyRegisterForm")
     public String registerCompany(@ModelAttribute CompanyDetailModel company) {
         services.saveCompany(company);
-        // Redirecting to a success page or login page after registration
-        return "companyLogin";
+        return "redirect:/companyLogin";
     }
 }

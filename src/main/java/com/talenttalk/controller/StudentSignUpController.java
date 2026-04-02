@@ -23,15 +23,15 @@ public class StudentSignUpController {
         // Check if passwords match
         if (!student.getPassword().equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match!");
-            return "register"; // The name of your JSP file
+            return "studentSignup";
         }
 
         try {
             services.registerStudent(student);
-            return "studentLoginPage";//"redirect:/studentLogin";
+            return "redirect:/studentLogin";
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());
-            return "register";
+            return "studentSignup";
         }
     }
 }

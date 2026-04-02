@@ -10,7 +10,10 @@ public class StudentDashboardService {
     @Autowired
     private StudentSignUpRepo repo;
     public String getStudentName(StudentDetailModel currentStudent) {
-        return repo.findByNameId(Math.toIntExact(currentStudent.getId()));
+        if (currentStudent == null) {
+            return "";
+        }
+        return currentStudent.getFirstName();
     }
 
     public void save(StudentDetailModel student) {
@@ -18,6 +21,6 @@ public class StudentDashboardService {
     }
 
     public StudentDetailModel getStudentById(Long id) {
-        return repo.findById(Math.toIntExact(id)).orElse(null);
+        return repo.findById(id).orElse(null);
     }
 }

@@ -16,6 +16,9 @@ public class StudentJobApplyController {
     @GetMapping("/JobApply")
     public String getJobApplyPage(@RequestParam("jobId") Long jobId, HttpSession session, Model model){
         CompanyJob job= companyJobsService.getJobById(jobId);
+        if (job == null) {
+            return "redirect:/studentProject";
+        }
         model.addAttribute("job",job);
         return "JobApply";
     }

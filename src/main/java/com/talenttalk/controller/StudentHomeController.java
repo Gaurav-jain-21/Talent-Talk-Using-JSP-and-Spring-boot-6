@@ -8,6 +8,7 @@ import com.talenttalk.repo.ApplicationRepository;
 import com.talenttalk.repo.CompanyJobsRepo;
 import com.talenttalk.repo.StudentSignUpRepo;
 import com.talenttalk.service.CompanyJobsService;
+import com.talenttalk.service.JobApplicationService;
 import com.talenttalk.service.StudentDashboardService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,25 +42,22 @@ public class StudentHomeController {
     /**
      * Displays the Progress page with Shortlisted cards and Active Project table.
      */
+    @Autowired
+    private JobApplicationService jobApplicationService;
     @GetMapping("/studentJobs")
-    public String showProgressPage(HttpSession session, Model model) {
-        // 1. Get the logged-in student from the session
+    public String showStudentProgress(HttpSession session, Model model) {
         StudentDetailModel student = (StudentDetailModel) session.getAttribute("loggedInStudent");
+        if (student == null) return "redirect:/studentLogin";
 
-        if (student == null) {
-            return "redirect:/studentLogin"; // Security: Redirect if not logged in
-        }
-
-        // 2. Fetch Shortlisted Applications (Status = "Shortlisted")
-        List<JobApplication> shortlisted = appRepo.findByStudentIdAndStatus(student.getId(), "Shortlisted");
+        // 1. Fetch Shortlisted (for the top cards)
+        List<JobApplication> shortlisted = jobApplicationService.getApplicationsByStudentAndStatus(student.getId(), "Shortlisted");
         model.addAttribute("shortlistedJobs", shortlisted);
 
-        // 3. Fetch Active Projects (Status = "Accepted" or "Hired")
-        // These will appear in your new table format
-        List<JobApplication> active = appRepo.findByStudentIdAndStatus(student.getId(), "Accepted");
+        // 2. Fetch Shortlisted work items for the progress table
+        List<JobApplication> active = jobApplicationService.getApplicationsByStudentAndStatus(student.getId(), "Shortlisted");
         model.addAttribute("activeProjects", active);
 
-        return "studentJobs"; // This matches your JSP name
+        return "studentJobs";
     }
     @PostMapping("/updateProjectStatus")
     public String updateProjectStatus(@RequestParam("applicationId") Long appId,
@@ -95,7 +93,7 @@ public class StudentHomeController {
     public String studentProfile(HttpSession session, Model model) {
         StudentDetailModel student = (StudentDetailModel) session.getAttribute("loggedInStudent");
         if (student == null) {
-            return "studentLogin";
+            return "redirect:/studentLogin";
         }
         model.addAttribute("student", student);
         return "studentProfile";
@@ -125,7 +123,7 @@ public class StudentHomeController {
             }
         } else {
             // If no new file is uploaded, keep the old one from the database
-            StudentDetailModel existing = studentRepo.findById(Math.toIntExact(student.getId())).orElse(null);
+            StudentDetailModel existing = studentRepo.findById(student.getId()).orElse(null);
             if (existing != null) {
                 student.setResume(existing.getResume());
                 student.setResumeFileType(existing.getResumeFileType());
@@ -145,9 +143,10 @@ public class StudentHomeController {
     public String jobApplication(@RequestParam("jobId") Long jobId, HttpSession session, Model model){
         StudentDetailModel student= (StudentDetailModel)  session.getAttribute("loggedInStudent");
         if (student==null){
-            return "studentLogin";
+            return "redirect:/studentLogin";
         }
-        CompanyJob job= jobsRepo.findById(jobId).get();
+        CompanyJob job= jobsRepo.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found with ID: " + jobId));
         if (!appRepo.existsByJobIdAndStudentId(jobId, student.getId())) {
             JobApplication application = new JobApplication();
             application.setJob(job);
@@ -155,6 +154,6 @@ public class StudentHomeController {
             appRepo.save(application);
         }
 
-        return "studentDashboard";
+        return "redirect:/studentDashboard";
     }
 }
