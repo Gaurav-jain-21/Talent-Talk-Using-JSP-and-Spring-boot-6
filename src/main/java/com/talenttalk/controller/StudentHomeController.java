@@ -114,29 +114,41 @@ public class StudentHomeController {
                                 HttpSession session,
                                 RedirectAttributes ra) throws IOException {
 
-        // Check if file was actually uploaded
+        // 1. Fetch the EXISTING managed entity from the database
+        StudentDetailModel existingStudent = studentRepo.findById(student.getId()).orElse(null);
+
+        if (existingStudent == null) {
+            ra.addFlashAttribute("errorMsg", "Student not found.");
+            return "redirect:/studentLogin";
+        }
+
+        // 2. Update basic details on the EXISTING object
+        existingStudent.setFirstName(student.getFirstName());
+        existingStudent.setLastName(student.getLastName());
+        existingStudent.setEmail(student.getEmail());
+        existingStudent.setAddress(student.getAddress());
+        existingStudent.setProfession(student.getProfession());
+        // Do NOT call setApplications() - the existing list remains untouched/managed
+
+        // 3. Handle the file upload
         if (file != null && !file.isEmpty()) {
             String contentType = file.getContentType();
             if (contentType != null && (contentType.equals("application/pdf") || contentType.equals("image/jpeg"))) {
-                student.setResume(file.getBytes());
-                student.setResumeFileType(contentType);
+                existingStudent.setResume(file.getBytes());
+                existingStudent.setResumeFileType(contentType);
             } else {
                 ra.addFlashAttribute("errorMsg", "Only PDF and JPG files are allowed.");
-                return "redirect:/studentProfile"; // Use redirect to show flash attributes
-            }
-        } else {
-            // If no new file is uploaded, keep the old one from the database
-            StudentDetailModel existing = studentRepo.findById(student.getId()).orElse(null);
-            if (existing != null) {
-                student.setResume(existing.getResume());
-                student.setResumeFileType(existing.getResumeFileType());
+                return "redirect:/studentProfile";
             }
         }
 
-        studentRepo.save(student);
-        session.setAttribute("loggedInStudent", student);
-        ra.addFlashAttribute("successMsg", "Profile updated successfully!");
+        // 4. Save the managed entity
+        studentRepo.save(existingStudent);
 
+        // 5. Update session with the fresh data
+        session.setAttribute("loggedInStudent", existingStudent);
+
+        ra.addFlashAttribute("successMsg", "Profile updated successfully!");
         return "redirect:/studentProfile";
     }
     @Autowired
