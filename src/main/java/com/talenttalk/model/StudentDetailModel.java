@@ -33,4 +33,7 @@ public class StudentDetailModel {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobApplication> applications;
 
+    @Column(name = "reset_token")
+    private String resetToken;
+
 }

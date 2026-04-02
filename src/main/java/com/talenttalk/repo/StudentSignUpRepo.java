@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface StudentSignUpRepo extends JpaRepository<StudentDetailModel, Long> {
     Optional<StudentDetailModel> findByEmail(String email);
+    Optional<StudentDetailModel> findByResetToken(String resetToken);
 
     // Using a Query to get just the first name (or full name) by ID
     @Query("SELECT s.firstName FROM StudentDetailModel s WHERE s.id = :id")

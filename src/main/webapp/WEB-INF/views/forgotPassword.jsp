@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -39,6 +40,25 @@
             display:flex;
             flex-direction:column;
             align-items:center;
+        }
+
+        .message{
+            width:420px;
+            padding:12px 14px;
+            margin-bottom:16px;
+            border-radius:10px;
+            font-size:14px;
+            text-align:left;
+        }
+
+        .message.success{
+            background:#e7f8ec;
+            color:#1f7a35;
+        }
+
+        .message.error{
+            background:#fde8e8;
+            color:#b42318;
         }
 
         input[type="email"]{
@@ -97,7 +117,13 @@
 <div class="container">
     <h1>Forget Password</h1>
 
-    <form class="form-box" action="studentLogin" >
+    <form class="form-box" action="${pageContext.request.contextPath}/forgotPassword" method="post" >
+        <c:if test="${not empty successMsg}">
+            <div class="message success">${successMsg}</div>
+        </c:if>
+        <c:if test="${not empty errorMsg}">
+            <div class="message error">${errorMsg}</div>
+        </c:if>
         <input type="email" name="email" placeholder="Email" required>
         <input type="submit" value="Send to email">
     </form>
