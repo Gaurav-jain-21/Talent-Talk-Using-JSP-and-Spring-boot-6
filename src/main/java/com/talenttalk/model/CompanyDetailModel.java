@@ -20,6 +20,10 @@ public class CompanyDetailModel {
     private String password;
     private String industry;
     private String headQuarter;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
     @OneToMany(mappedBy="company",cascade=CascadeType.ALL)
     @ToString.Exclude // <--- ADD THIS
     private List<CompanyJob> jobs;

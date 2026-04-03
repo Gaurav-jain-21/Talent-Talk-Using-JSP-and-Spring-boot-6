@@ -97,10 +97,26 @@
 <div class="container">
     <h1>Forget Password</h1>
 
-    <form class="form-box" action="companyLogin" >
+    <%-- Success Message --%>
+    <% if (request.getAttribute("successMsg") != null) { %>
+    <div style="color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 8px; margin-bottom: 20px; width: 420px;">
+        <%= request.getAttribute("successMsg") %>
+    </div>
+    <% } %>
+
+    <%-- Error Message --%>
+    <% if (request.getAttribute("errorMsg") != null) { %>
+    <div style="color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 8px; margin-bottom: 20px; width: 420px;">
+        <%= request.getAttribute("errorMsg") %>
+    </div>
+    <% } %>
+    <form class="form-box" action="${pageContext.request.contextPath}/companyForgotPassword" method="post"  >
         <input type="email" name="email" placeholder="Email" required>
         <input type="submit" value="Send to email">
     </form>
+    <div style="margin-top: 14px;">
+        <a href="${pageContext.request.contextPath}/companyLogin" style="color:#0f2a8a; text-decoration:none; font-weight:600;">Back to Company Login</a>
+    </div>
 </div>
 
 <!-- Coffee Cup Image -->
