@@ -206,7 +206,7 @@ body {
 
     <div class="header">
         <h1>Personal Insights</h1>
-        <p>Welcome back, Alex. Here's what's happening today.</p>
+        <p>Welcome back, ${userName}. Here's what's happening today.</p>
     </div>
 
     <div class="top-bar">
@@ -226,13 +226,13 @@ body {
         </div>
 
         <div class="card">
-            <h3>Active Applications</h3>
-            <p>24</p>
+            <h3>Available Jobs</h3>
+            <p>${jobCount}</p>
         </div>
 
         <div class="card">
-            <h3>Average Rating</h3>
-            <p>4.9 / 5.0</p>
+            <h3>Messages</h3>
+            <p>${messageCount}</p>
         </div>
     </div>
 

@@ -57,8 +57,20 @@ public class StudentLoginController {
 		if (currentStudent == null) {
 			return "redirect:/studentLogin";
 		}
+
+		// 1. Get existing name logic
 		String studentName = dashboardservice.getStudentName(currentStudent);
 		model.addAttribute("userName", studentName);
+
+		// 2. Fetch counts from database
+		long totalCompanies = dashboardservice.getTotalCompanies();
+		long totalJobs = dashboardservice.getTotalJobs();
+		long messageCount = dashboardservice.getMessageCountForStudent(currentStudent.getId());
+
+		// 3. Add to model for JSP access
+		model.addAttribute("companyCount", totalCompanies);
+		model.addAttribute("jobCount", totalJobs);
+		model.addAttribute("messageCount", messageCount);
 
 		return "studentDashboard";
 	}

@@ -25,4 +25,9 @@ public class Message {
     protected void onCreate() {
         timestamp = LocalDateTime.now();
     }
+
+    // Instead of String receiverEmail, use:
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private StudentDetailModel receiver;
 }
