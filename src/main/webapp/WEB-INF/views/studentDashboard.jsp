@@ -250,7 +250,6 @@ body {
         <div class="jobs">
             <h3>
                 Applied Jobs
-                <a href="#" class="view-all">View All</a>
             </h3>
 
             <div class="job">
