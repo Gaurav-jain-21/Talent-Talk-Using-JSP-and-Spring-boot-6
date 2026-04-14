@@ -167,7 +167,7 @@ pageEncoding="UTF-8" %>
     <!-- Navbar -->
     <div class="navbar">
       <div class="nav-left">
-        <div class="profile-img"></div>
+        <i class="fa fa-user"></i>
       </div>
       <div class="nav-links">
         <a href="companyDashboard">Dashboard</a>
