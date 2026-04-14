@@ -174,7 +174,7 @@ h1 {
 
 <!-- Navbar -->
 <div class="navbar">
-    <div>Logo</div>
+    <div>Company</div>
     <div class="nav-links">
         <a href="companyDashboard">Dashboard</a>
         <a href="companyClient">Clients</a>
@@ -199,12 +199,6 @@ h1 {
     <input type="text" id="candidateSearch" placeholder="Search for job title, keywords..." class="search-input">
 </div>
 
-<div class="tabs">
-    <div>All Applications (24)</div>
-    <div>Shortlisted (8)</div>
-    <div>Interviewing (3)</div>
-    <div>Rejected</div>
-</div>
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
