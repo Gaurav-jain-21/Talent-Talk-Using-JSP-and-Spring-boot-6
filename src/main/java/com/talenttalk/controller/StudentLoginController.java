@@ -1,6 +1,7 @@
 package com.talenttalk.controller;
 
 import com.talenttalk.model.StudentDetailModel;
+import com.talenttalk.service.JobApplicationService;
 import com.talenttalk.service.StudentDashboardService;
 import com.talenttalk.service.StudentLoginService;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +20,9 @@ public class StudentLoginController {
 
 	@Autowired
 	private StudentDashboardService dashboardservice;
+
+	@Autowired
+	private JobApplicationService jobApplicationService;
 
 	@PostMapping("/studentLoginForm")
 	public String login(@RequestParam("email") String email,
@@ -66,11 +70,15 @@ public class StudentLoginController {
 		long totalCompanies = dashboardservice.getTotalCompanies();
 		long totalJobs = dashboardservice.getTotalJobs();
 		long messageCount = dashboardservice.getMessageCountForStudent(currentStudent.getId());
+		long appliedJobsCount = dashboardservice.getAppliedJobsCountForStudent(currentStudent.getId());
+		int totalEarning = jobApplicationService.getTotalPaidAmountForStudent(currentStudent.getId());
 
 		// 3. Add to model for JSP access
 		model.addAttribute("companyCount", totalCompanies);
 		model.addAttribute("jobCount", totalJobs);
 		model.addAttribute("messageCount", messageCount);
+		model.addAttribute("appliedJobsCount", appliedJobsCount);
+		model.addAttribute("totalEarning", totalEarning);
 
 		return "studentDashboard";
 	}

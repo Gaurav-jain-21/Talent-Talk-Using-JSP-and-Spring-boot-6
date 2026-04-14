@@ -222,7 +222,7 @@ body {
     <div class="cards">
         <div class="card">
             <h3>Total Earning</h3>
-            <p>$24,343</p>
+            <p>$ ${totalEarning}</p>
         </div>
 
         <div class="card">
@@ -249,22 +249,12 @@ body {
         <!-- Jobs -->
         <div class="jobs">
             <h3>
-                Applied Jobs
+                Applied Jobs (${appliedJobsCount})
             </h3>
 
             <div class="job">
-                <div class="job-title">Senior Product Designer</div>
-                <small>2 days ago • 12 applicants</small>
-            </div>
-
-            <div class="job">
-                <div class="job-title">Web3 Interface Architect</div>
-                <small>5 days ago • 8 applicants</small>
-            </div>
-
-            <div class="job">
-                <div class="job-title">Brand Identity Lead</div>
-                <small>4 days ago • 34 applicants</small>
+                <div class="job-title">Total Jobs Applied</div>
+                <small>${appliedJobsCount} applications submitted</small>
             </div>
         </div>
 

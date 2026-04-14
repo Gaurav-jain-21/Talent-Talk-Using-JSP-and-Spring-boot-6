@@ -52,4 +52,25 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendApplicationRejectionEmail(String to, String studentName, String jobTitle) {
+        if (to == null || to.trim().isEmpty()) {
+            return;
+        }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(to);
+        message.setSubject("Application Update - Talent Talk");
+
+        String displayName = (studentName != null && !studentName.trim().isEmpty()) ? studentName.trim() : "Student";
+        String displayJobTitle = (jobTitle != null && !jobTitle.trim().isEmpty()) ? jobTitle.trim() : "the position";
+
+        message.setText("Hi " + displayName + ",\n\n"
+                + "We are sorry to inform you that your application for " + displayJobTitle + " was not selected at this time.\n"
+                + "Better luck next time.\n\n"
+                + "Regards,\nTalent Talk Team");
+
+        mailSender.send(message);
+    }
 }

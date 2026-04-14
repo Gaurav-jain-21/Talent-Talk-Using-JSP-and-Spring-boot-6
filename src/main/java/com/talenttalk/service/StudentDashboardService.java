@@ -4,6 +4,7 @@ import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.repo.CompanyJobsRepo;
 import com.talenttalk.repo.CompanyRegisterRepo;
 import com.talenttalk.repo.MessageRepository;
+import com.talenttalk.repo.ApplicationRepository;
 import com.talenttalk.repo.StudentSignUpRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class StudentDashboardService {
     @Autowired
     private MessageRepository messageRepo;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
     public long getTotalCompanies() {
         return companyRepo.count();
     }
@@ -46,5 +50,9 @@ public class StudentDashboardService {
     public long getMessageCountForStudent(Long studentId) {
         // Replace 'studentId' with the actual field name in your Message entity
         return messageRepo.countByStudentId(studentId);
+    }
+
+    public long getAppliedJobsCountForStudent(Long studentId) {
+        return applicationRepository.countByStudent_Id(studentId);
     }
 }

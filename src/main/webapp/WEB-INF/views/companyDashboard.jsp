@@ -213,14 +213,14 @@ body{
 
             <div class="card">
                 <i class="fa fa-bell"></i>
-                <div>Recent Notification</div>
-                <div class="number">24</div>
+                <div>Total Clients</div>
+                <div class="number">${totalClientsCount}</div>
             </div>
 
             <div class="card">
                 <i class="fa fa-star"></i>
-                <div>Rating</div>
-                <div class="number">4/5</div>
+                <div>Job Posts</div>
+                <div class="number">${jobPostsCount}</div>
             </div>
         </div>
 
@@ -230,23 +230,35 @@ body{
                 <h3>Resent Application</h3>
 
                 <%
-                List<Map<String,String>> apps = Arrays.asList(
-                    Map.of("name","Olivia Hayes","role","Content Marketing Specialist","score","90%"),
-                    Map.of("name","Liam Harper","role","Mobile App Developer","score","94%"),
-                    Map.of("name","Ethan Bennett","role","Senior UX/UI Designer","score","89%")
-                );
+                List<com.talenttalk.model.JobApplication> apps =
+                    (List<com.talenttalk.model.JobApplication>) request.getAttribute("recentApplications");
 
-                for(Map<String,String> a : apps){
+                if (apps != null && !apps.isEmpty()) {
+                for (com.talenttalk.model.JobApplication a : apps) {
+                    String firstName = a.getStudent() != null && a.getStudent().getFirstName() != null ? a.getStudent().getFirstName() : "";
+                    String lastName = a.getStudent() != null && a.getStudent().getLastName() != null ? a.getStudent().getLastName() : "";
+                    String fullName = (firstName + " " + lastName).trim();
+                    String role = (a.getJob() != null && a.getJob().getJobtitle() != null) ? a.getJob().getJobtitle() : "Applicant";
                 %>
                 <div class="app">
                     <div class="app-left">
                         <img src="https://i.pravatar.cc/45">
                         <div>
-                            <div><%=a.get("name")%></div>
-                            <small><%=a.get("role")%></small>
+                            <div><%= fullName.isEmpty() ? "Applicant" : fullName %></div>
+                            <small><%= role %></small>
                         </div>
                     </div>
-                    <div class="blue"><%=a.get("score")%></div>
+                    <div class="blue">Applied</div>
+                </div>
+                <% }
+                } else {
+                %>
+                <div class="app">
+                    <div class="app-left">
+                        <div>
+                            <div>No applications yet</div>
+                        </div>
+                    </div>
                 </div>
                 <% } %>
 

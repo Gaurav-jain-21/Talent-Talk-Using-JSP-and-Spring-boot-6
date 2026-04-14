@@ -6,6 +6,7 @@ import com.talenttalk.model.CompanyJob;
 import com.talenttalk.model.JobApplication;
 import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.repo.ApplicationRepository;
+import com.talenttalk.service.EmailService;
 import com.talenttalk.service.JobApplicationService;
 import com.talenttalk.service.StudentDashboardService;
 import org.springframework.http.HttpHeaders;
@@ -110,6 +111,8 @@ public class CompanyJobsController {
     private StudentDashboardService studentService;
     @Autowired
     private JobApplicationService applicationService;
+    @Autowired
+    private EmailService emailService;
     @GetMapping("/viewStudentProfile")
     public String viewStudentProfile(@RequestParam("id") Long id,
                                      @RequestParam("appId") Long appId,
@@ -175,7 +178,18 @@ public class CompanyJobsController {
     @PostMapping("/reject")
     public String rejectApplication(@RequestParam("appId") Long appId) {
         if (appId != null) {
-            // Option 1: Update status (Recommended)
+            JobApplication application = applicationService.findById(appId);
+            if (application != null && application.getStudent() != null) {
+                String studentName = application.getStudent().getFirstName() + " " + application.getStudent().getLastName();
+                String studentEmail = application.getStudent().getEmail();
+                String jobTitle = application.getJob() != null ? application.getJob().getJobtitle() : null;
+                try {
+                    emailService.sendApplicationRejectionEmail(studentEmail, studentName, jobTitle);
+                } catch (Exception ignored) {
+                    // Keep existing reject flow intact even if mail service is temporarily unavailable.
+                }
+            }
+
             applicationService.rejectApplication(appId);
         }
 

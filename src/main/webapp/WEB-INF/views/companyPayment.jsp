@@ -119,6 +119,24 @@ tr:nth-child(even) {
 .completed { background: #9be3b1; }
 .pending { background: #f4e6a2; }
 .refunded { background: #f5a3b7; }
+
+.flash {
+    width: 70%;
+    margin: 10px auto;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.flash-success {
+    background: #d8f3dc;
+    color: #14532d;
+}
+
+.flash-error {
+    background: #ffe2e2;
+    color: #7f1d1d;
+}
 </style>
 </head>
 
@@ -140,6 +158,14 @@ tr:nth-child(even) {
 </div>
 
 <div class="main">
+
+<c:if test="${not empty successMsg}">
+    <div class="flash flash-success">${successMsg}</div>
+</c:if>
+
+<c:if test="${not empty errorMsg}">
+    <div class="flash flash-error">${errorMsg}</div>
+</c:if>
 
 <h1>Payment Management</h1>
 <input class="search" type="text" placeholder="Search completed work payments...">

@@ -19,6 +19,9 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
     // 3. For Company Dashboard: Find all applications for a specific company
     List<JobApplication> findByJob_Company_Id(Long companyId);
 
+    // 3b. For Company Application page: exclude shortlisted entries
+    List<JobApplication> findByJob_Company_IdAndStatusNotIgnoreCase(Long companyId, String status);
+
     // 4. For Application Management: Check if a student already applied to a job
     boolean existsByJob_IdAndStudent_Id(Long jobId, Long studentId);
 
@@ -36,4 +39,10 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
 
     // 9. Student payment page: completed projects (progressStep = 3) for a student
     List<JobApplication> findByStudent_IdAndProgressStep(Long studentId, int progressStep);
+
+    // 10. Dashboard: total jobs student has applied for
+    long countByStudent_Id(Long studentId);
+
+    // 11. Company dashboard: unique applicants (clients) count for a company
+    long countDistinctStudent_IdByJob_Company_Id(Long companyId);
 }

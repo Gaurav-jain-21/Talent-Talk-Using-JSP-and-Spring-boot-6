@@ -13,8 +13,8 @@ public class JobApplicationService {
     private ApplicationRepository repo;
 
     public List<JobApplication> findByCompanyId(Long id) {
-        // Changed from findByJobId to findByJob_Company_Id
-        return repo.findByJob_Company_Id(id);
+        // Company application page should not show already shortlisted applications
+        return repo.findByJob_Company_IdAndStatusNotIgnoreCase(id, "Shortlisted");
     }
     public JobApplication findById(Long appId) {
         return repo.findById(appId).orElse(null);
@@ -64,6 +64,17 @@ public class JobApplicationService {
                 repo.save(app);
             }
         });
+    }
+
+    public JobApplication getPayableApplicationForCompany(Long companyId, Long appId) {
+        JobApplication app = repo.findByIdAndJob_Company_Id(appId, companyId).orElse(null);
+        if (app == null) {
+            return null;
+        }
+        if (app.getProgressStep() != 3) {
+            return null;
+        }
+        return app;
     }
 
     public List<JobApplication> getCompletedApplicationsForStudent(Long studentId) {
