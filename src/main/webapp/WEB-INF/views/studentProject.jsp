@@ -175,7 +175,7 @@ body {
 
 <!-- ===== Navbar ===== -->
 <div class="navbar">
-    <div>👤</div>
+    <i class="fa fa-user"></i>
 
     <div class="nav-right">
         <a href="studentDashboard">Dashboard</a>
