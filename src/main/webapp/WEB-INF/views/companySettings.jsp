@@ -165,7 +165,7 @@ pageEncoding="UTF-8"%>
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="profile">
-        <img src="https://i.pravatar.cc/100" alt="Profile" />
+        <i class="fa fa-user"></i>
         <span>Sophi carter</span>
       </div>
 
