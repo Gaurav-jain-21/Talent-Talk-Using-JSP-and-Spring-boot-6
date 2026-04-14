@@ -242,7 +242,7 @@ body{
                 %>
                 <div class="app">
                     <div class="app-left">
-                        <img src="https://i.pravatar.cc/45">
+                        <i class="fa fa-user"></i>
                         <div>
                             <div><%= fullName.isEmpty() ? "Applicant" : fullName %></div>
                             <small><%= role %></small>
