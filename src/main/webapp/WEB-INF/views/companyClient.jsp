@@ -203,7 +203,7 @@ body{
 
     <!-- Left -->
     <div class="nav-left">
-        <img src="https://i.pravatar.cc/40">
+        <i class="fa fa-user"></i>
     </div>
 
     <!-- Right -->
