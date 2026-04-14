@@ -150,7 +150,7 @@
 <body>
 
 <div class="navbar">
-    <div>👤</div>
+    <i class="fa fa-user"></i>
     <div class="nav-right">
         <a href="studentDashboard">Dashboard</a>
         <a href="studentProject">Projects</a>
