@@ -187,7 +187,7 @@ body {
 <!-- ===== Sidebar ===== -->
 <div class="sidebar">
     <div class="profile">
-        <img src="https://i.pravatar.cc/40" alt="profile">
+        <i class="fa fa-user"></i>
         <a href="studentProfile"><span>${userName}</span></a>
     </div>
 
