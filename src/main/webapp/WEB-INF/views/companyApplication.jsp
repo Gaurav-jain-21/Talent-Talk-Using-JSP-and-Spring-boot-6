@@ -207,6 +207,7 @@ h1 {
 </div>
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <p style="color: white;">Debug: Total candidates found: ${candidates.size()}</p>
     <div class="grid">
         <c:forEach var="app" items="${candidates}">
@@ -219,6 +220,7 @@ h1 {
 
                 <div class="name candidate-name">${app.student.firstName}</div>
                 <div class="role candidate-title">${app.job.jobtitle}</div>
+                <div>Applied On: ${fn:replace(app.appliedDate, 'T', ' ')}</div>
 
                 <div class="actions">
                     <a href="viewStudentProfile?id=${app.student.id}&appId=${app.id}" class="btn view">View Profile</a>
