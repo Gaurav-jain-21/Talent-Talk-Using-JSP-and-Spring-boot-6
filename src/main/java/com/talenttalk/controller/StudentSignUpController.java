@@ -2,7 +2,10 @@ package com.talenttalk.controller;
 
 import com.talenttalk.model.StudentDetailModel;
 import com.talenttalk.repo.StudentSignUpRepo;
+import com.talenttalk.service.EmailService;
 import com.talenttalk.service.StudentSignUpServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +15,16 @@ import org.springframework.http.ResponseEntity;
 @Controller
 public class StudentSignUpController {
 
+    private static final Logger logger = LoggerFactory.getLogger(StudentSignUpController.class);
+
     @Autowired
     private StudentSignUpServices services;
 
     @Autowired
     private StudentSignUpRepo studentRepo;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/checkStudentEmail")
     @ResponseBody
@@ -44,6 +52,15 @@ public class StudentSignUpController {
 
         try {
             services.registerStudent(student);
+
+            try {
+                String studentName = ((student.getFirstName() != null ? student.getFirstName() : "") + " "
+                        + (student.getLastName() != null ? student.getLastName() : "")).trim();
+                emailService.sendStudentRegistrationSuccessEmail(student.getEmail(), studentName);
+            } catch (Exception emailEx) {
+                logger.warn("Student registered but confirmation email failed for {}", student.getEmail(), emailEx);
+            }
+
             return "redirect:/studentLogin";
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());

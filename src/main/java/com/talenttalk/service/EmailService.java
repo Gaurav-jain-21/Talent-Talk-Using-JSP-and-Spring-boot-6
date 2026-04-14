@@ -22,4 +22,19 @@ public class EmailService {
         message.setText("Click the link below to reset your password:\n" + resetLink);
         mailSender.send(message);
     }
+
+    public void sendStudentRegistrationSuccessEmail(String to, String studentName) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(to);
+        message.setSubject("Registration Successful - Talent Talk");
+
+        String displayName = (studentName != null && !studentName.trim().isEmpty()) ? studentName.trim() : "Student";
+        message.setText("Hi " + displayName + ",\n\n"
+                + "Your registration on Talent Talk was successful.\n"
+                + "You can now log in and start using your account.\n\n"
+                + "Regards,\nTalent Talk Team");
+
+        mailSender.send(message);
+    }
 }
