@@ -225,8 +225,7 @@ body {
 <!-- ===== Navbar ===== -->
 <div class="navbar">
     <div class="nav-left">
-        <img src="https://i.pravatar.cc/40" alt="profile">
-        <span>Student</span>
+        <i class="fa fa-user"></i>
     </div>
 
     <div class="nav-links">
