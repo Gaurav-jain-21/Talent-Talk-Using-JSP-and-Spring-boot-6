@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -38,8 +40,26 @@ public class CompanyHomeController {
         return "companyJobs";
     }
     @GetMapping("/companyPayment")
-    public String CompanyPayment(){
+    public String CompanyPayment(HttpSession session, Model model){
+        CompanyDetailModel company = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+        if (company == null) {
+            return "redirect:/companyLogin";
+        }
+
+        List<JobApplication> completedApplications = applicationService.getCompletedApplicationsForCompany(company.getId());
+        model.addAttribute("completedPayments", completedApplications);
         return "companyPayment";
+    }
+
+    @PostMapping("/companyPayment/pay")
+    public String payCompletedWork(@RequestParam("appId") Long appId, HttpSession session) {
+        CompanyDetailModel company = (CompanyDetailModel) session.getAttribute("loggedInCompany");
+        if (company == null) {
+            return "redirect:/companyLogin";
+        }
+
+        applicationService.markPaymentAsPaid(company.getId(), appId);
+        return "redirect:/companyPayment";
     }
     @GetMapping("/companySettings")
     public String CompanySettings(HttpSession session){

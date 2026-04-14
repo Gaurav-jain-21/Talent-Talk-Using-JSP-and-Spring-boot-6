@@ -45,15 +45,35 @@ public class JobApplicationService {
         return repo.findByStatus("Shortlisted");
     }
 
-    /**
-     * The completed method for your Company Client page.
-     * It filters by the logged-in company's ID and the status (e.g., "Accepted").
-     */
     public List<JobApplication> getApplicationsByCompanyAndStatus(Long companyId, String status) {
         return repo.findByJob_Company_IdAndStatus(companyId, status);
     }
 
     public List<JobApplication> getApplicationsByStudentAndStatus(Long studentId, String status) {
         return repo.findByStudent_IdAndStatus(studentId, status);
+    }
+
+    public List<JobApplication> getCompletedApplicationsForCompany(Long companyId) {
+        return repo.findByJob_Company_IdAndProgressStep(companyId, 3);
+    }
+
+    public void markPaymentAsPaid(Long companyId, Long appId) {
+        repo.findByIdAndJob_Company_Id(appId, companyId).ifPresent(app -> {
+            if (app.getProgressStep() == 3) {
+                app.setPaymentStatus("Paid");
+                repo.save(app);
+            }
+        });
+    }
+
+    public List<JobApplication> getCompletedApplicationsForStudent(Long studentId) {
+        return repo.findByStudent_IdAndProgressStep(studentId, 3);
+    }
+
+    public int getTotalPaidAmountForStudent(Long studentId) {
+        return getCompletedApplicationsForStudent(studentId).stream()
+                .filter(app -> "Paid".equalsIgnoreCase(app.getPaymentStatus()))
+                .mapToInt(app -> app.getJob() != null ? app.getJob().getPayment() : 0)
+                .sum();
     }
 }

@@ -79,7 +79,17 @@ public class StudentHomeController {
 
 
     @GetMapping("/studentPayments")
-    public String goToStudentPayments() {
+    public String goToStudentPayments(HttpSession session, Model model) {
+        StudentDetailModel student = (StudentDetailModel) session.getAttribute("loggedInStudent");
+        if (student == null) {
+            return "redirect:/studentLogin";
+        }
+
+        List<JobApplication> completedPayments = jobApplicationService.getCompletedApplicationsForStudent(student.getId());
+        model.addAttribute("completedPayments", completedPayments);
+        model.addAttribute("completedProjects", completedPayments.size());
+        model.addAttribute("totalReceived", jobApplicationService.getTotalPaidAmountForStudent(student.getId()));
+
         return "studentPayments";
     }
 

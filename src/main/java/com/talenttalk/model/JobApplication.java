@@ -24,4 +24,6 @@ public class JobApplication {
     // Inside JobApplication.java or your Project Model
     private int progressStep = 1; // 1: Started, 2: In Progress, 3: Completed
 
+    private String paymentStatus = "Pending";
+
 }

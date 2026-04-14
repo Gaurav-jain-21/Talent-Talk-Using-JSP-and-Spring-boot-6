@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -102,6 +103,8 @@ body{
 .processing{ background:#4a8ed1; }
 .lifetime{ background:#d88a2f; }
 
+.paid{ background:#8fda9b; }
+
 /* ===== Grid Layout ===== */
 .grid{
     display:grid;
@@ -158,6 +161,45 @@ body{
     display:flex;
     justify-content:space-between;
     margin-top:12px;
+}
+
+.payments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.payments-table th,
+.payments-table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+}
+
+.payments-table th {
+    background: #dce7e7;
+}
+
+.status-pill {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-paid {
+    background: #b8efc2;
+    color: #145523;
+}
+
+.status-pending {
+    background: #ffe8a3;
+    color: #7a5a00;
 }
 
 /* Add account */
@@ -223,21 +265,21 @@ body{
     <!-- Stats -->
     <div class="stats">
         <div class="card available">
-            <small>AVAILABLE NOW</small>
-            Available for Withdrawal<br>
-            <h2>$12,450.00</h2>
+            <small>COMPLETED</small>
+            Projects Completed<br>
+            <h2>${completedProjects}</h2>
         </div>
 
-        <div class="card processing">
-            <small>PROCESSING</small>
-            Pending Clearance<br>
-            <h2>$3,200.00</h2>
+        <div class="card paid">
+            <small>RECEIVED</small>
+            Total Amount Received<br>
+            <h2>$${totalReceived}</h2>
         </div>
 
         <div class="card lifetime">
-            <small>LIFETIME</small>
-            Total Earned<br>
-            <h2>$84,500.00</h2>
+            <small>ENTRIES</small>
+            Completed Payment Records<br>
+            <h2>${completedPayments.size()}</h2>
         </div>
     </div>
 
@@ -247,27 +289,43 @@ body{
         <!-- Left -->
         <div>
             <div class="panel">
-                <h3>Monthly Income Trends</h3>
-                <h2 style="color:#6a4df5">$8,240</h2>
-                <div class="chart"></div>
+                <h3>Completed Project Payments</h3>
+                <table class="payments-table">
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Job Role</th>
+                        <th>Amount</th>
+                        <th>Payment Status</th>
+                    </tr>
+                    <c:forEach var="payment" items="${completedPayments}">
+                        <tr>
+                            <td>${payment.job.company.name}</td>
+                            <td>${payment.job.jobtitle}</td>
+                            <td>$${payment.job.payment}</td>
+                            <td>
+                                <span class="status-pill ${payment.paymentStatus == 'Paid' ? 'status-paid' : 'status-pending'}">
+                                    ${empty payment.paymentStatus ? 'Pending' : payment.paymentStatus}
+                                </span>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    <c:if test="${empty completedPayments}">
+                        <tr>
+                            <td colspan="4">No completed project payments found yet.</td>
+                        </tr>
+                    </c:if>
+                </table>
             </div>
 
             <div class="panel" style="margin-top:18px;">
-                <h3>Recent Payouts</h3>
-
+                <h3>Summary</h3>
                 <div class="payout">
-                    <span>Chase Bank Withdrawal</span>
-                    <strong>- $2,400</strong>
+                    <span>Total Completed Projects</span>
+                    <strong>${completedProjects}</strong>
                 </div>
-
                 <div class="payout">
-                    <span>Project: UX Revamp</span>
-                    <strong>+ $4,500</strong>
-                </div>
-
-                <div class="payout">
-                    <span>Paypal Transfer</span>
-                    <strong>- $1,200</strong>
+                    <span>Total Amount Received</span>
+                    <strong>$${totalReceived}</strong>
                 </div>
             </div>
         </div>
@@ -275,28 +333,17 @@ body{
         <!-- Right -->
         <div>
             <div class="panel withdraw">
-                <h3>Withdraw Funds</h3>
-
-                <label>Amount</label>
-                <input type="number" placeholder="5000">
-
-                <label>Currency</label>
-                <select>
-                    <option>USD</option>
-                    <option>EUR</option>
-                </select>
-
-                <h4 style="margin-top:10px;">Payout Method</h4>
-
-                <div class="method">Chase Bank Business</div>
-                <div class="method">PayPal Wallet</div>
-
-                <button class="withdraw-btn">Withdraw $5,000</button>
+                <h3>Payment Notes</h3>
+                <div class="method">Only completed projects are shown here.</div>
+                <div class="method">Status turns to <strong>Paid</strong> after company payment.</div>
+                <div class="method">Amount is based on each job payment value.</div>
             </div>
 
             <div class="add-account">
-                <span>Add Account</span>
-                <button>Click</button>
+                <span>Keep your profile updated for smooth payouts.</span>
+                <a href="studentProfile" style="text-decoration:none;">
+                    <button type="button">Profile</button>
+                </a>
             </div>
         </div>
 

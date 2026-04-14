@@ -1,4 +1,4 @@
-<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -142,65 +142,58 @@ tr:nth-child(even) {
 <div class="main">
 
 <h1>Payment Management</h1>
-<input class="search" type="text" placeholder="Search payments...">
+<input class="search" type="text" placeholder="Search completed work payments...">
 
 <div class="summary">
     <div class="card">
-        <h3>Total Payment</h3>
-        <p>$1,250,000</p>
-    </div>
-    <div class="card">
-        <h3>Pending Payment</h3>
-        <p>$25,000</p>
+        <h3>Completed Work Items</h3>
+        <p>${completedPayments.size()}</p>
     </div>
 </div>
-
-<%
-List<Map<String, String>> payments = new ArrayList<>();
-
-String[][] data = {
-    {"TXN12345", "Ava Harper", "Data Science", "$5,000", "2023-08-15", "Completed"},
-    {"TXN67890", "Liam Carter", "UI/UX", "$2,500", "2023-08-16", "Pending"},
-    {"TXN11223", "Sophia Clark", "Mobile Application", "$7,500", "2023-08-17", "Completed"},
-    {"TXN33445", "Jackson Reed", "Bloggers", "$1,000", "2023-08-18", "Refunded"}
-};
-
-for (String[] d : data) {
-    Map<String, String> p = new HashMap<>();
-    p.put("id", d[0]);
-    p.put("client", d[1]);
-    p.put("role", d[2]);
-    p.put("amount", d[3]);
-    p.put("date", d[4]);
-    p.put("status", d[5]);
-    payments.add(p);
-}
-%>
 
 <div class="table-wrapper">
 <table>
     <tr>
-        <th>Transaction ID</th>
-        <th>Client</th>
+        <th>Student Name</th>
         <th>Role</th>
         <th>Amount</th>
-        <th>Date</th>
-        <th>Status</th>
+        <th>Payment Status</th>
+        <th>Make Payment</th>
     </tr>
 
-<%
-for (Map<String, String> p : payments) {
-    String statusClass = p.get("status").toLowerCase();
-%>
-    <tr>
-        <td><%= p.get("id") %></td>
-        <td><%= p.get("client") %></td>
-        <td><%= p.get("role") %></td>
-        <td><%= p.get("amount") %></td>
-        <td><%= p.get("date") %></td>
-        <td><span class="status <%= statusClass %>"><%= p.get("status") %></span></td>
-    </tr>
-<% } %>
+    <c:forEach var="payment" items="${completedPayments}">
+        <tr>
+            <td>${payment.student.firstName} ${payment.student.lastName}</td>
+            <td>${payment.job.jobtitle}</td>
+            <td>$${payment.job.payment}</td>
+            <td>
+                <span class="status ${payment.paymentStatus == 'Paid' ? 'completed' : 'pending'}">
+                    ${empty payment.paymentStatus ? 'Pending' : payment.paymentStatus}
+                </span>
+            </td>
+            <td>
+                <c:choose>
+                    <c:when test="${payment.paymentStatus == 'Paid'}">
+                        <span class="status completed">Paid</span>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="companyPayment/pay" method="post" style="margin:0;">
+                            <input type="hidden" name="appId" value="${payment.id}">
+                            <button type="submit" style="padding:8px 12px; border:none; border-radius:8px; background:#1b6f75; color:white; cursor:pointer;">
+                                Make Payment
+                            </button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </tr>
+    </c:forEach>
+
+    <c:if test="${empty completedPayments}">
+        <tr>
+            <td colspan="5" style="text-align:center;">No completed student work found for payment.</td>
+        </tr>
+    </c:if>
 
 </table>
 </div>

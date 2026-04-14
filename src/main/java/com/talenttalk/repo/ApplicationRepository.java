@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<JobApplication, Long> {
@@ -26,4 +27,13 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
 
     // 6. Find all applications for a specific Job
     List<JobApplication> findByJob_Id(Long jobId);
+
+    // 7. Payment page: only completed projects (progressStep = 3) for a company
+    List<JobApplication> findByJob_Company_IdAndProgressStep(Long companyId, int progressStep);
+
+    // 8. Payment action: ensure the application belongs to the logged-in company
+    Optional<JobApplication> findByIdAndJob_Company_Id(Long appId, Long companyId);
+
+    // 9. Student payment page: completed projects (progressStep = 3) for a student
+    List<JobApplication> findByStudent_IdAndProgressStep(Long studentId, int progressStep);
 }

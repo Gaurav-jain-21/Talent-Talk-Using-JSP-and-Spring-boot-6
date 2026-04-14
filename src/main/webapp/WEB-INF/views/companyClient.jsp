@@ -169,7 +169,7 @@ body{
 
 .row{
     display:grid;
-    grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
     align-items:center;
     padding:12px 0;
 }
@@ -235,6 +235,7 @@ body{
             <div>Assigned Role</div>
             <div>Contact</div>
             <div>Project Progress</div>
+            <div>Payment</div>
         </div>
 
         <c:forEach var="client" items="${clients}">
@@ -272,6 +273,21 @@ body{
                             <c:otherwise>Pending</c:otherwise>
                         </c:choose>
                     </span>
+                </div>
+
+                <div>
+                    <c:choose>
+                        <c:when test="${client.progressStep == 3}">
+                            <a href="companyPayment" style="display:inline-block; background:#00ff88; color:#0f5e61; text-decoration:none; padding:6px 10px; border-radius:8px; font-size:12px; font-weight:700;">
+                                Make Payment
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <span style="display:inline-block; background:#b8b8b8; color:#666; padding:6px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:not-allowed; opacity:0.8;">
+                                Make Payment
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </c:forEach>
