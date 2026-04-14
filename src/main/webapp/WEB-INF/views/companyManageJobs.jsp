@@ -162,7 +162,7 @@
 <body>
 
 <div class="navbar">
-    <div>Logo</div>
+    <i class="fa fa-user"></i>
     <div class="nav-links">
         <a href="companyDashboard">Dashboard</a>
         <a href="companyClient">Clients</a>
