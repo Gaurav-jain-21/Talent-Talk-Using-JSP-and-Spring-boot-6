@@ -242,9 +242,9 @@ uri="jakarta.tags.core" %>
           <i class="fa-solid fa-building"></i> Company Verification
         </a>
 
-        <a href="adminInsights">
-          <i class="fa-solid fa-chart-pie"></i> Insights
-        </a>
+<%--        <a href="adminInsights">--%>
+<%--          <i class="fa-solid fa-chart-pie"></i> Insights--%>
+<%--        </a>--%>
 
         <a href="adminPayment">
           <i class="fa-solid fa-credit-card"></i> Payments

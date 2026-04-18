@@ -5,6 +5,7 @@ import com.talenttalk.repo.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,6 +62,9 @@ public class JobApplicationService {
         repo.findByIdAndJob_Company_Id(appId, companyId).ifPresent(app -> {
             if (app.getProgressStep() == 3) {
                 app.setPaymentStatus("Paid");
+                if (app.getPaymentDate() == null) {
+                    app.setPaymentDate(LocalDateTime.now());
+                }
                 repo.save(app);
             }
         });

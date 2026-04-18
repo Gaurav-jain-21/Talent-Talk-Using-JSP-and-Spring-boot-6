@@ -29,4 +29,68 @@ public class CompanyJob {
     @ToString.Exclude
     private java.util.List<JobApplication> applications;
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        this.Id = id;
+    }
+
+    public String getJobtitle() {
+        return jobtitle;
+    }
+
+    public void setJobtitle(String jobtitle) {
+        this.jobtitle = jobtitle;
+    }
+
+    public String getProjecttype() {
+        return projecttype;
+    }
+
+    public void setProjecttype(String projecttype) {
+        this.projecttype = projecttype;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
+
+    public String getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(String timeline) {
+        this.timeline = timeline;
+    }
+
+    public String getProjectdescription() {
+        return projectdescription;
+    }
+
+    public void setProjectdescription(String projectdescription) {
+        this.projectdescription = projectdescription;
+    }
+
+    public CompanyDetailModel getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyDetailModel company) {
+        this.company = company;
+    }
+
+    public java.util.List<JobApplication> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(java.util.List<JobApplication> applications) {
+        this.applications = applications;
+    }
+
 }
