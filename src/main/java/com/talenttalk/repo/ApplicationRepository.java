@@ -34,6 +34,9 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, Lon
     // 7. Payment page: only completed projects (progressStep = 3) for a company
     List<JobApplication> findByJob_Company_IdAndProgressStep(Long companyId, int progressStep);
 
+    // 7b. Admin payment page: all applications by progress step
+    List<JobApplication> findByProgressStep(int progressStep);
+
     // 8. Payment action: ensure the application belongs to the logged-in company
     Optional<JobApplication> findByIdAndJob_Company_Id(Long appId, Long companyId);
 

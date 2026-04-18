@@ -242,7 +242,7 @@ body {
         <!-- Earnings -->
         <div class="earnings">
             <h3>Earnings Growth</h3>
-            <p>$12,400.00 this month</p>
+            <p>${totalEarning}</p>
             <div class="chart"></div>
         </div>
 
