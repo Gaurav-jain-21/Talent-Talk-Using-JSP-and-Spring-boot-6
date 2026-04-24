@@ -200,7 +200,27 @@ public class CompanyJobsController {
     // 1. Process the button click
     @PostMapping("/shortlist")
     public String shortlistCandidate(@RequestParam("appId") Long appId) {
+        JobApplication application = applicationService.findById(appId);
+        boolean alreadyShortlisted = application != null
+                && application.getStatus() != null
+                && "Shortlisted".equalsIgnoreCase(application.getStatus());
+
         applicationService.shortlistCandidate(appId);
+
+        if (!alreadyShortlisted && application != null && application.getStudent() != null) {
+            String studentEmail = application.getStudent().getEmail();
+            String studentName = application.getStudent().getFirstName() + " " + application.getStudent().getLastName();
+            String companyName = application.getJob() != null && application.getJob().getCompany() != null
+                    ? application.getJob().getCompany().getName()
+                    : null;
+            String jobTitle = application.getJob() != null ? application.getJob().getJobtitle() : null;
+            try {
+                emailService.sendApplicationShortlistedEmail(studentEmail, studentName, companyName, jobTitle);
+            } catch (Exception ignored) {
+                // Keep shortlist flow intact even if mail service is temporarily unavailable.
+            }
+        }
+
         return "redirect:/companyClient";
     }
 

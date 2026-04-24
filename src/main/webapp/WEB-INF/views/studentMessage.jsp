@@ -246,6 +246,32 @@ body {
         </div>
     </div>
 
+    <div class="message-card" style="margin-bottom: 20px; align-items: flex-start;">
+        <div style="width: 100%;">
+            <strong>Send Message To Company</strong>
+            <c:if test="${param.status == 'sent'}">
+                <p style="color:#0f5e61; margin-top:8px;">Message sent successfully.</p>
+            </c:if>
+            <c:if test="${param.error == 'missing'}">
+                <p style="color:#b30000; margin-top:8px;">Company email and message are required.</p>
+            </c:if>
+            <c:if test="${param.error == 'company'}">
+                <p style="color:#b30000; margin-top:8px;">Company email not found.</p>
+            </c:if>
+
+            <form action="${pageContext.request.contextPath}/studentMessage/send" method="post" style="margin-top:10px;">
+                <input type="email" name="companyEmail" placeholder="Company email" required
+                       style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;">
+                <textarea name="messageContent" placeholder="Write your message" required rows="3"
+                          style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;"></textarea>
+                <button type="submit"
+                        style="background:#1f7f82; color:#fff; border:none; padding:10px 16px; border-radius:8px; cursor:pointer;">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div class="divider" style="height:1px; background:rgba(255,255,255,0.2); margin-bottom:20px;"></div>
 
     <c:forEach var="m" items="${inbox}">
