@@ -73,4 +73,26 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendApplicationShortlistedEmail(String to, String studentName, String companyName, String jobTitle) {
+        if (to == null || to.trim().isEmpty()) {
+            return;
+        }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(to);
+        message.setSubject("You are shortlisted - Talent Talk");
+
+        String displayName = (studentName != null && !studentName.trim().isEmpty()) ? studentName.trim() : "Student";
+        String displayCompany = (companyName != null && !companyName.trim().isEmpty()) ? companyName.trim() : "a company";
+        String displayJobTitle = (jobTitle != null && !jobTitle.trim().isEmpty()) ? jobTitle.trim() : "the role";
+
+        message.setText("Hi " + displayName + ",\n\n"
+                + "Congratulations! You are shortlisted by " + displayCompany + " for " + displayJobTitle + ".\n"
+                + "Please log in to Talent Talk for next steps.\n\n"
+                + "Regards,\nTalent Talk Team");
+
+        mailSender.send(message);
+    }
 }
